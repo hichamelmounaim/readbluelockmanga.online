@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://w1.bluelocken.com/sitemap.xml
