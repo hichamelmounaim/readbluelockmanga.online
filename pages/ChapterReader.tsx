@@ -21,18 +21,9 @@ const ChapterReader: React.FC = () => {
   const [chapter, setChapter] = useState<Chapter | null>(null);
   const [loading, setLoading] = useState(true);
   const [showControls, setShowControls] = useState(true);
-  const [readingMode, setReadingMode] = useState<'vertical' | 'horizontal'>(
-    () => (localStorage.getItem('reading_mode') as 'vertical' | 'horizontal') || 'vertical'
-  );
   const [readProgress, setReadProgress] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
-
   const currentNum = parseInt(chapterId || "0", 10);
-
-  const handleModeChange = useCallback((mode: 'vertical' | 'horizontal') => {
-    setReadingMode(mode);
-    localStorage.setItem('reading_mode', mode);
-  }, []);
 
   useEffect(() => {
     if (currentNum > 0) {
@@ -157,10 +148,6 @@ const ChapterReader: React.FC = () => {
             </div>
           </div>
           <div className="flex items-center gap-1.5 flex-shrink-0">
-            <div className="hidden sm:flex items-center gap-1 bg-gray-100 dark:bg-black/30 p-0.5 rounded-lg">
-              <button onClick={() => handleModeChange('vertical')} className={`p-1.5 rounded-md transition-all ${readingMode === 'vertical' ? 'bg-white dark:bg-bb-blue text-bb-blue dark:text-white shadow-sm' : 'text-gray-500 dark:text-gray-400'}`} title="Vertical scroll (↓)"><ArrowDown size={14} /></button>
-              <button onClick={() => handleModeChange('horizontal')} className={`p-1.5 rounded-md transition-all ${readingMode === 'horizontal' ? 'bg-white dark:bg-bb-blue text-bb-blue dark:text-white shadow-sm' : 'text-gray-500 dark:text-gray-400'}`} title="Horizontal swipe (→)"><ArrowRight size={14} /></button>
-            </div>
             <span className="text-xs font-mono text-gray-400 dark:text-gray-500 hidden md:block">{readProgress}%</span>
           </div>
           <div className="flex items-center gap-1 flex-shrink-0">
@@ -173,9 +160,9 @@ const ChapterReader: React.FC = () => {
       {showScrollTop && (<button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-6 right-5 z-50 w-10 h-10 bg-bb-blue hover:bg-blue-700 text-white rounded-full shadow-xl flex items-center justify-center transition-all hover:scale-110" title="Back to top"><ChevronUp size={20} strokeWidth={3} /></button>)}
 
       {/* Reader Content */}
-      <div className={`flex-1 pt-16 ${readingMode === 'horizontal' ? 'h-[calc(100vh-64px)] overflow-hidden' : ''}`}>
+      <div className="flex-1 pt-16">
         <h1 className="sr-only">Read Blue Lock Chapter {chapter.number}: {chapter.title}</h1>
-        {readingMode === 'vertical' && chapter.pages.length > 0 && (
+        {chapter.pages.length > 0 && (
           <div className="max-w-4xl mx-auto px-4 py-4">
             <Breadcrumbs items={[
               { label: 'Home', path: '/' },
@@ -210,7 +197,7 @@ const ChapterReader: React.FC = () => {
               </div>
             </div>
           </div>
-        ) : readingMode === 'vertical' ? (
+        ) : (
           // Vertical Layout
           <div className="max-w-4xl mx-auto bg-white dark:bg-black shadow-2xl min-h-screen">
             {chapter.pages.map((pageUrl, idx) => (
@@ -227,33 +214,6 @@ const ChapterReader: React.FC = () => {
                   (e.target as HTMLImageElement).style.display = 'none';
                 }}
               />
-            ))}
-          </div>
-        ) : (
-          // Horizontal Layout
-          <div className="h-full w-full flex overflow-x-auto snap-x snap-mandatory bg-black items-center">
-            {chapter.pages.map((pageUrl, idx) => (
-              <div key={idx} className="w-full h-full flex-shrink-0 snap-center flex items-center justify-center p-2 relative">
-                <img
-                  src={pageUrl}
-                  alt={`Blue Lock Chapter ${chapter.number} Page ${idx + 1}`}
-                  className="max-h-full max-w-full object-contain shadow-2xl"
-                  loading={idx < 2 ? "eager" : "lazy"}
-                  fetchPriority={idx === 0 ? "high" : "auto"}
-                  decoding="async"
-                  referrerPolicy="no-referrer"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    // Also hide the counter for this slide if image fails
-                    const parent = target.parentElement;
-                    if (parent) parent.style.display = 'none';
-                  }}
-                />
-                <span className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-xs font-mono backdrop-blur-md">
-                  {idx + 1} / {chapter.pages.length}
-                </span>
-              </div>
             ))}
           </div>
         )}
