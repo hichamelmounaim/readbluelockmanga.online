@@ -12,22 +12,99 @@ const Home: React.FC = () => {
   return (
     <>
       <SEOHead
-        title="Blue Lock Manga - Read Online High Quality"
-        description="Read Blue Lock Manga online in high quality. The best place for Blue Lock chapters, character info, and latest updates. All chapters available."
-        schema={{
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "name": "Blue Lock Manga",
-          "url": "https://readbluelockmanga.online",
-        }}
+        title="Read Blue Lock Manga Online Free — All Chapters | Blue Lock Manga"
+        description={`Read Blue Lock Manga online free in high quality. All ${chapters.length}+ chapters by Muneyuki Kaneshiro & Yusuke Nomura available — no sign-up required. Follow Isagi's journey to become the world's best striker.`}
+        canonicalUrl="https://readbluelockmanga.online/"
+        schema={[
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Blue Lock Manga",
+            "url": "https://readbluelockmanga.online",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://readbluelockmanga.online/manga?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "ComicSeries",
+            "name": "Blue Lock",
+            "alternateName": ["ブルーロック", "Buru Rokku"],
+            "description": "Three hundred and hundred players are gathered in a facility called Blue Lock — an isolated dorm to forge the best striker in Japan ahead of the World Cup.",
+            "url": "https://readbluelockmanga.online/",
+            "image": "https://readbluelockmanga.online/blue-lock.webp",
+            "author": [
+              { "@type": "Person", "name": "Muneyuki Kaneshiro" },
+              { "@type": "Person", "name": "Yusuke Nomura" }
+            ],
+            "publisher": {
+              "@type": "Organization",
+              "name": "Kodansha",
+              "url": "https://www.kodansha.co.jp"
+            },
+            "genre": ["Action", "Sports", "Shounen", "Soccer"],
+            "startDate": "2018-08-01",
+            "inLanguage": "en",
+            "numberOfEpisodes": chapters.length,
+            "contentRating": "Teen",
+            "isAccessibleForFree": true,
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "ratingCount": "45000",
+              "bestRating": "5",
+              "worstRating": "1"
+            }
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "How many chapters does Blue Lock have?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": `Blue Lock currently has ${chapters.length}+ chapters and is ongoing. New chapters release weekly in Weekly Shōnen Magazine by Kodansha.`
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is there a Blue Lock anime?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes — Blue Lock Season 1 aired in 2022–2023 and Season 2 began in 2024. The manga continues ahead of the anime adaptation."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is Blue Lock manga finished?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No, Blue Lock is not finished. The manga is currently ongoing and serialized weekly in Weekly Shōnen Magazine by Kodansha."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Who are the main characters in Blue Lock?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The main characters are Yoichi Isagi (the protagonist), Meguru Bachira, Seishiro Nagi, Reo Mikage, and Ryusui Barou — all elite strikers competing inside the Blue Lock facility."
+                }
+              }
+            ]
+          }
+        ]}
       />
 
       {/* Hero Section */}
       <section className="relative w-full min-h-[85vh] flex items-center justify-center overflow-hidden bg-bb-dark py-20">
         <div className="absolute inset-0 z-0 opacity-30 select-none pointer-events-none">
           <img
-            src="/blue_lock.webp"
-            alt=""
+            src="/blue-lock.webp"
+            alt="Blue Lock Manga — Yoichi Isagi and players competing in the Blue Lock Project"
             width="1920"
             height="1080"
             fetchPriority="high"

@@ -1,0 +1,34 @@
+{
+  "mangaEdgeSlug": "nlrjm4-blue-lock",
+  "history": [
+    {
+      "id": "n4yltmh",
+      "date": "2026-05-30T15:21:19.768Z",
+      "type": "scrape",
+      "description": "Scraped successfully. Found 5 new chapter(s): Ch. 314.1, Ch. 314.2, Ch. 327.2, Ch. 340.2, Ch. 346.2.",
+      "details": {
+        "newChaptersCount": 5,
+        "newChapterNumbers": [
+          314.1,
+          314.2,
+          327.2,
+          340.2,
+          346.2
+        ],
+        "totalChapters": 352
+      }
+    },
+    {
+      "id": "en0fmyf",
+      "date": "2026-05-30T16:17:17.153Z",
+      "type": "scrape",
+      "description": "Scraped successfully during bulk sync. No new chapters found. Up to date!",
+      "details": {
+        "newChaptersCount": 0,
+        "newChapterNumbers": [],
+        "totalChapters": 352,
+        "bulkSync": true
+      }
+    }
+  ]
+}

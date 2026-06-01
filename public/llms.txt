@@ -1,0 +1,35 @@
+# Blue Lock Manga — readbluelockmanga.online
+
+## About
+Blue Lock Manga is a fan reading platform dedicated to the manga series "Blue Lock" (ブルーロック) by Muneyuki Kaneshiro and Yusuke Nomura. The site provides free access to high-quality English scans of all available chapters.
+
+## Manga Info
+- Title: Blue Lock
+- Alternative Titles: ブルーロック, Buru Rokku
+- Author: Muneyuki Kaneshiro
+- Artist: Yusuke Nomura
+- Publisher: Kodansha (Weekly Shōnen Magazine)
+- Serialization Start: August 1, 2018
+- Status: Ongoing
+- Genre: Action, Sports, Shounen, Soccer
+- Synopsis: Three hundred high school strikers are gathered in an isolated facility called Blue Lock, where only one will emerge as Japan's ultimate egoist striker to lead the national team to World Cup victory.
+
+## Key Characters
+- Yoichi Isagi — protagonist, striker with exceptional spatial awareness
+- Meguru Bachira — Isagi's first rival and ally inside Blue Lock
+- Seishiro Nagi — prodigy striker who plays instinctively
+- Reo Mikage — wealthy player who recruits Nagi
+- Ryusui Barou — self-proclaimed "King", arrogant yet skilled striker
+
+## Site Pages
+- Homepage: https://readbluelockmanga.online/
+- All Chapters: https://readbluelockmanga.online/manga
+- Chapter Reader: https://readbluelockmanga.online/chapter/{number}
+- Characters: https://readbluelockmanga.online/characters
+- About: https://readbluelockmanga.online/about
+
+## Contact
+Email: support@readbluelockmanga.online
+
+## Disclaimer
+This is a fan project. Not affiliated with Muneyuki Kaneshiro, Yusuke Nomura, or Kodansha. All manga content belongs to their respective copyright owners.
