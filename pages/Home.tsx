@@ -8,6 +8,12 @@ import { ARCS } from '../constants';
 const Home: React.FC = () => {
   const { chapters } = useManga();
   const latestChapter = chapters[0];
+  const [continueChapter, setContinueChapter] = React.useState<number | null>(null);
+
+  React.useEffect(() => {
+    const saved = localStorage.getItem('bluelock_last_chapter');
+    if (saved) setContinueChapter(parseInt(saved, 10));
+  }, []);
 
   return (
     <>
@@ -206,20 +212,27 @@ const Home: React.FC = () => {
 
           {latestChapter && (
             <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
+              {continueChapter ? (
+                <Link
+                  to={`/chapter/${continueChapter}`}
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-transparent text-lg font-bold rounded-lg text-white bg-bb-blue hover:bg-blue-700 shadow-lg shadow-blue-900/20 transition-all hover:scale-105"
+                >
+                  ▶ Continue — Chapter {continueChapter}
+                </Link>
+              ) : (
+                <Link
+                  to="/chapter/1"
+                  className="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-bold rounded-lg text-white bg-bb-blue hover:bg-blue-700 shadow-lg shadow-blue-900/20 transition-all hover:scale-105"
+                >
+                  Start Reading — Chapter 1
+                </Link>
+              )}
               <Link
                 to={`/chapter/${latestChapter.number}`}
-                className="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-bold rounded-lg text-white bg-bb-blue hover:bg-blue-700 shadow-lg shadow-blue-900/20 transition-all hover:scale-105"
-              >
-                Read Chapter {latestChapter.number}
-              </Link>
-              <a
-                href="https://www.infinitymanga.com/"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-8 py-4 border border-white/20 bg-white/5 backdrop-blur-sm text-lg font-bold rounded-lg text-white hover:bg-white hover:text-black transition-all"
               >
-                Explore More Manga
-              </a>
+                Latest: Chapter {latestChapter.number}
+              </Link>
             </div>
           )}
         </div>

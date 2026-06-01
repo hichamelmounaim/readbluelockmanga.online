@@ -1,11 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, MessageSquare, Share2, AlignJustify, Columns, ArrowDown, ArrowRight, Send } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Share2, ArrowDown, ArrowRight, Send, BookOpen } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { useManga } from '../context/MangaContext';
-import { MOCK_COMMENTS } from '../constants';
 import { Chapter } from '../types';
+
+const SISTER_SITES = [
+  { name: 'Dandadan Manga', url: 'https://readdandadanmanga.online/', desc: 'Aliens, ghosts, and supernatural chaos by Tatsu Yukinobu.' },
+  { name: 'Kagurabachi Manga', url: 'https://kagurabachimanga.online/', desc: 'Chihiro hunts sorcerers with enchanted blades in this Shonen Jump hit.' },
+  { name: 'Gachiakuta Manga', url: 'https://readgachiakutamanga.online/', desc: 'Rudo fights to survive in the Pit with trash-powered abilities.' },
+  { name: 'Nano Machine Manga', url: 'https://nanomachinemanga.online/', desc: 'Cheon Yeo-Woon rises through the Demonic Cult with a nano machine.' },
+  { name: 'Kingdom Manga', url: 'https://readkingdommanga.online/', desc: 'Xin and Zheng unify ancient China across 876+ epic chapters.' },
+];
 
 const ChapterReader: React.FC = () => {
   const { chapterId } = useParams<{ chapterId: string }>();
@@ -24,8 +31,13 @@ const ChapterReader: React.FC = () => {
   const currentNum = parseInt(chapterId || "0", 10);
 
   useEffect(() => {
+    if (currentNum > 0) {
+      localStorage.setItem('bluelock_last_chapter', String(currentNum));
+    }
+  }, [currentNum]);
+
+  useEffect(() => {
     setLoading(true);
-    // Simulate API fetch delay
     setTimeout(() => {
       const found = chapters.find(c => c.number === currentNum);
       if (found) {
@@ -289,69 +301,34 @@ const ChapterReader: React.FC = () => {
           </div>
         </div>
 
-        {/* Modern Engagement Section */}
+        {/* More Manga from Our Network */}
         <div className="max-w-4xl mx-auto mt-12 px-4 pb-20">
           <div className="bg-[#1a1a1a] border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
-
-            {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-white/5 bg-white/5">
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <MessageSquare size={18} className="text-bb-blue" />
-                Discussion <span className="text-gray-500 text-sm font-normal">({MOCK_COMMENTS.length})</span>
+                <BookOpen size={18} className="text-bb-blue" />
+                More Manga to Read
               </h3>
-              <button className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg text-sm font-medium transition-colors border border-white/5">
+              <button
+                onClick={() => navigator.share?.({ title: `Blue Lock Chapter ${chapter.number}`, url: window.location.href })}
+                className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg text-sm font-medium transition-colors border border-white/5"
+              >
                 <Share2 size={16} /> Share Chapter
               </button>
             </div>
-
-            <div className="p-6 md:p-8">
-              {/* Input Area */}
-              <div className="mb-10 flex gap-4">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-bb-blue to-blue-900 flex-shrink-0 flex items-center justify-center text-white font-bold text-sm shadow-lg ring-2 ring-white/5">
-                  T
-                </div>
-                <div className="flex-1">
-                  <textarea
-                    placeholder="What are your thoughts on this chapter?"
-                    className="w-full p-4 rounded-xl border border-white/10 bg-black/40 text-gray-200 focus:ring-1 focus:ring-bb-blue focus:border-bb-blue/50 focus:outline-none transition-all placeholder:text-gray-600 min-h-[100px] resize-y"
-                  ></textarea>
-                  <div className="flex justify-end mt-3">
-                    <button className="px-6 py-2.5 bg-bb-blue hover:bg-blue-700 text-white font-bold rounded-lg transition-all shadow-lg shadow-blue-900/20 text-sm">
-                      Post Comment
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Comments List */}
-              <div className="space-y-8">
-                {MOCK_COMMENTS.map((comment) => (
-                  <div key={comment.id} className="group">
-                    <div className="flex gap-4">
-                      <div className="w-10 h-10 rounded-full bg-gray-800 flex flex-shrink-0 items-center justify-center text-gray-300 font-bold text-sm border border-white/5 group-hover:border-bb-blue/30 transition-colors">
-                        {comment.user.charAt(0)}
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="font-bold text-gray-200 group-hover:text-bb-blue transition-colors">{comment.user}</span>
-                          <span className="text-xs text-gray-500">{comment.date}</span>
-                        </div>
-                        <p className="text-gray-400 text-sm leading-relaxed mb-3">{comment.content}</p>
-
-                        <div className="flex items-center gap-4">
-                          <button className="text-xs font-medium text-gray-500 hover:text-white transition-colors flex items-center gap-1.5">
-                            <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-bb-blue"></span>
-                            Like ({comment.likes})
-                          </button>
-                          <button className="text-xs font-medium text-gray-500 hover:text-white transition-colors">
-                            Reply
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {SISTER_SITES.map(site => (
+                <a
+                  key={site.url}
+                  href={site.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col gap-1 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-bb-blue/40 hover:bg-bb-blue/5 transition-all"
+                >
+                  <span className="font-bold text-white group-hover:text-bb-blue transition-colors text-sm">{site.name}</span>
+                  <span className="text-xs text-gray-500 leading-relaxed">{site.desc}</span>
+                </a>
+              ))}
             </div>
           </div>
         </div>

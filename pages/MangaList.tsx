@@ -45,6 +45,27 @@ const MangaList: React.FC = () => {
         </div>
       </div>
 
+      {/* Synopsis & Metadata Band */}
+      <div className="bg-white dark:bg-[#0f0f0f] border-b border-gray-100 dark:border-white/5 py-10 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex flex-wrap gap-2 mb-4">
+            {['Action', 'Sports', 'Soccer', 'Shounen', 'Competition'].map(g => (
+              <span key={g} className="px-3 py-1 rounded-full text-xs font-bold bg-bb-blue/10 text-bb-blue border border-bb-blue/20">{g}</span>
+            ))}
+          </div>
+          <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
+            Japan's national football team is struggling. To forge the world's best striker, 300 elite high school players are gathered in an isolated facility called Blue Lock. Only the most egoist striker — the one who can prioritise himself above all else — will earn the right to lead Japan. Yoichi Isagi aims to become that player.
+          </p>
+          <div className="flex flex-wrap gap-6 text-xs text-gray-500 dark:text-gray-500">
+            <span><strong className="text-gray-700 dark:text-gray-300">Author:</strong> Muneyuki Kaneshiro</span>
+            <span><strong className="text-gray-700 dark:text-gray-300">Artist:</strong> Yusuke Nomura</span>
+            <span><strong className="text-gray-700 dark:text-gray-300">Publisher:</strong> Kodansha / Weekly Shōnen Magazine</span>
+            <span><strong className="text-gray-700 dark:text-gray-300">Status:</strong> Ongoing</span>
+            <span><strong className="text-gray-700 dark:text-gray-300">Started:</strong> August 2018</span>
+          </div>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 -mt-8 relative z-20">
 
         {/* Controls Bar */}

@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 md:justify-items-end">
+          <div className="grid grid-cols-3 gap-8">
             <div>
               <h4 className="font-bold text-gray-900 dark:text-white mb-4 text-sm uppercase tracking-wider">Explore</h4>
               <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
@@ -33,13 +33,23 @@ const Footer: React.FC = () => {
               </ul>
             </div>
             <div>
+              <h4 className="font-bold text-gray-900 dark:text-white mb-4 text-sm uppercase tracking-wider">More Manga</h4>
+              <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                <li><a href="https://kagurabachimanga.online/" className="hover:text-bb-blue transition-colors">Kagurabachi Manga</a></li>
+                <li><a href="https://readdandadanmanga.online/" className="hover:text-bb-blue transition-colors">Dandadan Manga</a></li>
+                <li><a href="https://readgachiakutamanga.online/" className="hover:text-bb-blue transition-colors">Gachiakuta Manga</a></li>
+                <li><a href="https://nanomachinemanga.online/" className="hover:text-bb-blue transition-colors">Nano Machine Manga</a></li>
+                <li><a href="https://readkingdommanga.online/" className="hover:text-bb-blue transition-colors">Kingdom Manga</a></li>
+              </ul>
+            </div>
+            <div>
               <h4 className="font-bold text-gray-900 dark:text-white mb-4 text-sm uppercase tracking-wider">Legal</h4>
               <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
                 <li><Link to="/privacy" className="hover:text-bb-blue transition-colors">Privacy Policy</Link></li>
                 <li><Link to="/terms" className="hover:text-bb-blue transition-colors">Terms & Conditions</Link></li>
                 <li><Link to="/dmca" className="hover:text-bb-blue transition-colors">DMCA</Link></li>
                 <li><Link to="/disclaimer" className="hover:text-bb-blue transition-colors">Disclaimer</Link></li>
-                <li><a href="mailto:Support@readbluelockmanga.online" className="hover:text-bb-blue transition-colors">Contact</a></li>
+                <li><a href="mailto:support@readbluelockmanga.online" className="hover:text-bb-blue transition-colors">Contact</a></li>
               </ul>
             </div>
           </div>
