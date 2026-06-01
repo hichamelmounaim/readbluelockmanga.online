@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Share2, ArrowDown, ArrowRight, Send, BookOpen } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Share2, ArrowDown, ArrowRight, Send, BookOpen, ChevronUp } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { useManga } from '../context/MangaContext';
@@ -21,14 +21,18 @@ const ChapterReader: React.FC = () => {
   const [chapter, setChapter] = useState<Chapter | null>(null);
   const [loading, setLoading] = useState(true);
   const [showControls, setShowControls] = useState(true);
-  const [readingMode, setReadingMode] = useState<'vertical' | 'horizontal'>('vertical');
-  
-  // Pre-lander state
-  const [isUnlocking, setIsUnlocking] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [readingMode, setReadingMode] = useState<'vertical' | 'horizontal'>(
+    () => (localStorage.getItem('reading_mode') as 'vertical' | 'horizontal') || 'vertical'
+  );
+  const [readProgress, setReadProgress] = useState(0);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
-  // Use a number for parsing
   const currentNum = parseInt(chapterId || "0", 10);
+
+  const handleModeChange = useCallback((mode: 'vertical' | 'horizontal') => {
+    setReadingMode(mode);
+    localStorage.setItem('reading_mode', mode);
+  }, []);
 
   useEffect(() => {
     if (currentNum > 0) {
@@ -48,23 +52,52 @@ const ChapterReader: React.FC = () => {
     }, 500);
   }, [currentNum, chapters]);
 
-  // Hide controls on scroll down, show on scroll up
   const lastScrollY = useRef(0);
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-        setShowControls(false);
-      } else {
-        setShowControls(true);
-      }
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) setShowControls(false);
+      else setShowControls(true);
       lastScrollY.current = currentScrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setReadProgress(docHeight > 0 ? Math.round((currentScrollY / docHeight) * 100) : 0);
+      setShowScrollTop(currentScrollY > 400);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const prevChapterRef = useRef<Chapter | undefined>(undefined);
+  const nextChapterRef = useRef<Chapter | undefined>(undefined);
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement)?.tagName)) return;
+      if (e.key === 'ArrowRight' && nextChapterRef.current) navigate(`/chapter/${nextChapterRef.current.number}`);
+      if (e.key === 'ArrowLeft' && prevChapterRef.current) navigate(`/chapter/${prevChapterRef.current.number}`);
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [navigate]);
 
+
+
+  const prevChapter = chapters.find(c => c.number === currentNum - 1);
+  const nextChapter = chapters.find(c => c.number === currentNum + 1);
+  prevChapterRef.current = prevChapter;
+  nextChapterRef.current = nextChapter;
+
+  const handleNav = useCallback((num: number) => {
+    if (num) navigate(`/chapter/${num}`);
+  }, [navigate]);
+
+  useEffect(() => {
+    const BASE = window.location.origin;
+    document.querySelector('link[rel="prev"]')?.remove();
+    document.querySelector('link[rel="next"]')?.remove();
+    if (prevChapter) { const el = document.createElement('link'); el.rel = 'prev'; el.href = `${BASE}/chapter/${prevChapter.number}`; document.head.appendChild(el); }
+    if (nextChapter) { const el = document.createElement('link'); el.rel = 'next'; el.href = `${BASE}/chapter/${nextChapter.number}`; document.head.appendChild(el); }
+    return () => { document.querySelector('link[rel="prev"]')?.remove(); document.querySelector('link[rel="next"]')?.remove(); };
+  }, [prevChapter, nextChapter]);
 
   if (loading) {
     return (
@@ -78,89 +111,66 @@ const ChapterReader: React.FC = () => {
     return <div className="p-10 text-center dark:text-white">Chapter not found.</div>;
   }
 
-
-  const prevChapter = chapters.find(c => c.number === currentNum - 1);
-  const nextChapter = chapters.find(c => c.number === currentNum + 1);
-
-  const handleNav = (num: number) => {
-    if (num) navigate(`/chapter/${num}`);
-  }
-
   return (
     <div className="bg-gray-100 dark:bg-[#121212] min-h-screen flex flex-col">
       <SEOHead
-        title={`Blue Lock Manga Chapter ${chapter.number} - Read Online`}
-        description={`Read Blue Lock Manga Chapter ${chapter.number}: ${chapter.title} online in high quality free. Official English scans available.`}
+        title={`Blue Lock Chapter ${chapter.number} – ${chapter.title} | Read Online Free`}
+        description={`Read Blue Lock Chapter ${chapter.number} – ${chapter.title} for free in English. HD scans, no sign-up required. Read previous and next chapters at readbluelockmanga.online.`}
+        canonicalUrl={`https://readbluelockmanga.online/chapter/${chapter.number}`}
+        ogType="article"
+        ogImage={chapter.pages[0] || 'https://readbluelockmanga.online/blue-lock.webp'}
         schema={{
           "@context": "https://schema.org",
-          "@type": "ComicIssue",
+          "@type": "Article",
           "headline": `Blue Lock Chapter ${chapter.number}: ${chapter.title}`,
-          "image": chapter.pages[0],
+          "image": chapter.pages[0] || 'https://readbluelockmanga.online/blue-lock.webp',
           "datePublished": chapter.releaseDate,
-          "issueNumber": chapter.number,
-          "author": {
-            "@type": "Person",
-            "name": "Muneyuki Kaneshiro & Yusuke Nomura"
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "Blue Lock Manga"
-          }
+          "author": { "@type": "Person", "name": "Muneyuki Kaneshiro" },
+          "publisher": { "@type": "Organization", "name": "Blue Lock Manga", "logo": { "@type": "ImageObject", "url": "https://readbluelockmanga.online/logo.png" } },
+          "isPartOf": { "@type": "ComicSeries", "name": "Blue Lock", "author": { "@type": "Person", "name": "Muneyuki Kaneshiro" } },
+          "url": `https://readbluelockmanga.online/chapter/${chapter.number}`
         }}
+        schemas={[
+          { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://readbluelockmanga.online/" },
+            { "@type": "ListItem", "position": 2, "name": "Blue Lock Manga", "item": "https://readbluelockmanga.online/manga" },
+            { "@type": "ListItem", "position": 3, "name": `Chapter ${chapter.number}`, "item": `https://readbluelockmanga.online/chapter/${chapter.number}` }
+          ]}
+        ]}
       />
 
 
 
       {/* Sticky Top Controls */}
-      <div className={`fixed top-0 left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur shadow-md transition-transform duration-300 z-50 ${showControls ? 'translate-y-0' : '-translate-y-full'}`}>
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link to="/manga" className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors">
-              <ChevronLeft size={24} className="dark:text-white" />
-            </Link>
-            <div className="flex flex-col">
-              <span className="text-xs text-bb-blue font-bold uppercase tracking-wider">Reading</span>
-              <span className="font-bold text-sm md:text-base dark:text-white truncate max-w-[150px] md:max-w-md">
-                Ch. {chapter.number}
-              </span>
+      <div className={`fixed top-0 left-0 right-0 bg-white/98 dark:bg-gray-900/98 backdrop-blur shadow-md transition-transform duration-300 z-50 ${showControls ? 'translate-y-0' : '-translate-y-full'}`}>
+        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-200 dark:bg-gray-800">
+          <div className="h-full bg-bb-blue transition-all duration-150 ease-out" style={{ width: `${readProgress}%` }} />
+        </div>
+        <div className="max-w-7xl mx-auto px-3 h-14 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <Link to="/manga" className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors flex-shrink-0" title="Back to chapter list"><ChevronLeft size={20} className="dark:text-white" /></Link>
+            <div className="flex flex-col min-w-0">
+              <span className="text-[10px] text-bb-blue font-bold uppercase tracking-wider leading-none mb-0.5">Blue Lock</span>
+              <select value={chapter.number} onChange={e => navigate(`/chapter/${e.target.value}`)} className="font-bold text-sm dark:text-white bg-transparent focus:outline-none cursor-pointer truncate max-w-[160px] md:max-w-[280px] dark:bg-gray-900" title="Jump to chapter">
+                {[...chapters].sort((a, b) => b.number - a.number).map(ch => (<option key={ch.number} value={ch.number} className="dark:bg-gray-900">Ch. {ch.number}{ch.title && ch.title !== `Chapter ${ch.number}` ? ` — ${ch.title.length > 30 ? ch.title.substring(0, 30) + '…' : ch.title}` : ''}</option>))}
+              </select>
             </div>
           </div>
-
-          <div className="flex items-center gap-2 bg-gray-100 dark:bg-black/20 p-1 rounded-lg">
-            <button
-              onClick={() => setReadingMode('vertical')}
-              className={`p-2 rounded-md transition-all ${readingMode === 'vertical' ? 'bg-white dark:bg-bb-blue text-bb-blue dark:text-white shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white'}`}
-              title="Vertical Scroll"
-            >
-              <ArrowDown size={20} />
-            </button>
-            <button
-              onClick={() => setReadingMode('horizontal')}
-              className={`p-2 rounded-md transition-all ${readingMode === 'horizontal' ? 'bg-white dark:bg-bb-blue text-bb-blue dark:text-white shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white'}`}
-              title="Horizontal Slide"
-            >
-              <ArrowRight size={20} />
-            </button>
+          <div className="flex items-center gap-1.5 flex-shrink-0">
+            <div className="hidden sm:flex items-center gap-1 bg-gray-100 dark:bg-black/30 p-0.5 rounded-lg">
+              <button onClick={() => handleModeChange('vertical')} className={`p-1.5 rounded-md transition-all ${readingMode === 'vertical' ? 'bg-white dark:bg-bb-blue text-bb-blue dark:text-white shadow-sm' : 'text-gray-500 dark:text-gray-400'}`} title="Vertical scroll (↓)"><ArrowDown size={14} /></button>
+              <button onClick={() => handleModeChange('horizontal')} className={`p-1.5 rounded-md transition-all ${readingMode === 'horizontal' ? 'bg-white dark:bg-bb-blue text-bb-blue dark:text-white shadow-sm' : 'text-gray-500 dark:text-gray-400'}`} title="Horizontal swipe (→)"><ArrowRight size={14} /></button>
+            </div>
+            <span className="text-xs font-mono text-gray-400 dark:text-gray-500 hidden md:block">{readProgress}%</span>
           </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              disabled={!prevChapter}
-              onClick={() => prevChapter && handleNav(prevChapter.number)}
-              className="p-2 disabled:opacity-30 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md dark:text-white transition-colors"
-            >
-              <ChevronLeft size={24} />
-            </button>
-            <button
-              disabled={!nextChapter}
-              onClick={() => nextChapter && handleNav(nextChapter.number)}
-              className="p-2 disabled:opacity-30 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md dark:text-white transition-colors"
-            >
-              <ChevronRight size={24} />
-            </button>
+          <div className="flex items-center gap-1 flex-shrink-0">
+            <button disabled={!prevChapter} onClick={() => prevChapter && handleNav(prevChapter.number)} className="flex items-center gap-1 px-2 py-1.5 disabled:opacity-30 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md dark:text-white transition-colors text-xs font-bold" title="Previous chapter (←)"><ChevronLeft size={16} /><span className="hidden sm:block">Prev</span></button>
+            <button disabled={!nextChapter} onClick={() => nextChapter && handleNav(nextChapter.number)} className="flex items-center gap-1 px-2 py-1.5 disabled:opacity-30 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md dark:text-white transition-colors text-xs font-bold" title="Next chapter (→)"><span className="hidden sm:block">Next</span><ChevronRight size={16} /></button>
           </div>
         </div>
       </div>
+
+      {showScrollTop && (<button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-6 right-5 z-50 w-10 h-10 bg-bb-blue hover:bg-blue-700 text-white rounded-full shadow-xl flex items-center justify-center transition-all hover:scale-110" title="Back to top"><ChevronUp size={20} strokeWidth={3} /></button>)}
 
       {/* Reader Content */}
       <div className={`flex-1 pt-16 ${readingMode === 'horizontal' ? 'h-[calc(100vh-64px)] overflow-hidden' : ''}`}>
