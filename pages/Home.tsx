@@ -364,6 +364,30 @@ const Home: React.FC = () => {
         </section>
 
       </div>
+
+      {/* More Manga Network Banner */}
+      <div className="bg-[#0d1117] border-t border-white/5 py-14 px-4">
+        <div className="max-w-5xl mx-auto text-center mb-10">
+          <span className="text-bb-blue text-xs font-bold uppercase tracking-widest block mb-2">More from Our Network</span>
+          <h2 className="text-2xl font-heading font-bold text-white">Also Reading?</h2>
+          <p className="text-gray-500 text-sm mt-2">Explore more top manga series — all free, all high quality.</p>
+        </div>
+        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {[
+            { name: 'Kagurabachi', url: 'https://kagurabachimanga.online/', desc: 'Enchanted blade revenge', emoji: '⚔️' },
+            { name: 'Dandadan', url: 'https://readdandadanmanga.online/', desc: 'Aliens & ghosts chaos', emoji: '👾' },
+            { name: 'Gachiakuta', url: 'https://readgachiakutamanga.online/', desc: 'Trash-powered warrior', emoji: '🗑️' },
+            { name: 'Nano Machine', url: 'https://nanomachinemanga.online/', desc: 'Futuristic murim rise', emoji: '⚙️' },
+            { name: 'Kingdom', url: 'https://readkingdommanga.online/', desc: '876 ch. epic history', emoji: '🏯' },
+          ].map(site => (
+            <a key={site.url} href={site.url} target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-2 p-5 bg-white/3 border border-white/5 rounded-xl hover:border-bb-blue/30 hover:bg-bb-blue/5 transition-all text-center">
+              <span className="text-3xl">{site.emoji}</span>
+              <span className="font-bold text-white text-sm group-hover:text-bb-blue transition-colors">{site.name}</span>
+              <span className="text-xs text-gray-500">{site.desc}</span>
+            </a>
+          ))}
+        </div>
+      </div>
     </>
   );
 };
