@@ -7,11 +7,11 @@ import { useManga } from '../context/MangaContext';
 import { Chapter } from '../types';
 
 const SISTER_SITES = [
-  { name: 'Dandadan Manga', url: 'https://readdandadanmanga.online/', desc: 'Aliens, ghosts, and supernatural chaos by Tatsu Yukinobu.' },
-  { name: 'Kagurabachi Manga', url: 'https://kagurabachimanga.online/', desc: 'Chihiro hunts sorcerers with enchanted blades in this Shonen Jump hit.' },
-  { name: 'Gachiakuta Manga', url: 'https://readgachiakutamanga.online/', desc: 'Rudo fights to survive in the Pit with trash-powered abilities.' },
-  { name: 'Nano Machine Manga', url: 'https://nanomachinemanga.online/', desc: 'Cheon Yeo-Woon rises through the Demonic Cult with a nano machine.' },
-  { name: 'Kingdom Manga', url: 'https://readkingdommanga.online/', desc: 'Xin and Zheng unify ancient China across 876+ epic chapters.' },
+  { name: 'Dandadan Manga', url: 'https://www.readdandadanmanga.online/', desc: 'Aliens, ghosts, and supernatural chaos by Tatsu Yukinobu.' },
+  { name: 'Kagurabachi Manga', url: 'https://www.kagurabachimanga.online/', desc: 'Chihiro hunts sorcerers with enchanted blades in this Shonen Jump hit.' },
+  { name: 'Gachiakuta Manga', url: 'https://www.readgachiakutamanga.online/', desc: 'Rudo fights to survive in the Pit with trash-powered abilities.' },
+  { name: 'Nano Machine Manga', url: 'https://www.nanomachinemanga.online/', desc: 'Cheon Yeo-Woon rises through the Demonic Cult with a nano machine.' },
+  { name: 'Kingdom Manga', url: 'https://www.readkingdommanga.online/', desc: 'Xin and Zheng unify ancient China across 876+ epic chapters.' },
 ];
 
 const ChapterReader: React.FC = () => {
@@ -107,25 +107,25 @@ const ChapterReader: React.FC = () => {
       <SEOHead
         title={`Blue Lock Chapter ${chapter.number} – ${chapter.title} | Read Online Free`}
         description={`Read Blue Lock Chapter ${chapter.number} – ${chapter.title} for free in English. HD scans, no sign-up required. Read previous and next chapters at readbluelockmanga.online.`}
-        canonicalUrl={`https://readbluelockmanga.online/chapter/${chapter.number}`}
+        canonicalUrl={`https://www.readbluelockmanga.online/chapter/${chapter.number}`}
         ogType="article"
-        ogImage={chapter.pages[0] || 'https://readbluelockmanga.online/blue-lock.webp'}
+        ogImage={chapter.pages[0] || 'https://www.readbluelockmanga.online/blue-lock.webp'}
         schema={{
           "@context": "https://schema.org",
           "@type": "Article",
           "headline": `Blue Lock Chapter ${chapter.number}: ${chapter.title}`,
-          "image": chapter.pages[0] || 'https://readbluelockmanga.online/blue-lock.webp',
+          "image": chapter.pages[0] || 'https://www.readbluelockmanga.online/blue-lock.webp',
           "datePublished": chapter.releaseDate,
           "author": { "@type": "Person", "name": "Muneyuki Kaneshiro" },
-          "publisher": { "@type": "Organization", "name": "Blue Lock Manga", "logo": { "@type": "ImageObject", "url": "https://readbluelockmanga.online/logo.png" } },
+          "publisher": { "@type": "Organization", "name": "Blue Lock Manga", "logo": { "@type": "ImageObject", "url": "https://www.readbluelockmanga.online/logo.png" } },
           "isPartOf": { "@type": "ComicSeries", "name": "Blue Lock", "author": { "@type": "Person", "name": "Muneyuki Kaneshiro" } },
-          "url": `https://readbluelockmanga.online/chapter/${chapter.number}`
+          "url": `https://www.readbluelockmanga.online/chapter/${chapter.number}`
         }}
         schemas={[
           { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://readbluelockmanga.online/" },
-            { "@type": "ListItem", "position": 2, "name": "Blue Lock Manga", "item": "https://readbluelockmanga.online/manga" },
-            { "@type": "ListItem", "position": 3, "name": `Chapter ${chapter.number}`, "item": `https://readbluelockmanga.online/chapter/${chapter.number}` }
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.readbluelockmanga.online/" },
+            { "@type": "ListItem", "position": 2, "name": "Blue Lock Manga", "item": "https://www.readbluelockmanga.online/manga" },
+            { "@type": "ListItem", "position": 3, "name": `Chapter ${chapter.number}`, "item": `https://www.readbluelockmanga.online/chapter/${chapter.number}` }
           ]}
         ]}
       />

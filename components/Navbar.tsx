@@ -13,7 +13,7 @@ const Navbar: React.FC = () => {
     { name: 'Home', path: '/' },
     { name: 'All Chapters', path: '/manga' },
     { name: 'Characters', path: '/characters' },
-    { name: 'Read Dandadan Manga', path: 'https://readdandadanmanga.online/', isExternal: true },
+    { name: 'Read Dandadan Manga', path: 'https://www.readdandadanmanga.online/', isExternal: true },
   ];
 
   const isActive = (path: string) => location.pathname === path;

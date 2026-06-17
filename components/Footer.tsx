@@ -35,11 +35,11 @@ const Footer: React.FC = () => {
             <div>
               <h4 className="font-bold text-gray-900 dark:text-white mb-4 text-sm uppercase tracking-wider">More Manga</h4>
               <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                <li><a href="https://kagurabachimanga.online/" className="hover:text-bb-blue transition-colors">Kagurabachi Manga</a></li>
-                <li><a href="https://readdandadanmanga.online/" className="hover:text-bb-blue transition-colors">Dandadan Manga</a></li>
-                <li><a href="https://readgachiakutamanga.online/" className="hover:text-bb-blue transition-colors">Gachiakuta Manga</a></li>
-                <li><a href="https://nanomachinemanga.online/" className="hover:text-bb-blue transition-colors">Nano Machine Manga</a></li>
-                <li><a href="https://readkingdommanga.online/" className="hover:text-bb-blue transition-colors">Kingdom Manga</a></li>
+                <li><a href="https://www.kagurabachimanga.online/" className="hover:text-bb-blue transition-colors">Kagurabachi Manga</a></li>
+                <li><a href="https://www.readdandadanmanga.online/" className="hover:text-bb-blue transition-colors">Dandadan Manga</a></li>
+                <li><a href="https://www.readgachiakutamanga.online/" className="hover:text-bb-blue transition-colors">Gachiakuta Manga</a></li>
+                <li><a href="https://www.nanomachinemanga.online/" className="hover:text-bb-blue transition-colors">Nano Machine Manga</a></li>
+                <li><a href="https://www.readkingdommanga.online/" className="hover:text-bb-blue transition-colors">Kingdom Manga</a></li>
               </ul>
             </div>
             <div>

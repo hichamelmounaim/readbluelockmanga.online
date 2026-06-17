@@ -22,11 +22,11 @@ Blue Lock Manga is a fan reading platform dedicated to the manga series "Blue Lo
 - Ryusui Barou — self-proclaimed "King", arrogant yet skilled striker
 
 ## Site Pages
-- Homepage: https://readbluelockmanga.online/
-- All Chapters: https://readbluelockmanga.online/manga
-- Chapter Reader: https://readbluelockmanga.online/chapter/{number}
-- Characters: https://readbluelockmanga.online/characters
-- About: https://readbluelockmanga.online/about
+- Homepage: https://www.readbluelockmanga.online/
+- All Chapters: https://www.readbluelockmanga.online/manga
+- Chapter Reader: https://www.readbluelockmanga.online/chapter/{number}
+- Characters: https://www.readbluelockmanga.online/characters
+- About: https://www.readbluelockmanga.online/about
 
 ## Contact
 Email: support@readbluelockmanga.online

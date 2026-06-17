@@ -20,16 +20,16 @@ const Home: React.FC = () => {
       <SEOHead
         title="Read Blue Lock Manga Online Free — All Chapters | Blue Lock Manga"
         description={`Read Blue Lock Manga online free in high quality. All ${chapters.length}+ chapters by Muneyuki Kaneshiro & Yusuke Nomura available — no sign-up required. Follow Isagi's journey to become the world's best striker.`}
-        canonicalUrl="https://readbluelockmanga.online/"
+        canonicalUrl="https://www.readbluelockmanga.online/"
         schema={[
           {
             "@context": "https://schema.org",
             "@type": "WebSite",
             "name": "Blue Lock Manga",
-            "url": "https://readbluelockmanga.online",
+            "url": "https://www.readbluelockmanga.online",
             "potentialAction": {
               "@type": "SearchAction",
-              "target": "https://readbluelockmanga.online/manga?q={search_term_string}",
+              "target": "https://www.readbluelockmanga.online/manga?q={search_term_string}",
               "query-input": "required name=search_term_string"
             }
           },
@@ -39,8 +39,8 @@ const Home: React.FC = () => {
             "name": "Blue Lock",
             "alternateName": ["ブルーロック", "Buru Rokku"],
             "description": "Three hundred and hundred players are gathered in a facility called Blue Lock — an isolated dorm to forge the best striker in Japan ahead of the World Cup.",
-            "url": "https://readbluelockmanga.online/",
-            "image": "https://readbluelockmanga.online/blue-lock.webp",
+            "url": "https://www.readbluelockmanga.online/",
+            "image": "https://www.readbluelockmanga.online/blue-lock.webp",
             "author": [
               { "@type": "Person", "name": "Muneyuki Kaneshiro" },
               { "@type": "Person", "name": "Yusuke Nomura" }
@@ -374,11 +374,11 @@ const Home: React.FC = () => {
         </div>
         <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {[
-            { name: 'Kagurabachi', url: 'https://kagurabachimanga.online/', desc: 'Enchanted blade revenge', emoji: '⚔️' },
-            { name: 'Dandadan', url: 'https://readdandadanmanga.online/', desc: 'Aliens & ghosts chaos', emoji: '👾' },
-            { name: 'Gachiakuta', url: 'https://readgachiakutamanga.online/', desc: 'Trash-powered warrior', emoji: '🗑️' },
-            { name: 'Nano Machine', url: 'https://nanomachinemanga.online/', desc: 'Futuristic murim rise', emoji: '⚙️' },
-            { name: 'Kingdom', url: 'https://readkingdommanga.online/', desc: '876 ch. epic history', emoji: '🏯' },
+            { name: 'Kagurabachi', url: 'https://www.kagurabachimanga.online/', desc: 'Enchanted blade revenge', emoji: '⚔️' },
+            { name: 'Dandadan', url: 'https://www.readdandadanmanga.online/', desc: 'Aliens & ghosts chaos', emoji: '👾' },
+            { name: 'Gachiakuta', url: 'https://www.readgachiakutamanga.online/', desc: 'Trash-powered warrior', emoji: '🗑️' },
+            { name: 'Nano Machine', url: 'https://www.nanomachinemanga.online/', desc: 'Futuristic murim rise', emoji: '⚙️' },
+            { name: 'Kingdom', url: 'https://www.readkingdommanga.online/', desc: '876 ch. epic history', emoji: '🏯' },
           ].map(site => (
             <a key={site.url} href={site.url} target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-2 p-5 bg-white/3 border border-white/5 rounded-xl hover:border-bb-blue/30 hover:bg-bb-blue/5 transition-all text-center">
               <span className="text-3xl">{site.emoji}</span>

@@ -19,7 +19,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
             "@type": "ListItem",
             "position": index + 1,
             "name": item.label,
-            "item": item.path ? `https://blueboxmanga.online${item.path}` : undefined
+            "item": item.path ? `https://www.blueboxmanga.online${item.path}` : undefined
         }))
     };
 

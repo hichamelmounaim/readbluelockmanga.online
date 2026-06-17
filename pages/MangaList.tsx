@@ -39,7 +39,7 @@ const MangaList: React.FC = () => {
       <SEOHead
         title="Blue Lock Manga Library - All Chapters"
         description="Browse the complete collection of Blue Lock manga chapters. Read online in high quality."
-        canonicalUrl="https://readbluelockmanga.online/manga"
+        canonicalUrl="https://www.readbluelockmanga.online/manga"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">

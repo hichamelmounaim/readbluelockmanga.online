@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://readbluelockmanga.online/sitemap.xml
+Sitemap: https://www.readbluelockmanga.online/sitemap.xml
