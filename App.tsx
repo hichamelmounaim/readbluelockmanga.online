@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './context/ThemeContext';
 import { MangaProvider } from './context/MangaContext';
 import Navbar from './components/Navbar';
@@ -38,6 +39,7 @@ const App: React.FC = () => {
   useContentProtection();
 
   return (
+    <HelmetProvider>
     <MangaProvider>
       <ThemeProvider>
         <Router>
@@ -68,6 +70,7 @@ const App: React.FC = () => {
         </Router>
       </ThemeProvider>
     </MangaProvider>
+    </HelmetProvider>
   );
 };
 
