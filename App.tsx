@@ -11,6 +11,7 @@ const Home = lazy(() => import('./pages/Home'));
 const MangaList = lazy(() => import('./pages/MangaList'));
 const ChapterReader = lazy(() => import('./pages/ChapterReader'));
 const Characters = lazy(() => import('./pages/Characters'));
+const CharacterDetail = lazy(() => import('./pages/CharacterDetail'));
 const About = lazy(() => import('./pages/About'));
 const Legal = lazy(() => import('./pages/Legal'));
 
@@ -50,6 +51,7 @@ const App: React.FC = () => {
                 <Route path="/" element={<LayoutWrapper><Home /></LayoutWrapper>} />
                 <Route path="/manga" element={<LayoutWrapper><MangaList /></LayoutWrapper>} />
                 <Route path="/characters" element={<LayoutWrapper><Characters /></LayoutWrapper>} />
+                <Route path="/characters/:characterSlug" element={<LayoutWrapper><CharacterDetail /></LayoutWrapper>} />
                 <Route path="/about" element={<LayoutWrapper><About /></LayoutWrapper>} />
                 <Route path="/terms" element={<LayoutWrapper><Legal type="terms" /></LayoutWrapper>} />
 

@@ -13,6 +13,11 @@ export interface Character {
   description: string;
   image: string;
   grade: string;
+  slug?: string;
+  abilities?: string;
+  weapon?: string;
+  firstAppearance?: string;
+  longDescription?: string;
 }
 
 export interface Arc {

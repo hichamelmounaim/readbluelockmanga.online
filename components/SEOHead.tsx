@@ -9,7 +9,7 @@ interface SEOHeadProps extends SEOMeta {
   schemas?: object[];
 }
 
-const SEOHead: React.FC<SEOHeadProps> = ({ title, description, schema, schemas, canonicalUrl, ogType = 'website', ogImage = 'https://www.readgachiakutamanga.online/gachiakuta-manga-cover.jpg' }) => {
+const SEOHead: React.FC<SEOHeadProps> = ({ title, description, schema, schemas, canonicalUrl, ogType = 'website', ogImage = 'https://readbluelockmanga.online/blue-lock.webp' }) => {
   return (
     <Helmet>
       <title>{title}</title>

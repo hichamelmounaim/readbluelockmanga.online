@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const DOMAIN = 'https://w1.bluelocken.com';
+const DOMAIN = 'https://readbluelockmanga.online';
 
 // Replicate logic from constants.ts to get all chapter IDs
 const chapters = Array.from({ length: 347 }, (_, i) => i + 1);
@@ -42,6 +42,23 @@ chapters.forEach(num => {
 `;
 });
 
+// Add character details (pSEO)
+const characterSlugs = [
+  'yoichi-isagi',
+  'meguru-bachira',
+  'rensuke-kunigami',
+  'rin-itoshi'
+];
+
+characterSlugs.forEach(slug => {
+  sitemap += `  <url>
+    <loc>${DOMAIN}/characters/${slug}</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+`;
+});
+
 sitemap += `</urlset>`;
 
 const publicDir = path.join(__dirname, '../public');
@@ -50,4 +67,4 @@ if (!fs.existsSync(publicDir)) {
 }
 
 fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemap);
-console.log(`Sitemap generated at ${path.join(publicDir, 'sitemap.xml')} with ${pages.length + chapters.length} URLs`);
+console.log(`Sitemap generated at ${path.join(publicDir, 'sitemap.xml')} with ${pages.length + chapters.length + characterSlugs.length} URLs`);

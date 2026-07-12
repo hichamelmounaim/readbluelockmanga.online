@@ -126,7 +126,37 @@ const ChapterReader: React.FC = () => {
             { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.readbluelockmanga.online/" },
             { "@type": "ListItem", "position": 2, "name": "Blue Lock Manga", "item": "https://www.readbluelockmanga.online/manga" },
             { "@type": "ListItem", "position": 3, "name": `Chapter ${chapter.number}`, "item": `https://www.readbluelockmanga.online/chapter/${chapter.number}` }
-          ]}
+          ]},
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": `When is the release date for Blue Lock Chapter ${chapter.number}?`,
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": `Blue Lock Chapter ${chapter.number} officially released on ${new Date(chapter.releaseDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}.`
+                }
+              },
+              {
+                "@type": "Question",
+                "name": `Where can I read Blue Lock Chapter ${chapter.number} free online?`,
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": `You can read Blue Lock Chapter ${chapter.number} online for free in high quality at readbluelockmanga.online. Scans are updated immediately after the official Japanese release.`
+                }
+              },
+              {
+                "@type": "Question",
+                "name": `Who is the creator of the Blue Lock manga?`,
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": `Blue Lock is written by Muneyuki Kaneshiro and illustrated by Yusuke Nomura, serialized in Kodansha's Weekly Shōnen Magazine.`
+                }
+              }
+            ]
+          }
         ]}
       />
 
@@ -218,6 +248,37 @@ const ChapterReader: React.FC = () => {
           </div>
         )}
 
+      </div>
+
+      {/* Chapter Programmatic SEO text targeting long-tail queries */}
+      <div className="bg-white dark:bg-[#1a1a1a] border-t border-b border-gray-200 dark:border-white/5 py-12 px-4 relative z-10">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-heading font-bold text-gray-900 dark:text-white mb-6 uppercase tracking-wide">
+            Blue Lock Chapter {chapter.number} Spoilers, Release Date & Manga Analysis
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+            <div>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2">When does Blue Lock Chapter {chapter.number} release?</h3>
+              <p className="mb-4">
+                Blue Lock Chapter {chapter.number} officially released on {new Date(chapter.releaseDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}. The manga releases chapters on a weekly cadence, updating every week in Weekly Shōnen Magazine.
+              </p>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2">Where to read Blue Lock Chapter {chapter.number} officially?</h3>
+              <p>
+                The official serialization is published by Kodansha. For the complete English scan translation archive of all chapters, you can read free online at readbluelockmanga.online.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2">Chapter {chapter.number} spoilers and raw scans summary</h3>
+              <p className="mb-4">
+                Raw scans for Blue Lock Chapter {chapter.number} usually emerge online 2-3 days before the English translation releases. In this chapter, Yoichi Isagi and other strikers from the Blue Lock project compete in high-stakes matches to survive eliminations and forge chemical reactions.
+              </p>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2">Is the Blue Lock manga ongoing?</h3>
+              <p>
+                Yes, Blue Lock is actively ongoing, written by Muneyuki Kaneshiro. The story continues to follow the intense Neo Egoist League. Bookmark this site to get updates on the latest chapters!
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Navigation Footer (Visible in all modes, pushed to bottom) */}
