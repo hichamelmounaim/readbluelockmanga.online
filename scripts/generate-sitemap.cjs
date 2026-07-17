@@ -1,11 +1,42 @@
 const fs = require('fs');
 const path = require('path');
 
-const DOMAIN = 'https://readbluelockmanga.online';
+const DOMAIN = 'https://www.readbluelockmanga.online';
 
-// Replicate logic from constants.ts to get all chapter IDs
-const chapters = Array.from({ length: 347 }, (_, i) => i + 1);
+// Read characters and chapters dynamically
+let characterSlugs = [];
+let chaptersCount = 0;
 
+try {
+  const constantsPath = path.join(__dirname, '../constants.ts');
+  const constantsContent = fs.readFileSync(constantsPath, 'utf-8');
+  
+  const slugRegex = /"slug":\s*"([^"]+)"/g;
+  let match;
+  while ((match = slugRegex.exec(constantsContent)) !== null) {
+    characterSlugs.push(match[1]);
+  }
+} catch (e) {
+  console.error('Could not read constants.ts', e);
+}
+
+try {
+  const files = fs.readdirSync(path.join(__dirname, '..'));
+  const scrapedFile = files.find(f => f.startsWith('scraped_') && f.endsWith('.json'));
+  if (scrapedFile) {
+    const data = JSON.parse(fs.readFileSync(path.join(__dirname, '..', scrapedFile), 'utf-8'));
+    if (data.chapters) {
+      chaptersCount = data.chapters.length;
+    }
+  }
+} catch (e) {
+  console.error('Could not read scraped JSON', e);
+}
+
+// Fallback if not found
+if (chaptersCount === 0) chaptersCount = 100;
+
+const chapters = Array.from({ length: chaptersCount }, (_, i) => i + 1);
 
 const pages = [
   '',
@@ -18,45 +49,18 @@ const pages = [
   '/terms'
 ];
 
-let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-`;
+let sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 
-// Add static pages
 pages.forEach(page => {
-  sitemap += `  <url>
-    <loc>${DOMAIN}${page}</loc>
-    <changefreq>daily</changefreq>
-    <priority>${page === '' ? '1.0' : '0.8'}</priority>
-  </url>
-`;
+  sitemap += `  <url>\n    <loc>${DOMAIN}${page}</loc>\n    <changefreq>daily</changefreq>\n    <priority>${page === '' ? '1.0' : '0.8'}</priority>\n  </url>\n`;
 });
 
-// Add chapters
 chapters.forEach(num => {
-  sitemap += `  <url>
-    <loc>${DOMAIN}/chapter/${num}</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-`;
+  sitemap += `  <url>\n    <loc>${DOMAIN}/chapter/${num}</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.9</priority>\n  </url>\n`;
 });
-
-// Add character details (pSEO)
-const characterSlugs = [
-  'yoichi-isagi',
-  'meguru-bachira',
-  'rensuke-kunigami',
-  'rin-itoshi'
-];
 
 characterSlugs.forEach(slug => {
-  sitemap += `  <url>
-    <loc>${DOMAIN}/characters/${slug}</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-`;
+  sitemap += `  <url>\n    <loc>${DOMAIN}/characters/${slug}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.85</priority>\n  </url>\n`;
 });
 
 sitemap += `</urlset>`;
@@ -67,4 +71,4 @@ if (!fs.existsSync(publicDir)) {
 }
 
 fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemap);
-console.log(`Sitemap generated at ${path.join(publicDir, 'sitemap.xml')} with ${pages.length + chapters.length + characterSlugs.length} URLs`);
+console.log(`Sitemap generated with ${pages.length + chapters.length + characterSlugs.length} URLs for readbluelockmanga.online`);

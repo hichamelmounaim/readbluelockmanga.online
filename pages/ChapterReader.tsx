@@ -292,8 +292,7 @@ const ChapterReader: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-xl">
             {prevChapter ? (
-              <button
-                onClick={() => handleNav(prevChapter.number)}
+              <Link to={`/chapter/${prevChapter.number}`} 
                 className="group relative overflow-hidden rounded-2xl bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-white/10 p-6 text-left hover:border-gray-300 dark:hover:border-white/20 transition-all hover:shadow-xl hover:-translate-y-1"
               >
                 <div className="relative z-10 flex items-center justify-between">
@@ -305,12 +304,11 @@ const ChapterReader: React.FC = () => {
                     <ChevronLeft size={20} />
                   </div>
                 </div>
-              </button>
+              </Link>
             ) : <div />}
 
             {nextChapter ? (
-              <button
-                onClick={() => handleNav(nextChapter.number)}
+              <Link to={`/chapter/${nextChapter.number}`} 
                 className="group relative overflow-hidden rounded-2xl bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-white/10 p-6 text-right hover:border-bb-blue/50 dark:hover:border-bb-blue/50 transition-all hover:shadow-xl hover:shadow-bb-blue/10 hover:-translate-y-1"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent to-bb-blue/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -323,7 +321,7 @@ const ChapterReader: React.FC = () => {
                     <ChevronRight size={20} />
                   </div>
                 </div>
-              </button>
+              </Link>
             ) : (
               <button disabled className="rounded-2xl bg-gray-100 dark:bg-white/5 border border-transparent p-6 text-center cursor-not-allowed opacity-50">
                 <span className="font-bold text-gray-500">Latest Chapter</span>

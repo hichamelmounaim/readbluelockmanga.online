@@ -143,6 +143,24 @@
         "totalChapters": 359,
         "bulkSync": true
       }
+    },
+    {
+      "id": "st63wfy",
+      "date": "2026-07-16T12:22:32.257Z",
+      "type": "manual_edit",
+      "description": "Auto-Push Failed: Remote push to main failed. Check console logs for details."
+    },
+    {
+      "id": "ed9h7u0",
+      "date": "2026-07-17T10:28:44.620Z",
+      "type": "scrape",
+      "description": "Scraped successfully during bulk sync. No new chapters found. Up to date!",
+      "details": {
+        "newChaptersCount": 0,
+        "newChapterNumbers": [],
+        "totalChapters": 359,
+        "bulkSync": true
+      }
     }
   ]
 }

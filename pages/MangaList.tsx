@@ -40,6 +40,7 @@ const MangaList: React.FC = () => {
         title="Blue Lock Manga Library - All Chapters"
         description="Browse the complete collection of Blue Lock manga chapters. Read online in high quality."
         canonicalUrl="https://www.readbluelockmanga.online/manga"
+        schemas={[{ "@context": "https://schema.org", "@type": "CollectionPage" }]}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">

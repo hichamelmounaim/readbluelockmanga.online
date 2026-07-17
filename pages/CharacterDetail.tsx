@@ -76,7 +76,7 @@ const CharacterDetail: React.FC = () => {
         ogType="profile"
         ogImage={character.image}
         schema={personSchema}
-        schemas={[faqSchema]}
+        schemas={[faqSchema, { "@context": "https://schema.org", "@type": "ProfilePage" }]}
       />
 
       <Breadcrumbs items={[
