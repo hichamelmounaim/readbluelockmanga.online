@@ -19,7 +19,7 @@ const Legal: React.FC<LegalProps> = ({ type }) => {
           content: (
             <>
               <p className="mb-4">
-                At <strong>Blue Lock Manga</strong> (accessible from <a href="https://www.readbluelockmanga.online/" className="text-blue-500 hover:underline">readbluelockmanga.online</a>), the privacy of our visitors is of paramount importance. This Privacy Policy outlines the types of information recorded and how we utilize it to provide a fast, secure, and seamless manga reading environment.
+                At <strong>Blue Lock Manga</strong> (accessible from <a href="https://www.bluelockchapter.com/" className="text-blue-500 hover:underline">bluelockchapter.com</a>), the privacy of our visitors is of paramount importance. This Privacy Policy outlines the types of information recorded and how we utilize it to provide a fast, secure, and seamless manga reading environment.
               </p>
 
               <h2 className="text-xl font-bold mt-6 mb-3 text-white">1. Automated Server Log Files</h2>
@@ -39,7 +39,7 @@ const Legal: React.FC<LegalProps> = ({ type }) => {
 
               <h2 className="text-xl font-bold mt-6 mb-3 text-white">4. GDPR & CCPA Data Rights</h2>
               <p className="mb-4">
-                In compliance with the General Data Protection Regulation (GDPR) and California Consumer Privacy Act (CCPA), all visitors have the right to request clarification regarding processed data, request deletion, or object to tracking. For any privacy requests, reach out directly to our compliance team at <a href="mailto:support@readbluelockmanga.online" className="text-blue-500 hover:underline">support@readbluelockmanga.online</a>.
+                In compliance with the General Data Protection Regulation (GDPR) and California Consumer Privacy Act (CCPA), all visitors have the right to request clarification regarding processed data, request deletion, or object to tracking. For any privacy requests, reach out directly to our compliance team at <a href="mailto:support@bluelockchapter.com" className="text-blue-500 hover:underline">support@bluelockchapter.com</a>.
               </p>
             </>
           )
@@ -71,8 +71,8 @@ const Legal: React.FC<LegalProps> = ({ type }) => {
                 <p className="text-sm text-gray-300 mb-2">
                   Please direct all formal DMCA notices to our designated agent via email:
                 </p>
-                <a href="mailto:support@readbluelockmanga.online" className="text-blue-400 font-bold hover:underline">
-                  support@readbluelockmanga.online
+                <a href="mailto:support@bluelockchapter.com" className="text-blue-400 font-bold hover:underline">
+                  support@bluelockchapter.com
                 </a>
               </div>
 
@@ -90,7 +90,7 @@ const Legal: React.FC<LegalProps> = ({ type }) => {
             <>
               <h2 className="text-xl font-bold mt-6 mb-3 text-white">1. Unofficial Fan Project</h2>
               <p className="mb-4">
-                <strong>readbluelockmanga.online</strong> is an independent, non-commercial digital hub created by passionate fans. This platform is <strong>not endorsed by, directly affiliated with, sponsored by, or partnered with Muneyuki Kaneshiro, Yusuke Nomura, Kodansha Ltd., Pika Édition, or VIZ Media</strong>.
+                <strong>bluelockchapter.com</strong> is an independent, non-commercial digital hub created by passionate fans. This platform is <strong>not endorsed by, directly affiliated with, sponsored by, or partnered with Muneyuki Kaneshiro, Yusuke Nomura, Kodansha Ltd., Pika Édition, or VIZ Media</strong>.
               </p>
 
               <h2 className="text-xl font-bold mt-6 mb-3 text-white">2. Fair Use & Cultural Discussion</h2>
@@ -112,7 +112,7 @@ const Legal: React.FC<LegalProps> = ({ type }) => {
           content: (
             <>
               <p className="mb-4">
-                By accessing and utilizing <strong>readbluelockmanga.online</strong>, you acknowledge that you have read, understood, and agreed to be bound by these Terms and Conditions. If you do not agree with any part of these terms, please discontinue use of the site immediately.
+                By accessing and utilizing <strong>bluelockchapter.com</strong>, you acknowledge that you have read, understood, and agreed to be bound by these Terms and Conditions. If you do not agree with any part of these terms, please discontinue use of the site immediately.
               </p>
 
               <h2 className="text-xl font-bold mt-6 mb-3 text-white">1. Permitted Personal Use</h2>

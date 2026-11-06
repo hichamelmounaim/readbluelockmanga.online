@@ -2,7 +2,7 @@
 // Plain ES module so it can be imported by the React app (via utils/seo.ts)
 // AND by the Node build scripts (scripts/prerender.mjs, scripts/generate-sitemap.mjs).
 
-export const SITE_URL = 'https://www.readbluelockmanga.online';
+export const SITE_URL = 'https://www.bluelockchapter.com';
 export const SITE_NAME = 'Blue Lock Manga';
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.jpg`;
 

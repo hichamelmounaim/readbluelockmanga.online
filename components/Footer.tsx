@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
                 <li><Link to="/terms" className="hover:text-blue-500 transition-colors">Terms & Conditions</Link></li>
                 <li><Link to="/dmca" className="hover:text-blue-500 transition-colors">DMCA</Link></li>
                 <li><Link to="/disclaimer" className="hover:text-blue-500 transition-colors">Disclaimer</Link></li>
-                <li><a href="mailto:support@readbluelockmanga.online" className="hover:text-blue-500 transition-colors">Contact</a></li>
+                <li><a href="mailto:support@bluelockchapter.com" className="hover:text-blue-500 transition-colors">Contact</a></li>
               </ul>
             </div>
           </div>

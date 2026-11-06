@@ -234,7 +234,7 @@ const simplePages = {
   '/about': { h1: 'About Blue Lock Manga', text: "Blue Lock Manga is an independent fan project and reading archive for Muneyuki Kaneshiro and Yusuke Nomura's Blue Lock." },
   '/privacy': { h1: 'Privacy Policy', text: 'How we handle data and protect the privacy of visitors to Blue Lock Manga.' },
   '/terms': { h1: 'Terms and Conditions of Use', text: 'The terms of service, user agreements and conduct guidelines for Blue Lock Manga.' },
-  '/dmca': { h1: 'DMCA Copyright Notice & Takedown Policy', text: 'How to submit a DMCA copyright takedown notice to Blue Lock Manga: email support@readbluelockmanga.online.' },
+  '/dmca': { h1: 'DMCA Copyright Notice & Takedown Policy', text: 'How to submit a DMCA copyright takedown notice to Blue Lock Manga: email support@bluelockchapter.com.' },
   '/disclaimer': { h1: 'Legal Disclaimer & Fair Use Disclosure', text: 'Blue Lock Manga is an unofficial fan project and is not affiliated with Muneyuki Kaneshiro, Yusuke Nomura, Kodansha or VIZ Media.' },
 };
 for (const [route, p] of Object.entries(simplePages)) {
