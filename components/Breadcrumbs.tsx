@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Home } from 'lucide-react';
 
@@ -12,35 +12,7 @@ interface BreadcrumbsProps {
 }
 
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
-    const schema = {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": items.map((item, index) => ({
-            "@type": "ListItem",
-            "position": index + 1,
-            "name": item.label,
-            "item": item.path ? `https://readbluelockmanga.online${item.path}` : undefined
-        }))
-    };
-
-    useEffect(() => {
-        // Add Breadcrumb Schema
-        let scriptSchema = document.querySelector('#breadcrumb-schema');
-        if (!scriptSchema) {
-            scriptSchema = document.createElement('script');
-            scriptSchema.id = 'breadcrumb-schema';
-            scriptSchema.setAttribute('type', 'application/ld+json');
-            document.head.appendChild(scriptSchema);
-        }
-        scriptSchema.textContent = JSON.stringify(schema);
-
-        return () => {
-            // Cleanup on unmount
-            if (scriptSchema) {
-                scriptSchema.textContent = '';
-            }
-        };
-    }, [items]);
+    // BreadcrumbList JSON-LD is emitted once per page by SEOHead / the prerender, not here.
 
     return (
         <nav className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-6 font-medium overflow-x-auto whitespace-nowrap pb-2 md:pb-0">

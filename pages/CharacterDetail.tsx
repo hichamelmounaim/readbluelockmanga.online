@@ -1,9 +1,10 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, BookOpen, Sparkles, Sword } from 'lucide-react';
+import { ArrowLeft, BookOpen, Sparkles, Sword, Trophy, Users, ArrowRight, CheckCircle2 } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { CHARACTERS } from '../constants';
+import { getCharacterSEOData } from '../utils/seo';
 
 const CharacterDetail: React.FC = () => {
   const { characterSlug } = useParams<{ characterSlug: string }>();
@@ -12,71 +13,32 @@ const CharacterDetail: React.FC = () => {
   if (!character) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-20 text-center dark:text-white">
+        <SEOHead title="Character Not Found – Blue Lock Manga" description="This Blue Lock character profile does not exist." noindex />
         <h1 className="text-3xl font-heading font-bold mb-4">Character Not Found</h1>
         <p className="text-gray-400 mb-8">The character you are looking for does not exist in our database.</p>
-        <Link to="/characters" className="inline-flex items-center gap-2 px-6 py-3 bg-bb-blue hover:bg-rose-700 text-white rounded-lg font-bold transition-all">
+        <Link to="/characters" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition-all">
           <ArrowLeft size={18} /> Back to Characters List
         </Link>
       </div>
     );
   }
 
-  // Schema generation
-  const personSchema = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": character.name,
-    "description": character.description,
-    "image": character.image,
-    "jobTitle": character.grade,
-    "alternateName": character.role,
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Blue Lock Manga Series"
-    }
-  };
+  // Related characters
+  const relatedCharacters = (character.relatedSlugs || [])
+    .map(slug => CHARACTERS.find(c => c.slug === slug))
+    .filter(Boolean) as typeof CHARACTERS;
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": `Who is ${character.name} in Blue Lock?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": `${character.name} is a ${character.role.toLowerCase()} character in the Blue Lock manga series, playing as a ${character.grade.toLowerCase()}. ${character.description}`
-        }
-      },
-      ...(character.abilities ? [{
-        "@type": "Question",
-        "name": `What are ${character.name}'s soccer weapons and abilities?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": `${character.name} possesses unique soccer weapons in the Blue Lock project. Known weapons and abilities: ${character.abilities}`
-        }
-      }] : []),
-      ...(character.weapon && character.weapon !== 'None' && character.weapon !== 'Unknown' ? [{
-        "@type": "Question",
-        "name": `What is ${character.name}'s main footballing weapon?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": `In Blue Lock, ${character.name}'s core weapon is their ${character.weapon}.`
-        }
-      }] : [])
-    ]
-  };
+  const seo = getCharacterSEOData(character);
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <SEOHead
-        title={`${character.name} Guide — Weapons, Stats, and Story | Blue Lock`}
-        description={`Read all about ${character.name} in Blue Lock manga. Discover their role, soccer weapons (${character.abilities || 'striker abilities'}), stats, and background backstory in the Blue Lock project.`}
-        canonicalUrl={`https://readbluelockmanga.online/characters/${character.slug}`}
+        title={seo.seoTitle}
+        description={seo.seoDescription}
+        canonicalUrl={seo.canonicalUrl}
         ogType="profile"
-        ogImage={character.image}
-        schema={personSchema}
-        schemas={[faqSchema, { "@context": "https://schema.org", "@type": "ProfilePage" }]}
+        ogImage={seo.ogImage}
+        schemas={seo.schemas}
       />
 
       <Breadcrumbs items={[
@@ -86,24 +48,24 @@ const CharacterDetail: React.FC = () => {
       ]} />
 
       <div className="mt-4">
-        <Link to="/characters" className="inline-flex items-center gap-1 text-sm text-gray-400 hover:text-bb-blue transition-colors mb-6 font-semibold">
+        <Link to="/characters" className="inline-flex items-center gap-1 text-sm text-gray-400 hover:text-blue-400 transition-colors mb-6 font-semibold">
           <ArrowLeft size={16} /> Back to Characters
         </Link>
       </div>
 
-      <div className="bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/5 shadow-2xl p-6 md:p-10 mb-12">
+      <div className="bg-[#181818] rounded-2xl overflow-hidden border border-white/5 shadow-2xl p-6 md:p-10 mb-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Image Column */}
           <div className="lg:col-span-1">
-            <div className="aspect-[3/4] relative rounded-xl overflow-hidden bg-gray-800 shadow-lg border border-white/10 max-w-sm mx-auto lg:max-w-none">
+            <div className="aspect-[3/4] relative rounded-xl overflow-hidden bg-gray-900 shadow-lg border border-white/10 max-w-sm mx-auto lg:max-w-none">
               <img
                 src={character.image}
-                alt={`${character.name} - Blue Lock`}
-                className="w-full h-full object-cover"
+                alt={`${character.name} - Blue Lock Manga`}
+                className="w-full h-full object-cover object-top"
                 loading="eager"
               />
               <div className="absolute bottom-4 left-4">
-                <span className="inline-block px-3 py-1 bg-bb-blue text-white text-xs font-bold uppercase tracking-wider rounded-md">
+                <span className="inline-block px-3 py-1 bg-blue-600 text-white text-xs font-bold uppercase tracking-wider rounded-md shadow-md">
                   {character.role}
                 </span>
               </div>
@@ -116,22 +78,27 @@ const CharacterDetail: React.FC = () => {
               <h1 className="text-4xl md:text-5xl font-heading font-black text-white mb-2 tracking-wide uppercase">
                 {character.name}
               </h1>
-              <p className="text-bb-blue font-bold tracking-widest text-sm uppercase mb-6 flex items-center gap-2">
+              <p className="text-blue-400 font-bold tracking-widest text-sm uppercase mb-6 flex items-center gap-2">
                 <Sparkles size={16} /> {character.grade}
               </p>
 
+              {character.age && (
+                <p className="text-gray-300 text-sm mb-4">
+                  <strong className="text-white">Age:</strong> {character.age}{character.birthday ? ` · Birthday: ${character.birthday}` : ''}
+                </p>
+              )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <div className="bg-white/5 border border-white/5 rounded-xl p-4">
-                  <span className="text-gray-500 text-xs font-bold uppercase tracking-wider block mb-1">Soccer Weapon</span>
-                  <span className="text-white font-medium flex items-center gap-1.5">
-                    <Sword size={16} className="text-bb-blue" />
-                    {character.weapon || 'None / Unknown'}
+                  <span className="text-gray-400 text-xs font-bold uppercase tracking-wider block mb-1">Soccer Weapon</span>
+                  <span className="text-white font-medium flex items-center gap-1.5 text-sm">
+                    <Sword size={16} className="text-yellow-400" />
+                    {character.weapon || 'Striker Ego'}
                   </span>
                 </div>
                 <div className="bg-white/5 border border-white/5 rounded-xl p-4">
-                  <span className="text-gray-500 text-xs font-bold uppercase tracking-wider block mb-1">First Appearance</span>
-                  <span className="text-white font-medium flex items-center gap-1.5">
-                    <BookOpen size={16} className="text-bb-blue" />
+                  <span className="text-gray-400 text-xs font-bold uppercase tracking-wider block mb-1">First Appearance</span>
+                  <span className="text-white font-medium flex items-center gap-1.5 text-sm">
+                    <BookOpen size={16} className="text-blue-400" />
                     {character.firstAppearance || 'Chapter 1'}
                   </span>
                 </div>
@@ -140,7 +107,7 @@ const CharacterDetail: React.FC = () => {
               <div className="mb-6">
                 <h2 className="text-lg font-bold text-white mb-2 border-b border-white/5 pb-2">Abilities & Style</h2>
                 <p className="text-gray-300 text-sm leading-relaxed">
-                  {character.abilities || 'High-tier striker weapons and egoist footballing style.'}
+                  {character.abilities}
                 </p>
               </div>
 
@@ -152,56 +119,104 @@ const CharacterDetail: React.FC = () => {
               </div>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row gap-4">
-              <Link
-                to="/chapter/1"
-                className="inline-flex items-center justify-center px-6 py-3.5 bg-bb-blue hover:bg-rose-700 text-white font-bold rounded-xl shadow-lg transition-all text-center"
-              >
-                Read Manga from Chapter 1
-              </Link>
-              <Link
-                to="/"
-                className="inline-flex items-center justify-center px-6 py-3.5 bg-white/5 hover:bg-white/10 text-white font-bold rounded-xl border border-white/5 transition-all text-center"
-              >
-                Go to Home Page
-              </Link>
-            </div>
+            {/* Key Chapters Highlight Mesh */}
+            {character.keyChapters && character.keyChapters.length > 0 && (
+              <div className="mt-6 pt-6 border-t border-white/5">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3 flex items-center gap-1.5">
+                  <Trophy size={14} className="text-yellow-400" />
+                  Key Manga Chapters Featuring {character.name}:
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {character.keyChapters.map(kc => (
+                    <Link
+                      key={kc.number}
+                      to={`/chapter/${kc.number}`}
+                      className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-blue-600/10 hover:border-blue-500/30 border border-white/5 text-xs text-gray-300 hover:text-white transition-all group"
+                    >
+                      <span className="font-semibold">{kc.label}</span>
+                      <ArrowRight size={13} className="text-gray-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
+      {/* Related Characters Network */}
+      {relatedCharacters.length > 0 && (
+        <section className="mb-12">
+          <h2 className="text-xl font-heading font-bold text-white mb-4 flex items-center gap-2">
+            <Users size={18} className="text-blue-500" />
+            Key Teammates & Rivals
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {relatedCharacters.map(rel => (
+              <Link
+                key={rel.slug}
+                to={`/characters/${rel.slug}`}
+                className="flex items-center gap-3 p-3.5 rounded-xl bg-[#181818] border border-white/5 hover:border-blue-500/40 hover:-translate-y-0.5 transition-all group"
+              >
+                <img
+                  src={rel.image}
+                  alt={rel.name}
+                  className="w-12 h-12 rounded-lg object-cover object-top border border-white/10"
+                />
+                <div>
+                  <h3 className="font-bold text-white text-sm group-hover:text-blue-400 transition-colors">
+                    {rel.name}
+                  </h3>
+                  <span className="text-[11px] text-gray-400">{rel.role}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* FAQ Accordion Section for pSEO targeting */}
-      <section className="bg-[#1a1a1a] rounded-2xl border border-white/5 shadow-2xl p-6 md:p-10 mb-12">
+      <section className="bg-[#181818] rounded-2xl border border-white/5 shadow-2xl p-6 md:p-8 mb-12">
         <h2 className="text-2xl font-heading font-bold text-white mb-6 uppercase tracking-wider flex items-center gap-2">
-          <BookOpen className="text-bb-blue" /> FAQ about {character.name}
+          <BookOpen className="text-blue-500" /> FAQ about {character.name}
         </h2>
-        <div className="space-y-4">
-          <div className="bg-white/3 border border-white/5 p-5 rounded-xl">
-            <h3 className="font-bold text-white text-base mb-2">Who is {character.name} in Blue Lock?</h3>
-            <p className="text-gray-400 text-sm leading-relaxed">
-              {character.name} is a key forward/striker inside the Blue Lock project, a facility built by Jinpachi Ego to raise the world's most egotistical striker. In the story, they play as a {character.grade.toLowerCase()}, clashing with other players to survive eliminations.
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {character.faq?.map(f => (
+            <div key={f.q} className="bg-white/5 border border-white/5 p-5 rounded-xl">
+              <h3 className="font-bold text-white text-sm mb-2">{f.q}</h3>
+              <p className="text-gray-400 text-xs leading-relaxed">{f.a}</p>
+            </div>
+          ))}
+          <div className="bg-white/5 border border-white/5 p-5 rounded-xl">
+            <h3 className="font-bold text-white text-sm mb-2">Who is {character.name} in Blue Lock?</h3>
+            <p className="text-gray-400 text-xs leading-relaxed">
+              {character.name} ({character.role}, {character.grade.toLowerCase()}): {character.description}
             </p>
           </div>
-          {character.abilities && (
-            <div className="bg-white/3 border border-white/5 p-5 rounded-xl">
-              <h3 className="font-bold text-white text-base mb-2">What are the weapons of {character.name}?</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                In Blue Lock, player abilities are referred to as 'weapons.' {character.name}'s weapons are {character.abilities}, allowing them to score goals and force chemical reactions with teammates.
+          {character.age && (
+            <div className="bg-white/5 border border-white/5 p-5 rounded-xl">
+              <h3 className="font-bold text-white text-sm mb-2">How old is {character.shortName || character.name} in Blue Lock?</h3>
+              <p className="text-gray-400 text-xs leading-relaxed">
+                {/^\d+$/.test(character.age) ? `${character.name} is ${character.age} years old during the main Blue Lock story` : `${character.name}'s age: ${character.age}`}{character.birthday ? `. Birthday: ${character.birthday}` : ''}.
               </p>
             </div>
           )}
-          {character.weapon && character.weapon !== 'None' && character.weapon !== 'Unknown' && (
-            <div className="bg-white/3 border border-white/5 p-5 rounded-xl">
-              <h3 className="font-bold text-white text-base mb-2">What is the signature playstyle of {character.name}?</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                Their signature playstyle revolves around their weapon: {character.weapon}. This enables them to stand out in high-stakes matches against world-class youth teams.
-              </p>
-            </div>
-          )}
-          <div className="bg-white/3 border border-white/5 p-5 rounded-xl">
-            <h3 className="font-bold text-white text-base mb-2">Where can I read Blue Lock manga online free?</h3>
-            <p className="text-gray-400 text-sm leading-relaxed">
-              You can read all chapters of Blue Lock manga online free on <Link to="/" className="text-bb-blue hover:underline">www.readbluelockmanga.online</Link> with no registration required. High-definition pages, fast loading speeds, and updates as soon as the latest chapters are published!
+          <div className="bg-white/5 border border-white/5 p-5 rounded-xl">
+            <h3 className="font-bold text-white text-sm mb-2">What is {character.name}'s primary weapon?</h3>
+            <p className="text-gray-400 text-xs leading-relaxed">
+              In Blue Lock, player abilities are described as weapons. {character.name}'s weapon is {character.weapon || character.abilities}, allowing them to create and finish goal opportunities.
+            </p>
+          </div>
+          <div className="bg-white/5 border border-white/5 p-5 rounded-xl">
+            <h3 className="font-bold text-white text-sm mb-2">Which chapter does {character.name} debut in?</h3>
+            <p className="text-gray-400 text-xs leading-relaxed">
+              {character.name} first enters the story in {character.firstAppearance || 'Chapter 1'}.
+            </p>
+          </div>
+          <div className="bg-white/5 border border-white/5 p-5 rounded-xl">
+            <h3 className="font-bold text-white text-sm mb-2">Where can I read Blue Lock online free?</h3>
+            <p className="text-gray-400 text-xs leading-relaxed">
+              Every chapter is listed in our <Link to="/manga" className="text-blue-400 hover:underline">full Blue Lock chapter list</Link>, starting from <Link to="/chapter/1" className="text-blue-400 hover:underline">Chapter 1</Link>.
             </p>
           </div>
         </div>

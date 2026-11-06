@@ -3,7 +3,8 @@ export interface Chapter {
   number: number;
   title: string;
   releaseDate: string;
-  pages: string[];
+  pages?: string[];
+  pageCount?: number;
 }
 
 export interface Character {
@@ -13,11 +14,18 @@ export interface Character {
   description: string;
   image: string;
   grade: string;
-  slug?: string;
-  abilities?: string;
-  weapon?: string;
-  firstAppearance?: string;
-  longDescription?: string;
+  slug: string;
+  abilities: string;
+  weapon: string;
+  firstAppearance: string;
+  longDescription: string;
+  keyChapters?: { number: number; label: string }[];
+  relatedSlugs?: string[];
+  /** Name fans search with, e.g. "Nagi" for "nagi blue lock" */
+  shortName?: string;
+  age?: string;
+  birthday?: string;
+  faq?: { q: string; a: string }[];
 }
 
 export interface Arc {
@@ -26,6 +34,7 @@ export interface Arc {
   description: string;
   chapterStart: number;
   chapterEnd: number;
+  ongoing?: boolean;
   image: string;
 }
 

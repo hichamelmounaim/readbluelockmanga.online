@@ -14,6 +14,9 @@ const Characters = lazy(() => import('./pages/Characters'));
 const CharacterDetail = lazy(() => import('./pages/CharacterDetail'));
 const About = lazy(() => import('./pages/About'));
 const Legal = lazy(() => import('./pages/Legal'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+const GuidePage = lazy(() => import('./pages/GuidePage'));
+import { GUIDES } from './data/guides.js';
 
 // Wrapper to conditionally render layout based on path
 const LayoutWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -66,6 +69,16 @@ const App: React.FC = () => {
                     <ChapterReader />
                   </>
                 } />
+
+                {/* Guide pages: anime, arcs, teams, author (content in data/guides.js) */}
+                {Object.keys(GUIDES).map(path => (
+                  <React.Fragment key={path}>
+                    <Route path={path} element={<LayoutWrapper><GuidePage /></LayoutWrapper>} />
+                  </React.Fragment>
+                ))}
+
+                {/* Catch-all: real 404 page (noindex) instead of a blank screen */}
+                <Route path="*" element={<LayoutWrapper><NotFound /></LayoutWrapper>} />
               </Routes>
             </Suspense>
           </div>

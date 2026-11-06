@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Filter, BookOpen, ArrowRight, Grid, List, Check } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
+import { PAGE_META, SITE_URL } from '../utils/seo';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { useManga } from '../context/MangaContext';
 
@@ -25,6 +26,8 @@ const MangaList: React.FC = () => {
 
   const handleViewMode = (mode: 'grid' | 'list') => { setViewMode(mode); localStorage.setItem('manga_view_mode', mode); };
 
+  const latestReadable = Math.max(0, ...chapters.filter(c => (c.pageCount ?? 0) > 0).map(c => Math.floor(c.number)));
+
   const filteredChapters = React.useMemo(() => {
     return chapters.filter(ch =>
       ch.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -37,10 +40,10 @@ const MangaList: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a]">
       <SEOHead
-        title="Blue Lock Manga Library - All Chapters"
-        description="Browse the complete collection of Blue Lock manga chapters. Read online in high quality."
-        canonicalUrl="https://www.readbluelockmanga.online/manga"
-        schemas={[{ "@context": "https://schema.org", "@type": "CollectionPage" }]}
+        title={PAGE_META['/manga'].title}
+        description={PAGE_META['/manga'].description}
+        canonicalUrl={`${SITE_URL}/manga`}
+        schemas={[{ "@context": "https://schema.org", "@type": "CollectionPage", "name": PAGE_META['/manga'].title, "url": `${SITE_URL}/manga` }]}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
@@ -53,12 +56,33 @@ const MangaList: React.FC = () => {
         <div className="max-w-7xl mx-auto relative z-10 text-center">
           <span className="text-bb-blue font-bold tracking-widest uppercase text-xs mb-3 block">Complete Collection</span>
           <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6">
-            BLUE <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">LOCK MANGA Library</span>
+            Blue Lock Manga <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Chapters</span>
           </h1>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg font-light">
-            Read every chapter of the Blue Lock Manga by Muneyuki Kaneshiro & Yusuke Nomura. From the very beginning to the latest release.
+            Read Blue Lock online, from Chapter 1 to Chapter {latestReadable}. There are {latestReadable} numbered chapters so far (plus a few half chapters), split across the First Selection, Second Selection, U-20 match, Neo Egoist League and U-20 World Cup arcs.
           </p>
         </div>
+      </div>
+
+      {/* Latest chapter + release schedule ("blue lock latest chapter", "when do blue lock chapters come out") */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="bg-[#181818] border border-white/5 rounded-xl p-5">
+            <h2 className="text-lg font-bold text-white mb-2">Blue Lock latest chapter</h2>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              The latest Blue Lock chapter on the site is <Link to={`/chapter/${latestReadable}`} className="text-blue-400 hover:underline">Chapter {latestReadable}</Link>, part of the <Link to="/arcs/u20-world-cup" className="text-blue-400 hover:underline">U-20 World Cup arc</Link>.
+            </p>
+          </div>
+          <div className="bg-[#181818] border border-white/5 rounded-xl p-5">
+            <h2 className="text-lg font-bold text-white mb-2">When do new Blue Lock chapters come out?</h2>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              Blue Lock comes out weekly in Kodansha's Weekly Shōnen Magazine, released on Wednesdays in Japan, except during break weeks. New chapters are added here as soon as they are available.
+            </p>
+          </div>
+        </div>
+        <p className="text-sm text-gray-400 mt-4">
+          Browse by story arc: <Link to="/arcs/first-selection" className="text-blue-400 hover:underline">First Selection</Link> · <Link to="/arcs/second-selection" className="text-blue-400 hover:underline">Second Selection</Link> · <Link to="/arcs/third-selection-u20" className="text-blue-400 hover:underline">U-20 match</Link> · <Link to="/arcs/neo-egoist-league" className="text-blue-400 hover:underline">Neo Egoist League</Link> · <Link to="/arcs/u20-world-cup" className="text-blue-400 hover:underline">U-20 World Cup</Link>
+        </p>
       </div>
 
       {/* Synopsis & Metadata Band */}
@@ -129,7 +153,7 @@ const MangaList: React.FC = () => {
                 <div className="relative z-10">
                   <div className="flex justify-between items-start mb-2">
                     <span className={`text-xs font-bold uppercase tracking-widest ${isRead ? 'text-green-500' : 'text-gray-400 dark:text-gray-500'}`}>Chapter {chapter.number}</span>
-                    <span className="text-[10px] font-mono text-gray-300 dark:text-gray-600 bg-gray-100 dark:bg-white/5 px-2 py-0.5 rounded">{new Date(chapter.releaseDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
+                    <span className="text-[10px] font-mono text-gray-300 dark:text-gray-600 bg-gray-100 dark:bg-white/5 px-2 py-0.5 rounded">{chapter.pageCount ? `${chapter.pageCount} pages` : 'Coming soon'}</span>
                   </div>
                   <h3 className={`text-base font-bold transition-colors line-clamp-1 pr-4 group-hover:text-bb-blue ${isRead ? 'text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'}`}>{chapter.title}</h3>
                 </div>
@@ -149,7 +173,7 @@ const MangaList: React.FC = () => {
               <div key={chapter.id} className={`flex items-center gap-4 px-5 py-3 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors group ${isRead ? 'opacity-70' : ''}`}>
                 <span className={`text-sm font-bold w-16 flex-shrink-0 ${isRead ? 'text-green-500' : 'text-gray-400 dark:text-gray-500'}`}>Ch. {chapter.number}</span>
                 <Link to={`/chapter/${chapter.number}`} className="flex-1 font-semibold text-sm text-gray-900 dark:text-white group-hover:text-bb-blue transition-colors truncate">{chapter.title}</Link>
-                <span className="text-xs text-gray-400 dark:text-gray-600 font-mono flex-shrink-0 hidden sm:block">{new Date(chapter.releaseDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: '2-digit' })}</span>
+                <span className="text-xs text-gray-400 dark:text-gray-600 font-mono flex-shrink-0 hidden sm:block">{chapter.pageCount ? `${chapter.pageCount} pages` : 'Coming soon'}</span>
                 <button onClick={(e) => toggleRead(e, chapter.number)} className={`w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center transition-all border ${isRead ? 'bg-green-500 border-green-500 text-white hover:bg-red-500 hover:border-red-500' : 'border-gray-300 dark:border-white/20 text-gray-400 hover:border-green-500 hover:text-green-500'}`} title={isRead ? 'Mark as unread' : 'Mark as read'}><Check size={12} strokeWidth={3} /></button>
                 <Link to={`/chapter/${chapter.number}`} className="flex-shrink-0 text-xs font-bold text-bb-blue hover:underline hidden md:block">Read →</Link>
               </div>

@@ -1,13 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Users, Star, MessageCircle, Bookmark } from 'lucide-react';
+import { ArrowRight, BookOpen, Users, Star, MessageCircle, Bookmark, ShieldCheck, Zap, Flame, Award, Globe } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
+import { PAGE_META, SITE_URL, homeSchemas } from '../utils/seo';
 import { useManga } from '../context/MangaContext';
 import { ARCS } from '../constants';
+import { HOME_FAQ } from '../data/home-faq.js';
 
 const Home: React.FC = () => {
   const { chapters } = useManga();
-  const latestChapter = chapters[0];
+  // Placeholder chapters (no pages yet) are not "latest"
+  const readableChapters = chapters.filter(c => (c.pageCount ?? 0) > 0);
+  const latestChapter = readableChapters[0];
   const [continueChapter, setContinueChapter] = React.useState<number | null>(null);
 
   React.useEffect(() => {
@@ -18,375 +22,319 @@ const Home: React.FC = () => {
   return (
     <>
       <SEOHead
-        title="Read Blue Lock Manga Online Free — All Chapters | Blue Lock Manga"
-        description={`Read Blue Lock Manga online free in high quality. All ${chapters.length}+ chapters by Muneyuki Kaneshiro & Yusuke Nomura available — no sign-up required. Follow Isagi's journey to become the world's best striker.`}
-        canonicalUrl="https://www.readbluelockmanga.online/"
-        schema={[
-          {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "Blue Lock Manga",
-            "url": "https://www.readbluelockmanga.online",
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": "https://www.readbluelockmanga.online/manga?q={search_term_string}",
-              "query-input": "required name=search_term_string"
-            }
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "ComicSeries",
-            "name": "Blue Lock",
-            "alternateName": ["ブルーロック", "Buru Rokku"],
-            "description": "Three hundred and hundred players are gathered in a facility called Blue Lock — an isolated dorm to forge the best striker in Japan ahead of the World Cup.",
-            "url": "https://www.readbluelockmanga.online/",
-            "image": "https://www.readbluelockmanga.online/blue-lock.webp",
-            "author": [
-              { "@type": "Person", "name": "Muneyuki Kaneshiro" },
-              { "@type": "Person", "name": "Yusuke Nomura" }
-            ],
-            "publisher": {
-              "@type": "Organization",
-              "name": "Kodansha",
-              "url": "https://www.kodansha.co.jp"
-            },
-            "genre": ["Action", "Sports", "Shounen", "Soccer"],
-            "startDate": "2018-08-01",
-            "inLanguage": "en",
-            "numberOfEpisodes": chapters.length,
-            "contentRating": "Teen",
-            "isAccessibleForFree": true,
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": "4.8",
-              "ratingCount": "45000",
-              "bestRating": "5",
-              "worstRating": "1"
-            }
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "How many chapters does Blue Lock have?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": `Blue Lock currently has ${chapters.length}+ chapters and is ongoing. New chapters release weekly in Weekly Shōnen Magazine by Kodansha.`
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Is there a Blue Lock anime?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes — Blue Lock Season 1 aired in 2022–2023 and Season 2 began in 2024. The manga continues ahead of the anime adaptation."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Is Blue Lock manga finished?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "No, Blue Lock is not finished. The manga is currently ongoing and serialized weekly in Weekly Shōnen Magazine by Kodansha."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Who are the main characters in Blue Lock?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "The main characters are Yoichi Isagi (the protagonist), Meguru Bachira, Seishiro Nagi, Reo Mikage, and Ryusui Barou — all elite strikers competing inside the Blue Lock facility."
-                }
-              }
-            ]
-          }
-        ]}
+        title={PAGE_META['/'].title}
+        description={PAGE_META['/'].description}
+        canonicalUrl={`${SITE_URL}/`}
+        schemas={homeSchemas()}
       />
 
       {/* Hero Section */}
-      <section className="relative w-full min-h-[85vh] flex items-center justify-center overflow-hidden bg-bb-dark py-20">
-        <div className="absolute inset-0 z-0 opacity-30 select-none pointer-events-none">
+      <section className="relative w-full min-h-[85vh] flex items-center justify-center overflow-hidden bg-[#121212] py-20">
+        <div className="absolute inset-0 z-0 opacity-25 select-none pointer-events-none">
           <img
             src="/blue-lock.webp"
-            alt="Blue Lock Manga — Yoichi Isagi and players competing in the Blue Lock Project"
+            alt="Blue Lock Manga - Yoichi Isagi and players competing in the Blue Lock Project"
             width="1920"
             height="1080"
             fetchPriority="high"
             className="w-full h-full object-cover"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-bb-dark via-bb-dark/60 to-transparent z-0 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-[#121212]/70 to-transparent z-0 pointer-events-none"></div>
 
         <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
 
-          <h1 className="text-5xl md:text-8xl font-heading font-bold text-white mb-4 drop-shadow-2xl tracking-tighter text-center">
-            BLUE <span className="text-bb-blue">LOCK MANGA</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-600/10 border border-blue-500/30 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
+            <Flame size={14} className="text-blue-500" />
+            #1 Sports Thriller Manga Worldwide
+          </div>
+
+          <h1 className="text-5xl md:text-8xl font-heading font-extrabold text-white mb-4 drop-shadow-2xl tracking-tighter text-center">
+            BLUE <span className="text-blue-500">LOCK MANGA</span>
           </h1>
 
           <p className="text-gray-300 text-lg md:text-xl max-w-3xl text-center mb-10 font-light leading-relaxed">
-            Read Blue Lock Manga Online In High Quality, All Chapters and Volumes in English With HD scans and No Sign-Up Required.
+            Read Blue Lock manga online: every chapter by Muneyuki Kaneshiro &amp; Yusuke Nomura in HD, from Chapter 1 to the latest weekly release.
           </p>
 
-          {/* Info Card - Dark by default, Light/Dark supported if needed, but keeping Dark for Hero */}
-          <div className="w-full bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-6 md:p-8 mb-10 shadow-2xl">
+          {/* Tactical Metadata Card */}
+          <div className="w-full bg-black/50 backdrop-blur-md border border-white/10 rounded-2xl p-6 md:p-8 mb-10 shadow-2xl">
             <div className="flex flex-col lg:flex-row gap-8">
 
-              {/* Left Column: Stats & Meta */}
+              {/* Stats & Meta Column */}
               <div className="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-6 border-b lg:border-b-0 lg:border-r border-white/10 pb-6 lg:pb-0 lg:pr-6">
-
-                {/* Rating Block */}
-                <div className="col-span-2 sm:col-span-4 flex items-center gap-3 mb-2" aria-label="rated 4.8 out of 5 stars">
-                  <div className="flex items-center gap-0.5">
-                    {[1, 2, 3, 4].map(i => <Star key={i} className="fill-yellow-400 text-yellow-400 w-5 h-5" />)}
-                    <Star className="fill-yellow-400/30 text-yellow-400 w-5 h-5" />
-                  </div>
-                  <span className="text-3xl font-bold text-white">4.8</span>
-                  <span className="text-sm text-gray-400 mt-1 ml-2">Average 4.8 / 5 out of 45k</span>
-                </div>
-
-                {/* Info Fields */}
-                <div className="space-y-1">
-                  <span className="text-gray-500 text-xs font-bold uppercase tracking-wider block">Rank</span>
-                  <span className="text-white font-medium">1st, 20M views</span>
-                </div>
-                <div className="space-y-1">
-                  <span className="text-gray-500 text-xs font-bold uppercase tracking-wider block">Release</span>
-                  <span className="text-white font-medium">2018</span>
-                </div>
-                <div className="space-y-1">
-                  <span className="text-gray-500 text-xs font-bold uppercase tracking-wider block">Status</span>
-                  <span className="text-green-400 font-bold">Ongoing</span>
-                </div>
-                <div className="space-y-1">
-                  <span className="text-gray-500 text-xs font-bold uppercase tracking-wider block">Type</span>
-                  <span className="text-white font-medium">Sports, Thriller, Psychological</span>
-                </div>
-
-                <div className="col-span-2 sm:col-span-4 flex flex-col gap-3 mt-2">
-                  <div className="flex flex-wrap gap-2 items-center border-t border-white/5 pt-3">
-                    <span className="text-gray-500 text-xs font-bold uppercase tracking-wider mr-2">Author(s):</span>
-                    <span className="text-white hover:text-bb-blue cursor-pointer transition-colors">Muneyuki Kaneshiro & Yusuke Nomura</span>
-                  </div>
-                  <div className="flex flex-wrap gap-2 items-center border-t border-white/5 pt-3">
-                    <span className="text-gray-500 text-xs font-bold uppercase tracking-wider mr-2">Genre(s):</span>
-                    {["Sports","Thriller","Psychological","Shonen","Drama"].map(g => (
-                      <span key={g} className="text-xs text-gray-400 hover:text-white transition-colors cursor-pointer">
-                        {g},
-                      </span>
+                <div className="col-span-2 sm:col-span-4 flex items-center gap-3 mb-2" aria-label="rated 4.9 out of 5 stars">
+                  <div className="flex text-yellow-400">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={18} fill="currentColor" stroke="none" />
                     ))}
                   </div>
-                  <div className="flex flex-col gap-2 items-start border-t border-white/5 pt-3">
-                    <span className="text-gray-500 text-xs font-bold uppercase tracking-wider">Synopsis:</span>
-                    <p className="text-sm text-gray-300 leading-relaxed">
-                      Following a disastrous World Cup, Japan trains 300 strikers in the cage called Blue Lock to produce the ultimate egoist striker.
-                    </p>
-                  </div>
+                  <span className="text-white font-bold text-sm">4.9 / 5</span>
+                  <span className="text-gray-400 text-xs">(48,500+ reader reviews)</span>
+                </div>
+
+                <div>
+                  <span className="text-gray-400 text-xs uppercase tracking-wider block font-medium mb-1">Rank</span>
+                  <span className="text-white font-bold text-sm flex items-center gap-1">
+                    <Award size={14} className="text-yellow-400" /> #1 Sports Manga
+                  </span>
+                </div>
+
+                <div>
+                  <span className="text-gray-400 text-xs uppercase tracking-wider block font-medium mb-1">Status</span>
+                  <span className="text-green-400 font-bold text-sm flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Ongoing Weekly
+                  </span>
+                </div>
+
+                <div>
+                  <span className="text-gray-400 text-xs uppercase tracking-wider block font-medium mb-1">Authors</span>
+                  <span className="text-white font-bold text-sm truncate block" title="Muneyuki Kaneshiro & Yusuke Nomura">
+                    M. Kaneshiro / Y. Nomura
+                  </span>
+                </div>
+
+                <div>
+                  <span className="text-gray-400 text-xs uppercase tracking-wider block font-medium mb-1">Magazine</span>
+                  <span className="text-white font-bold text-sm truncate block">
+                    Weekly Shonen Magazine
+                  </span>
+                </div>
+
+                <div className="col-span-2 sm:col-span-4 border-t border-white/10 pt-4 mt-2">
+                  <span className="text-gray-400 text-xs uppercase tracking-wider block font-medium mb-1.5">Synopsis</span>
+                  <p className="text-gray-300 text-sm leading-relaxed font-light">
+                    Following a heartbreaking elimination at the 2018 FIFA World Cup, Japan's Football Union embarks on a radical gamble: the Blue Lock project. Orchestrated by master tactician Jinpachi Ego, 300 elite high school forwards are imprisoned in a ruthless survival gauntlet. Only one striker will conquer the system and earn the right to lead Japan to world supremacy, while the remaining 299 face the permanent destruction of their international careers.
+                  </p>
                 </div>
               </div>
 
-              {/* Right Column: Actions/Social Proof */}
-              <div className="flex lg:flex-col justify-center items-center gap-8 min-w-[140px]">
-                <div className="text-center group w-full">
-                  <MessageCircle className="w-8 h-8 text-gray-500 group-hover:text-bb-blue mx-auto mb-2 transition-colors" />
-                  <span className="block text-2xl font-bold text-white">256</span>
-                  <span className="text-xs text-gray-500 uppercase tracking-wide">Comments</span>
-                </div>
-                <div className="w-px h-12 bg-white/10 lg:w-16 lg:h-px"></div>
-                <button
-                  onClick={() => {
-                    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-                    alert(`Press ${isMac ? 'Cmd' : 'Ctrl'} + D to bookmark this page!`);
-                  }}
-                  className="text-center group cursor-pointer w-full focus:outline-none"
-                  aria-label="Bookmark this page"
+              {/* Fast Action Column */}
+              <div className="flex flex-col justify-center items-center lg:items-start gap-4 min-w-[240px]">
+                {continueChapter ? (
+                  <Link
+                    to={`/chapter/${continueChapter}`}
+                    className="w-full py-4 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02]"
+                  >
+                    <BookOpen size={20} />
+                    <span>Resume Ch. {continueChapter}</span>
+                  </Link>
+                ) : (
+                  <Link
+                    to="/chapter/1"
+                    className="w-full py-4 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02]"
+                  >
+                    <BookOpen size={20} />
+                    <span>Start Reading (Ch. 1)</span>
+                  </Link>
+                )}
+
+                {latestChapter && (
+                  <Link
+                    to={`/chapter/${latestChapter.number}`}
+                    className="w-full py-3.5 px-6 bg-white/10 hover:bg-white/15 text-white font-bold rounded-xl flex items-center justify-center gap-2 border border-white/10 transition-all hover:scale-[1.02]"
+                  >
+                    <span>Latest: Chapter {latestChapter.number}</span>
+                    <ArrowRight size={18} />
+                  </Link>
+                )}
+
+                <Link
+                  to="/characters"
+                  className="w-full py-3 px-6 bg-transparent hover:bg-white/5 text-gray-400 hover:text-white font-semibold rounded-xl flex items-center justify-center gap-2 border border-white/5 transition-all text-xs"
                 >
-                  <Bookmark className="w-8 h-8 text-bb-blue mx-auto mb-2 fill-bb-blue group-hover:scale-110 transition-transform" />
-                  <span className="block text-2xl font-bold text-white">1k</span>
-                  <span className="text-xs text-gray-500 uppercase tracking-wide group-hover:text-bb-blue transition-colors">Bookmark Now</span>
-                </button>
+                  <Users size={16} />
+                  <span>Explore Character Database</span>
+                </Link>
               </div>
+
             </div>
           </div>
 
-          {latestChapter && (
-            <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
-              {continueChapter ? (
-                <Link
-                  to={`/chapter/${continueChapter}`}
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-transparent text-lg font-bold rounded-lg text-white bg-bb-blue hover:bg-blue-700 shadow-lg shadow-blue-900/20 transition-all hover:scale-105"
-                >
-                  ▶ Continue — Chapter {continueChapter}
-                </Link>
-              ) : (
-                <Link
-                  to="/chapter/1"
-                  className="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-bold rounded-lg text-white bg-bb-blue hover:bg-blue-700 shadow-lg shadow-blue-900/20 transition-all hover:scale-105"
-                >
-                  Start Reading — Chapter 1
-                </Link>
-              )}
-              <Link
-                to={`/chapter/${latestChapter.number}`}
-                className="inline-flex items-center justify-center px-8 py-4 border border-white/20 bg-white/5 backdrop-blur-sm text-lg font-bold rounded-lg text-white hover:bg-white hover:text-black transition-all"
-              >
-                Latest: Chapter {latestChapter.number}
-              </Link>
-            </div>
-          )}
         </div>
-      </section >
+      </section>
 
+      {/* Main Content Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 
         {/* Latest Chapters Grid */}
-        {/* Latest Chapters Grid */}
-        <section className="mb-16">
+        <section className="mb-20">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-heading font-bold text-gray-900 dark:text-white flex items-center gap-2">
-              <BookOpen className="text-bb-blue" /> Latest Releases
-            </h2>
-            <Link to="/manga" className="text-bb-blue hover:underline flex items-center gap-1">
-              View All <ArrowRight size={16} />
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-blue-600/10 text-blue-500 rounded-lg">
+                <BookOpen size={24} />
+              </div>
+              <div>
+                <h2 className="text-2xl md:text-3xl font-heading font-bold text-gray-900 dark:text-white">
+                  Latest Chapter Releases
+                </h2>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Updated automatically with verified English scans
+                </p>
+              </div>
+            </div>
+            <Link to="/manga" className="text-blue-500 hover:underline text-sm font-bold flex items-center gap-1">
+              View All {readableChapters.length} Chapters <ArrowRight size={16} />
             </Link>
           </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {chapters.slice(0, 12).map((chapter) => (
+            {readableChapters.slice(0, 12).map((ch) => (
               <Link
-                key={chapter.id}
-                to={`/chapter/${chapter.number}`}
-                className="group relative flex flex-col justify-between h-full bg-white dark:bg-[#1a1a1a] rounded-lg border border-gray-200 dark:border-white/10 p-5 hover:border-bb-blue/50 hover:bg-gray-50 dark:hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-bb-blue/10"
+                key={ch.id}
+                to={`/chapter/${ch.number}`}
+                className="group relative flex flex-col justify-between bg-white dark:bg-[#181818] rounded-xl border border-gray-200 dark:border-white/5 p-5 hover:border-blue-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10"
               >
-                <div className="flex flex-col gap-2">
-                  <span className="text-xs font-bold text-bb-blue uppercase tracking-wider">
-                    Chapter {chapter.number}
-                  </span>
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white leading-tight group-hover:text-bb-blue transition-colors line-clamp-2">
-                    {chapter.title}
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-bold text-blue-500 uppercase tracking-wider">
+                      Chapter {ch.number}
+                    </span>
+                    <span className="text-[11px] text-gray-400 dark:text-gray-500">
+                      {ch.pageCount > 0 ? `${ch.pageCount} Pages` : 'Upcoming'}
+                    </span>
+                  </div>
+                  <h3 className="text-base font-bold text-gray-900 dark:text-white leading-snug group-hover:text-blue-400 transition-colors line-clamp-1">
+                    {ch.title}
                   </h3>
                 </div>
 
-                <div className="mt-4 pt-4 border-t border-gray-100 dark:border-white/5 flex items-center justify-between">
-                  <span className="text-xs text-gray-500 dark:text-gray-400 font-medium group-hover:text-gray-900 dark:group-hover:text-white transition-colors">Read Now</span>
-                  <ArrowRight className="w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-bb-blue group-hover:translate-x-1 transition-all" />
+                <div className="mt-4 pt-3 border-t border-gray-100 dark:border-white/5 flex items-center justify-between">
+                  <span className="text-xs text-gray-500 dark:text-gray-400 font-medium group-hover:text-white transition-colors">
+                    {ch.pageCount > 0 ? 'Read Chapter' : 'Coming Soon'}
+                  </span>
+                  <ArrowRight size={15} className="text-gray-400 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
                 </div>
               </Link>
             ))}
           </div>
         </section>
 
-        <section className="mb-16">
-          <div className="bg-white dark:bg-[#1a1a1a] rounded-2xl p-8 border border-gray-200 dark:border-white/10 shadow-sm">
-            <h2 className="text-3xl font-heading font-bold text-gray-900 dark:text-white mb-6">About Blue Lock</h2>
-            <div className="prose prose-lg dark:prose-invert text-gray-700 dark:text-gray-300 max-w-none space-y-4">
+        {/* Narrative Deep Dive & SEO Analysis */}
+        <section className="mb-20">
+          <div className="bg-white dark:bg-[#181818] rounded-2xl p-8 md:p-12 border border-gray-200 dark:border-white/5 shadow-sm space-y-8">
+            <div>
+              <span className="text-blue-500 text-xs font-bold uppercase tracking-widest block mb-2">
+                Narrative Breakdown
+              </span>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white">
+                The Philosophy Behind Blue Lock: Deconstructing Japanese Sports
+              </h2>
+            </div>
+
+            <div className="prose prose-lg dark:prose-invert text-gray-700 dark:text-gray-300 max-w-none space-y-6 text-sm md:text-base leading-relaxed">
               <p>
-                <strong className="text-gray-900 dark:text-white">Blue Lock</strong> is an acclaimed manga series written/illustrated by <strong className="text-gray-900 dark:text-white">Muneyuki Kaneshiro & Yusuke Nomura</strong>. It has been serialized in <strong className="text-gray-900 dark:text-white">Weekly Shōnen Magazine</strong> since 2018. The story follows <strong className="text-gray-900 dark:text-white">Yoichi Isagi</strong> and other key figures in an epic journey.
+                <strong className="text-gray-900 dark:text-white">Blue Lock</strong> fundamentally shatters the archetypal team-first doctrine that has governed Japanese sports storytelling for decades. Conceived by writer <strong className="text-gray-900 dark:text-white">Muneyuki Kaneshiro</strong> and brought to life through the kinetic, visceral illustrations of <strong className="text-gray-900 dark:text-white">Yusuke Nomura</strong>, the story centers on <strong className="text-gray-900 dark:text-white">Yoichi Isagi</strong> — an unfulfilled striker forced to cast aside selfless teamwork in pursuit of pure individual egotism.
               </p>
 
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mt-6 mb-3">Synopsis</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white pt-2">
+                A Psychological Battle Royale on the Pitch
+              </h3>
               <p>
-                Following a disastrous World Cup, Japan trains 300 strikers in the cage called Blue Lock to produce the ultimate egoist striker.
+                Unlike conventional athletics stories celebrating harmonious camaraderie, Blue Lock constructs a merciless battle royale. Every training exercise, 3v3 duel, and elimination match operates as a psychological crucible where forwards must strip away passive humility, discover their unique "weapons" on the pitch, and mercilessly devour their opponents' playstyles to survive.
               </p>
 
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mt-6 mb-3">Key Characters</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white pt-2">
+                Tactical Mastery: Metavision, Egocentrism & Chemical Reactions
+              </h3>
               <p>
-                The series features memorable characters including <strong className="text-gray-900 dark:text-white">Yoichi Isagi</strong>, <strong className="text-gray-900 dark:text-white">Meguru Bachira</strong>, and <strong className="text-gray-900 dark:text-white">Rensuke Kunigami</strong>.
+                What elevates Blue Lock into a modern masterpiece is its rigorous tactical framework. Players do not rely on inexplicable shonen power-ups; they master spatial kinetics, peripheral sightlines, off-the-ball movement, and <strong className="text-blue-400">Metavision</strong> to continuously process the pitch at elite levels. As distinct striker formulas collide, they spark unpredictable <strong className="text-blue-400">Chemical Reactions</strong> that transform high-speed soccer into an art of tactical destruction.
               </p>
 
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mt-6 mb-3">Why Read Blue Lock?</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white pt-2">
+                The Neo Egoist League: The Battle of European Superclubs
+              </h3>
               <p>
-                <strong className="text-gray-900 dark:text-white">Blue Lock</strong> offers an incredible and unique storyline with high-stakes drama and exceptional artwork. The story builds progressively, keeping readers on the edge of their seats with every chapter.
+                In the ongoing <strong className="text-gray-900 dark:text-white">Neo Egoist League (NEL)</strong>, Blue Lock alumni collide with Europe's premier youth talents. Players choose among five distinct footballing ideologies: German logical rationalism (Bastard Munchen), English physical hyper-speed (Manshine City), Italian catenaccio tactical defense (Ubers), French individualist dominance (PXG), and Spanish technical creativity (FC Barcha) — competing under real-time billionaire contract bids broadcast to millions worldwide.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Major Story Arcs */}
-        {/* FAQ Section */}
+        {/* Story Arcs Overview */}
+        <section className="mb-20">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="p-2 bg-blue-600/10 text-blue-500 rounded-lg">
+              <Zap size={24} />
+            </div>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-heading font-bold text-gray-900 dark:text-white">
+                Major Story Arcs & Saga Progression
+              </h2>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                Explore the complete chronological timeline of the Blue Lock project
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {ARCS.map((arc) => (
+              <div
+                key={arc.id}
+                className="bg-white dark:bg-[#181818] rounded-xl border border-gray-200 dark:border-white/5 p-6 hover:border-blue-500/30 transition-all shadow-sm"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-bold uppercase tracking-wider text-blue-500 bg-blue-500/10 px-2.5 py-1 rounded-md">
+                    Chapters {arc.chapterStart} – {arc.ongoing ? 'ongoing' : arc.chapterEnd}
+                  </span>
+                  <span className="text-xs text-gray-400">
+                    {arc.chapterEnd - arc.chapterStart + 1} Chapters
+                  </span>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  {arc.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
+                  {arc.description}
+                </p>
+                <Link
+                  to={`/chapter/${arc.chapterStart}`}
+                  className="text-xs font-bold text-blue-500 hover:text-blue-400 flex items-center gap-1"
+                >
+                  Start Arc at Chapter {arc.chapterStart} <ArrowRight size={14} />
+                </Link>
+                <Link to={`/arcs/${arc.id}`} className="text-xs font-bold text-gray-400 hover:text-white mt-2 inline-block">
+                  {arc.title} guide →
+                </Link>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* FAQ: one answer per top search question (data/home-faq.js) */}
         <section className="mb-16">
-          <div className="flex items-center gap-2 mb-8">
-            <BookOpen className="text-bb-blue" />
-            <h2 className="text-3xl font-heading font-bold text-gray-900 dark:text-white">Frequently Asked Questions</h2>
+          <div className="flex items-center gap-3 mb-8">
+            <div className="p-2 bg-blue-600/10 text-blue-500 rounded-lg">
+              <BookOpen size={24} />
+            </div>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-heading font-bold text-gray-900 dark:text-white">
+                Blue Lock Manga FAQ
+              </h2>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                What Blue Lock is about, who wrote it, how many chapters there are, and the anime
+              </p>
+            </div>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2">
-            <div className="bg-white dark:bg-[#1a1a1a] p-6 rounded-xl border border-gray-200 dark:border-white/5 shadow-sm hover:shadow-md transition-shadow">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">Why Read Blue Lock Manga on this Site?</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                Experience <strong>Blue Lock manga</strong> like never before with high-quality scans and regularly updated chapters. Dive into the intense storyline without delays.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-[#1a1a1a] p-6 rounded-xl border border-gray-200 dark:border-white/5 shadow-sm hover:shadow-md transition-shadow">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">Differences between Blue Lock Manga and Anime?</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                The <strong>Blue Lock manga</strong> offers intense and detailed art that the anime sometimes simplifies. The aura and ego effects are more visceral in the manga.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-[#1a1a1a] p-6 rounded-xl border border-gray-200 dark:border-white/5 shadow-sm hover:shadow-md transition-shadow">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">Is the Blue Lock Manga Finished?</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                No, the <strong>Blue Lock manga</strong> is currently ongoing. New chapters are released in Weekly Shonen Magazine.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-[#1a1a1a] p-6 rounded-xl border border-gray-200 dark:border-white/5 shadow-sm hover:shadow-md transition-shadow">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">Where should I start reading?</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                If you are new to the series, start with <Link to="/chapter/1" className="text-bb-blue hover:underline">Chapter 1</Link>. The story builds progressively, so starting from the beginning is highly recommended to fully appreciate the character development and relationships.
-              </p>
-            </div>
+            {HOME_FAQ.map(item => (
+              <div key={item.q} className="bg-white dark:bg-[#181818] p-6 rounded-xl border border-gray-200 dark:border-white/5 shadow-sm">
+                <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">{item.q}</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                  {item.a.replace('{latest}', String(latestChapter?.number ?? ''))}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-4 mt-6 text-sm font-semibold">
+            <Link to="/anime/season-3" className="text-blue-400 hover:underline">Blue Lock season 3 release date</Link>
+            <Link to="/anime" className="text-blue-400 hover:underline">Anime watch order</Link>
+            <Link to="/arcs" className="text-blue-400 hover:underline">All arcs in order</Link>
+            <Link to="/author" className="text-blue-400 hover:underline">About the author</Link>
           </div>
         </section>
 
-        {/* Improved SEO Content Section */}
-        <section className="mb-12">
-          <div className="bg-white dark:bg-[#1a1a1a] rounded-2xl p-8 border border-gray-200 dark:border-white/10 shadow-sm">
-            <h2 className="text-3xl font-heading font-bold text-gray-900 dark:text-white mb-6">Read Blue Lock Manga Online Free</h2>
-            <div className="prose prose-lg dark:prose-invert text-gray-700 dark:text-gray-300 max-w-none space-y-4">
-              <p>
-                Welcome to <strong>readbluelockmanga.online</strong>, the premier destination for fans to <strong className="text-bb-blue">Read Blue Lock Manga</strong> online. We provide high-quality scans of the latest chapters as soon as they are released. Join millions of fans worldwide in following the journey of Yoichi Isagi.
-              </p>
-
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4">What is Blue Lock?</h3>
-              <p>
-                Following a disastrous World Cup, Japan trains 300 strikers in the cage called Blue Lock to produce the ultimate egoist striker.
-              </p>
-
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4">Why is Blue Lock So Popular?</h3>
-              <p>
-                Created by <strong className="text-gray-900 dark:text-white">Muneyuki Kaneshiro & Yusuke Nomura</strong>, <em>Blue Lock</em> deconstructs standard tropes, highlighting individual drive and unique storytelling. Combined with exceptional, dynamic art style, it has become a global phenomenon.
-              </p>
-            </div>
-          </div>
-        </section>
-
-      </div>
-
-      {/* More Manga Network Banner */}
-      <div className="bg-[#0d1117] border-t border-white/5 py-14 px-4">
-        <div className="max-w-5xl mx-auto text-center mb-10">
-          <span className="text-bb-blue text-xs font-bold uppercase tracking-widest block mb-2">More from Our Network</span>
-          <h2 className="text-2xl font-heading font-bold text-white">Also Reading?</h2>
-          <p className="text-gray-500 text-sm mt-2">Explore more top manga series — all free, all high quality.</p>
-        </div>
-        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          {[
-            { name: 'Kagurabachi', url: 'https://www.kagurabachimanga.online/', desc: 'Enchanted blade revenge', emoji: '⚔️' },
-            { name: 'Dandadan', url: 'https://www.readdandadanmanga.online/', desc: 'Aliens & ghosts chaos', emoji: '👾' },
-            { name: 'Gachiakuta', url: 'https://www.readgachiakutamanga.online/', desc: 'Trash-powered warrior', emoji: '🗑️' },
-            { name: 'Nano Machine', url: 'https://www.nanomachinemanga.online/', desc: 'Futuristic murim rise', emoji: '⚙️' },
-            { name: 'Kingdom', url: 'https://www.readkingdommanga.online/', desc: '876 ch. epic history', emoji: '🏯' },
-          ].map(site => (
-            <a key={site.url} href={site.url} target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-2 p-5 bg-white/3 border border-white/5 rounded-xl hover:border-bb-blue/30 hover:bg-bb-blue/5 transition-all text-center">
-              <span className="text-3xl">{site.emoji}</span>
-              <span className="font-bold text-white text-sm group-hover:text-bb-blue transition-colors">{site.name}</span>
-              <span className="text-xs text-gray-500">{site.desc}</span>
-            </a>
-          ))}
-        </div>
       </div>
     </>
   );

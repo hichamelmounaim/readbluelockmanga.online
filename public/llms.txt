@@ -1,35 +1,57 @@
 # Blue Lock Manga — readbluelockmanga.online
 
 ## About
-Blue Lock Manga is a fan reading platform dedicated to the manga series "Blue Lock" (ブルーロック) by Muneyuki Kaneshiro and Yusuke Nomura. The site provides free access to high-quality English scans of all available chapters.
+Blue Lock Manga (https://www.readbluelockmanga.online/) is a dedicated digital reading platform for the sports manga series "Blue Lock" (ブルーロック) written by Muneyuki Kaneshiro and illustrated by Yusuke Nomura. The site provides instant, high-definition English scan translations of all serialized chapters, character guides, arc breakdowns, and release schedules.
 
-## Manga Info
-- Title: Blue Lock
-- Alternative Titles: ブルーロック, Buru Rokku
-- Author: Muneyuki Kaneshiro
-- Artist: Yusuke Nomura
-- Publisher: Kodansha (Weekly Shōnen Magazine)
-- Serialization Start: August 1, 2018
+## Manga Metadata
+- Official Title: Blue Lock
+- Japanese Title: ブルーロック (Buruu Rokku)
+- Author: Muneyuki Kaneshiro (Story)
+- Artist: Yusuke Nomura (Art)
+- Publisher: Kodansha
+- Serialization: Weekly Shōnen Magazine
+- Serialization Debut: August 1, 2018
 - Status: Ongoing
-- Genre: Action, Sports, Shounen, Soccer
-- Synopsis: Three hundred high school strikers are gathered in an isolated facility called Blue Lock, where only one will emerge as Japan's ultimate egoist striker to lead the national team to World Cup victory.
+- Volumes in Japan: 40 (as of August 2026)
+- Genres: Sports, Psychological Drama, Shounen, Action, Soccer
+- Synopsis: Following a crushing round-of-16 exit at the 2018 FIFA World Cup, the Japan Football Union hires eccentric coach Jinpachi Ego. Ego conceives the "Blue Lock" project — an extreme, prison-like boarding school gathering 300 elite high school forwards from across Japan. Through cutthroat, survival-of-the-fittest selection rounds, 299 strikers will be eliminated forever, leaving only one revolutionary egoist capable of leading Japan to World Cup glory.
 
-## Key Characters
-- Yoichi Isagi — protagonist, striker with exceptional spatial awareness
-- Meguru Bachira — Isagi's first rival and ally inside Blue Lock
-- Seishiro Nagi — prodigy striker who plays instinctively
-- Reo Mikage — wealthy player who recruits Nagi
-- Ryusui Barou — self-proclaimed "King", arrogant yet skilled striker
+## Story Arcs
+1. First Selection Arc (Chapters 1–38): Team Z's round-robin matches. https://www.readbluelockmanga.online/arcs/first-selection
+2. Second Selection Arc (Chapters 39–87): squad-stealing duels; Isagi, Nagi and Barou vs Rin. https://www.readbluelockmanga.online/arcs/second-selection
+3. Third Selection & Japan U-20 Match (Chapters 88–151): World Five, then Blue Lock Eleven vs Japan U-20. https://www.readbluelockmanga.online/arcs/third-selection-u20
+4. Neo Egoist League Arc (Chapters 152–302): five European clubs, transfer valuations. https://www.readbluelockmanga.online/arcs/neo-egoist-league
+5. U-20 World Cup Arc (Chapter 303 onward, ongoing): Blue Lock Japan at the FIFA U-20 World Cup. https://www.readbluelockmanga.online/arcs/u20-world-cup
 
-## Site Pages
-- Homepage: https://www.readbluelockmanga.online/
-- All Chapters: https://www.readbluelockmanga.online/manga
-- Chapter Reader: https://www.readbluelockmanga.online/chapter/{number}
-- Characters: https://www.readbluelockmanga.online/characters
-- About: https://www.readbluelockmanga.online/about
+## Anime
+- Season 1: 24 episodes (Oct 2022 – Mar 2023). Season 2 (vs. U-20 Japan): 14 episodes (Oct – Dec 2024). Movie: Blue Lock: Episode Nagi (April 19, 2024). Season 3 (Neo Egoist League): in production, no release date as of November 2026. Studio: Eight Bit.
+- Guide: https://www.readbluelockmanga.online/anime
 
-## Contact
-Email: support@readbluelockmanga.online
+## Core Characters & Weapons
+- Yoichi Isagi (Protagonist): Spatial Awareness, Direct Shoot, Metavision, Egocentrism.
+- Meguru Bachira: Egoist Dribbling, Monster Intuition, Breakdance Footwork, Key Passing.
+- Rin Itoshi: Absolute Kick Precision, Puppeteer Strategy, Metavision, Destructive Instinct.
+- Rensuke Kunigami: Knuckle Shot, Left-Foot Long-Range Cannon, Wild Card Physical Power.
+- Hyoma Chigiri: Top-End Sprint Speed, 44-Caliber Golden Zone Curler, Mach-Speed Breakaway.
+- Seishiro Nagi: Supernatural First-Touch Trapping, Five-Stage Revolver Volley, Juggling Shot.
+- Shoei Barou: The Pitch Monarch, Predator Eye, 29-Meter Sharp Curve Shot, Chopping Feints.
+- Reo Mikage: Chameleon Technique (99% dexterity copying of any move), Playmaker Vision.
+- Sae Itoshi: New Generation World 11 Midfielder, Passive Metavision, Surgical Passing.
+- Michael Kaiser: Bastard München Ace, New Generation World 11, Kaiser Impact Volley.
+- Jinpachi Ego: Radical Architect and Head Coach of the Blue Lock project.
+
+## Key URLs & Sitemap Structure
+- Home & Latest Release: https://www.readbluelockmanga.online/
+- Full Chapter Archive: https://www.readbluelockmanga.online/manga
+- Character Database: https://www.readbluelockmanga.online/characters
+- Chapter Reader Pattern: https://www.readbluelockmanga.online/chapter/{number}
+- Character Profile Pattern: https://www.readbluelockmanga.online/characters/{slug}
+- Story arcs: https://www.readbluelockmanga.online/arcs
+- Teams: https://www.readbluelockmanga.online/teams
+- Anime guide: https://www.readbluelockmanga.online/anime
+- Season 3 release date: https://www.readbluelockmanga.online/anime/season-3
+- Author: https://www.readbluelockmanga.online/author
+- XML Sitemap: https://www.readbluelockmanga.online/sitemap.xml
 
 ## Disclaimer
-This is a fan project. Not affiliated with Muneyuki Kaneshiro, Yusuke Nomura, or Kodansha. All manga content belongs to their respective copyright owners.
+readbluelockmanga.online is a non-commercial, fan-made resource. All rights, characters, and illustrations belong to Muneyuki Kaneshiro, Yusuke Nomura, and Kodansha.

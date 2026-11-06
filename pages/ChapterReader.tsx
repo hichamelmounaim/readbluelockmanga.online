@@ -1,29 +1,29 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Share2, ArrowDown, ArrowRight, Send, BookOpen, ChevronUp } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Share2, ArrowDown, ArrowRight, Send, BookOpen, ChevronUp, RefreshCw, LayoutList, FileText, Layers, Users, HelpCircle } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { useManga } from '../context/MangaContext';
 import { Chapter } from '../types';
+import { getChapterSEOData, getAdjacentChapters, realChapterTitle, DEFAULT_OG_IMAGE, SITE_URL } from '../utils/seo';
 
-const SISTER_SITES = [
-  { name: 'Dandadan Manga', url: 'https://www.readdandadanmanga.online/', desc: 'Aliens, ghosts, and supernatural chaos by Tatsu Yukinobu.' },
-  { name: 'Kagurabachi Manga', url: 'https://www.kagurabachimanga.online/', desc: 'Chihiro hunts sorcerers with enchanted blades in this Shonen Jump hit.' },
-  { name: 'Gachiakuta Manga', url: 'https://www.readgachiakutamanga.online/', desc: 'Rudo fights to survive in the Pit with trash-powered abilities.' },
-  { name: 'Nano Machine Manga', url: 'https://www.nanomachinemanga.online/', desc: 'Cheon Yeo-Woon rises through the Demonic Cult with a nano machine.' },
-  { name: 'Kingdom Manga', url: 'https://www.readkingdommanga.online/', desc: 'Xin and Zheng unify ancient China across 876+ epic chapters.' },
-];
 
 const ChapterReader: React.FC = () => {
   const { chapterId } = useParams<{ chapterId: string }>();
   const navigate = useNavigate();
-  const { chapters } = useManga();
+  const { chapters, getChapterWithPages } = useManga();
   const [chapter, setChapter] = useState<Chapter | null>(null);
   const [loading, setLoading] = useState(true);
   const [showControls, setShowControls] = useState(true);
   const [readProgress, setReadProgress] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const currentNum = parseInt(chapterId || "0", 10);
+  const [readingMode, setReadingMode] = useState<'webtoon' | 'single'>('webtoon');
+  const [currentPageIndex, setCurrentPageIndex] = useState(0);
+  const [failedPages, setFailedPages] = useState<Record<number, boolean>>({});
+  const [retryKeys, setRetryKeys] = useState<Record<number, number>>({});
+
+  // parseFloat, not parseInt: chapters like 314.1 / 364.2 must not collapse into 314 / 364.
+  const currentNum = parseFloat(chapterId || "0") || 0;
 
   useEffect(() => {
     if (currentNum > 0) {
@@ -31,17 +31,27 @@ const ChapterReader: React.FC = () => {
     }
   }, [currentNum]);
 
+  // Load chapter data on demand with zero artificial delay
   useEffect(() => {
+    let isCancelled = false;
     setLoading(true);
-    setTimeout(() => {
-      const found = chapters.find(c => c.number === currentNum);
-      if (found) {
-        setChapter(found);
+    setFailedPages({});
+    setCurrentPageIndex(0);
+
+    getChapterWithPages(currentNum).then((data) => {
+      if (!isCancelled) {
+        if (data) {
+          setChapter(data);
+        }
+        setLoading(false);
+        window.scrollTo(0, 0);
       }
-      setLoading(false);
-      window.scrollTo(0, 0);
-    }, 500);
-  }, [currentNum, chapters]);
+    });
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [currentNum]);
 
   const lastScrollY = useRef(0);
   useEffect(() => {
@@ -58,31 +68,53 @@ const ChapterReader: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const prevChapterRef = useRef<Chapter | undefined>(undefined);
-  const nextChapterRef = useRef<Chapter | undefined>(undefined);
+  // Prev/next by position in the list, so decimal chapters (314.1, 364.2 ...) are never skipped.
+  const { prev: prevChapter, next: nextChapter, nearby: surroundingChapters } = useMemo(
+    () => getAdjacentChapters(chapters, currentNum),
+    [chapters, currentNum]
+  );
+
+  const prevChapterRef = useRef<Chapter | undefined>(prevChapter);
+  const nextChapterRef = useRef<Chapter | undefined>(nextChapter);
+  prevChapterRef.current = prevChapter;
+  nextChapterRef.current = nextChapter;
+
+  // Keyboard navigation
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement)?.tagName)) return;
-      if (e.key === 'ArrowRight' && nextChapterRef.current) navigate(`/chapter/${nextChapterRef.current.number}`);
-      if (e.key === 'ArrowLeft' && prevChapterRef.current) navigate(`/chapter/${prevChapterRef.current.number}`);
+      if (readingMode === 'single' && chapter && chapter.pages && chapter.pages.length > 0) {
+        if (e.key === 'ArrowRight') {
+          if (currentPageIndex < chapter.pages.length - 1) {
+            setCurrentPageIndex(p => p + 1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else if (nextChapterRef.current) {
+            navigate(`/chapter/${nextChapterRef.current.number}`);
+          }
+        }
+        if (e.key === 'ArrowLeft') {
+          if (currentPageIndex > 0) {
+            setCurrentPageIndex(p => p - 1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else if (prevChapterRef.current) {
+            navigate(`/chapter/${prevChapterRef.current.number}`);
+          }
+        }
+      } else {
+        if (e.key === 'ArrowRight' && nextChapterRef.current) navigate(`/chapter/${nextChapterRef.current.number}`);
+        if (e.key === 'ArrowLeft' && prevChapterRef.current) navigate(`/chapter/${prevChapterRef.current.number}`);
+      }
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [navigate]);
-
-
-
-  const prevChapter = chapters.find(c => c.number === currentNum - 1);
-  const nextChapter = chapters.find(c => c.number === currentNum + 1);
-  prevChapterRef.current = prevChapter;
-  nextChapterRef.current = nextChapter;
+  }, [navigate, readingMode, chapter, currentPageIndex]);
 
   const handleNav = useCallback((num: number) => {
     if (num) navigate(`/chapter/${num}`);
   }, [navigate]);
 
   useEffect(() => {
-    const BASE = window.location.origin;
+    const BASE = SITE_URL;
     document.querySelector('link[rel="prev"]')?.remove();
     document.querySelector('link[rel="next"]')?.remove();
     if (prevChapter) { const el = document.createElement('link'); el.rel = 'prev'; el.href = `${BASE}/chapter/${prevChapter.number}`; document.head.appendChild(el); }
@@ -90,287 +122,364 @@ const ChapterReader: React.FC = () => {
     return () => { document.querySelector('link[rel="prev"]')?.remove(); document.querySelector('link[rel="next"]')?.remove(); };
   }, [prevChapter, nextChapter]);
 
+  const handleRetryPage = (idx: number) => {
+    setFailedPages(prev => ({ ...prev, [idx]: false }));
+    setRetryKeys(prev => ({ ...prev, [idx]: (prev[idx] || 0) + 1 }));
+  };
+
+  // Programmatic SEO computation
+  const seo = useMemo(() => {
+    return getChapterSEOData(currentNum, { title: chapter?.title, pageCount: chapter?.pages?.length });
+  }, [currentNum, chapter?.title, chapter?.pages?.length]);
+
+
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-bb-dark">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-bb-blue"></div>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-[#121212]">
+        <div className="animate-spin rounded-full h-14 w-14 border-t-4 border-b-4 border-blue-500 mb-4"></div>
+        <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Loading Chapter {currentNum}...</p>
       </div>
     );
   }
 
   if (!chapter) {
-    return <div className="p-10 text-center dark:text-white">Chapter not found.</div>;
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center p-10 text-center bg-gray-50 dark:bg-[#121212]">
+        <SEOHead title="Chapter Not Found – Blue Lock Manga" description="This Blue Lock chapter is not available." noindex />
+        <h1 className="text-2xl font-bold dark:text-white mb-2">Chapter not found</h1>
+        <p className="text-gray-500 mb-6">Chapter {currentNum} is not available yet.</p>
+        <Link to="/manga" className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold">
+          View All Chapters
+        </Link>
+      </div>
+    );
   }
+
+  const pages = chapter.pages || [];
 
   return (
     <div className="bg-gray-100 dark:bg-[#121212] min-h-screen flex flex-col">
       <SEOHead
-        title={`Blue Lock Chapter ${chapter.number} – ${chapter.title} | Read Online Free`}
-        description={`Read Blue Lock Chapter ${chapter.number} – ${chapter.title} for free in English. HD scans, no sign-up required. Read previous and next chapters at readbluelockmanga.online.`}
-        canonicalUrl={`https://www.readbluelockmanga.online/chapter/${chapter.number}`}
+        title={seo.seoTitle}
+        description={seo.seoDescription}
+        canonicalUrl={seo.canonicalUrl}
         ogType="article"
-        ogImage={chapter.pages[0] || 'https://www.readbluelockmanga.online/blue-lock.webp'}
-        schema={{
-          "@context": "https://schema.org",
-          "@type": "Article",
-          "headline": `Blue Lock Chapter ${chapter.number}: ${chapter.title}`,
-          "image": chapter.pages[0] || 'https://www.readbluelockmanga.online/blue-lock.webp',
-          "datePublished": chapter.releaseDate,
-          "author": { "@type": "Person", "name": "Muneyuki Kaneshiro" },
-          "publisher": { "@type": "Organization", "name": "Blue Lock Manga", "logo": { "@type": "ImageObject", "url": "https://www.readbluelockmanga.online/logo.png" } },
-          "isPartOf": { "@type": "ComicSeries", "name": "Blue Lock", "author": { "@type": "Person", "name": "Muneyuki Kaneshiro" } },
-          "url": `https://www.readbluelockmanga.online/chapter/${chapter.number}`
-        }}
-        schemas={[
-          { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.readbluelockmanga.online/" },
-            { "@type": "ListItem", "position": 2, "name": "Blue Lock Manga", "item": "https://www.readbluelockmanga.online/manga" },
-            { "@type": "ListItem", "position": 3, "name": `Chapter ${chapter.number}`, "item": `https://www.readbluelockmanga.online/chapter/${chapter.number}` }
-          ]},
-          {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": `When is the release date for Blue Lock Chapter ${chapter.number}?`,
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": `Blue Lock Chapter ${chapter.number} officially released on ${new Date(chapter.releaseDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}.`
-                }
-              },
-              {
-                "@type": "Question",
-                "name": `Where can I read Blue Lock Chapter ${chapter.number} free online?`,
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": `You can read Blue Lock Chapter ${chapter.number} online for free in high quality at readbluelockmanga.online. Scans are updated immediately after the official Japanese release.`
-                }
-              },
-              {
-                "@type": "Question",
-                "name": `Who is the creator of the Blue Lock manga?`,
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": `Blue Lock is written by Muneyuki Kaneshiro and illustrated by Yusuke Nomura, serialized in Kodansha's Weekly Shōnen Magazine.`
-                }
-              }
-            ]
-          }
-        ]}
+        ogImage={DEFAULT_OG_IMAGE}
+        schemas={seo.schemas}
+        noindex={seo.noindex}
       />
 
-
-
       {/* Sticky Top Controls */}
-      <div className={`fixed top-0 left-0 right-0 bg-white/98 dark:bg-gray-900/98 backdrop-blur shadow-md transition-transform duration-300 z-50 ${showControls ? 'translate-y-0' : '-translate-y-full'}`}>
-        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-200 dark:bg-gray-800">
-          <div className="h-full bg-bb-blue transition-all duration-150 ease-out" style={{ width: `${readProgress}%` }} />
+      <div className={`fixed top-0 left-0 right-0 bg-white/95 dark:bg-[#181818]/95 backdrop-blur-md shadow-md transition-transform duration-300 z-50 ${showControls ? 'translate-y-0' : '-translate-y-full'}`}>
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-200 dark:bg-gray-800">
+          <div className="h-full bg-blue-600 transition-all duration-150 ease-out" style={{ width: `${readProgress}%` }} />
         </div>
         <div className="max-w-7xl mx-auto px-3 h-14 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0">
-            <Link to="/manga" className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors flex-shrink-0" title="Back to chapter list"><ChevronLeft size={20} className="dark:text-white" /></Link>
+            <Link to="/manga" className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors flex-shrink-0" title="Back to chapter list">
+              <ChevronLeft size={20} className="dark:text-white" />
+            </Link>
             <div className="flex flex-col min-w-0">
-              <span className="text-[10px] text-bb-blue font-bold uppercase tracking-wider leading-none mb-0.5">Blue Lock</span>
-              <select value={chapter.number} onChange={e => navigate(`/chapter/${e.target.value}`)} className="font-bold text-sm dark:text-white bg-transparent focus:outline-none cursor-pointer truncate max-w-[160px] md:max-w-[280px] dark:bg-gray-900" title="Jump to chapter">
-                {[...chapters].sort((a, b) => b.number - a.number).map(ch => (<option key={ch.number} value={ch.number} className="dark:bg-gray-900">Ch. {ch.number}{ch.title && ch.title !== `Chapter ${ch.number}` ? ` — ${ch.title.length > 30 ? ch.title.substring(0, 30) + '…' : ch.title}` : ''}</option>))}
+              <span className="text-[10px] text-blue-500 font-bold uppercase tracking-wider leading-none mb-0.5">Blue Lock</span>
+              <select
+                value={chapter.number}
+                onChange={e => navigate(`/chapter/${e.target.value}`)}
+                className="font-bold text-sm dark:text-white bg-transparent focus:outline-none cursor-pointer truncate max-w-[160px] md:max-w-[280px] dark:bg-[#181818]"
+                title="Jump to chapter"
+              >
+                {[...chapters].sort((a, b) => b.number - a.number).map(ch => (
+                  <option key={ch.number} value={ch.number} className="dark:bg-[#181818]">
+                    Ch. {ch.number}{(() => { const t = realChapterTitle(ch.number, ch.title); return t ? ` — ${t.length > 30 ? t.substring(0, 30) + '…' : t}` : ''; })()}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
-          <div className="flex items-center gap-1.5 flex-shrink-0">
-            <span className="text-xs font-mono text-gray-400 dark:text-gray-500 hidden md:block">{readProgress}%</span>
+
+          {/* Reader Mode Toggle */}
+          <div className="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
+            <button
+              onClick={() => setReadingMode('webtoon')}
+              className={`p-1.5 rounded text-xs font-semibold flex items-center gap-1 transition-colors ${readingMode === 'webtoon' ? 'bg-blue-600 text-white' : 'text-gray-600 dark:text-gray-300 hover:text-white'}`}
+              title="Continuous Scroll Mode"
+            >
+              <LayoutList size={15} />
+              <span className="hidden md:inline">Scroll</span>
+            </button>
+            <button
+              onClick={() => { setReadingMode('single'); setCurrentPageIndex(0); }}
+              className={`p-1.5 rounded text-xs font-semibold flex items-center gap-1 transition-colors ${readingMode === 'single' ? 'bg-blue-600 text-white' : 'text-gray-600 dark:text-gray-300 hover:text-white'}`}
+              title="Single Page Mode"
+            >
+              <FileText size={15} />
+              <span className="hidden md:inline">Page</span>
+            </button>
           </div>
+
           <div className="flex items-center gap-1 flex-shrink-0">
-            <button disabled={!prevChapter} onClick={() => prevChapter && handleNav(prevChapter.number)} className="flex items-center gap-1 px-2 py-1.5 disabled:opacity-30 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md dark:text-white transition-colors text-xs font-bold" title="Previous chapter (←)"><ChevronLeft size={16} /><span className="hidden sm:block">Prev</span></button>
-            <button disabled={!nextChapter} onClick={() => nextChapter && handleNav(nextChapter.number)} className="flex items-center gap-1 px-2 py-1.5 disabled:opacity-30 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md dark:text-white transition-colors text-xs font-bold" title="Next chapter (→)"><span className="hidden sm:block">Next</span><ChevronRight size={16} /></button>
+            {prevChapter && (
+              <button
+                onClick={() => handleNav(prevChapter.number)}
+                className="flex items-center gap-1 px-2 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-white transition-colors text-xs font-bold"
+                title="Previous chapter (←)"
+              >
+                <ChevronLeft size={16} /><span className="hidden sm:block">Prev</span>
+              </button>
+            )}
+            {nextChapter && (
+              <button
+                onClick={() => handleNav(nextChapter.number)}
+                className="flex items-center gap-1 px-2.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors text-xs font-bold"
+                title="Next chapter (→)"
+              >
+                <span className="hidden sm:block">Next</span><ChevronRight size={16} />
+              </button>
+            )}
           </div>
         </div>
       </div>
 
-      {showScrollTop && (<button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-6 right-5 z-50 w-10 h-10 bg-bb-blue hover:bg-blue-700 text-white rounded-full shadow-xl flex items-center justify-center transition-all hover:scale-110" title="Back to top"><ChevronUp size={20} strokeWidth={3} /></button>)}
+      {showScrollTop && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-6 right-5 z-50 w-11 h-11 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110"
+          title="Back to top"
+        >
+          <ChevronUp size={22} strokeWidth={2.5} />
+        </button>
+      )}
 
       {/* Reader Content */}
       <div className="flex-1 pt-16">
-        <h1 className="sr-only">Read Blue Lock Chapter {chapter.number}: {chapter.title}</h1>
-        {chapter.pages.length > 0 && (
-          <div className="max-w-4xl mx-auto px-4 py-4">
+        <h1 className="sr-only">Blue Lock Chapter {chapter.number}{seo.hasRealTitle ? `: ${seo.title}` : ''}</h1>
+        {pages.length > 0 && (
+          <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
             <Breadcrumbs items={[
               { label: 'Home', path: '/' },
-              { label: 'Blue Lock', path: '/manga' },
-              { label: `Chapter ${chapter.number}`, path: `/chapter/${chapter.number}` }
+              { label: 'All Chapters', path: '/manga' },
+              { label: `Chapter ${chapter.number}` }
             ]} />
+            <div className="flex items-center gap-2">
+              <span className="px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider bg-white/5 text-gray-300 border border-white/10 rounded-md">
+                {seo.arcName}
+              </span>
+            </div>
           </div>
         )}
-        {chapter.pages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center min-h-[60vh] p-8 text-center bg-gray-50 dark:bg-bb-dark">
-            <div className="bg-white/5 p-8 rounded-2xl border border-white/10 backdrop-blur-sm max-w-md w-full">
-              <h2 className="text-3xl font-heading font-bold text-gray-900 dark:text-white mb-4">Available Soon...</h2>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">
-                Next chapter will be available first on our Telegram channel.
+
+        {pages.length === 0 ? (
+          <div className="flex flex-col items-center justify-center min-h-[50vh] p-8 text-center">
+            <div className="bg-white dark:bg-[#1a1a1a] p-8 rounded-2xl border border-gray-200 dark:border-white/10 max-w-md w-full shadow-lg">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Chapter Coming Soon</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm">
+                Chapter {chapter.number} scans are being prepared. Check back shortly or join our Telegram for instant release alerts!
               </p>
               <div className="flex flex-col gap-3">
                 <a
                   href="https://t.me/Mangalix"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-6 py-3 bg-[#0088cc] hover:bg-[#0077b5] text-white font-bold rounded-lg transition-all"
+                  className="flex items-center justify-center gap-2 px-6 py-2.5 bg-[#0088cc] hover:bg-[#0077b5] text-white font-bold rounded-lg transition-all"
                 >
-                  <Send size={20} />
-                  Join Telegram
+                  <Send size={18} />
+                  Join Telegram Channel
                 </a>
                 <button
                   onClick={() => navigate('/manga')}
-                  className="px-6 py-3 bg-gray-200 dark:bg-white/5 hover:bg-gray-300 dark:hover:bg-white/10 text-gray-900 dark:text-white font-bold rounded-lg transition-all"
+                  className="px-6 py-2.5 bg-gray-200 dark:bg-white/10 hover:bg-gray-300 dark:hover:bg-white/15 text-gray-900 dark:text-white font-bold rounded-lg transition-all"
                 >
                   Back to Chapter List
                 </button>
               </div>
             </div>
           </div>
+        ) : readingMode === 'single' ? (
+          /* Single Page Reader Mode */
+          <div className="max-w-4xl mx-auto px-2 py-4">
+            <div className="flex items-center justify-between text-xs font-semibold text-gray-500 dark:text-gray-400 mb-3 px-2">
+              <span>Page {currentPageIndex + 1} of {pages.length}</span>
+              <div className="flex gap-2">
+                <button
+                  disabled={currentPageIndex === 0}
+                  onClick={() => setCurrentPageIndex(p => Math.max(0, p - 1))}
+                  className="px-3 py-1 bg-gray-200 dark:bg-gray-800 disabled:opacity-30 rounded hover:bg-gray-300 dark:hover:bg-gray-700"
+                >
+                  Previous Page
+                </button>
+                <button
+                  disabled={currentPageIndex === pages.length - 1}
+                  onClick={() => setCurrentPageIndex(p => Math.min(pages.length - 1, p + 1))}
+                  className="px-3 py-1 bg-blue-600 text-white disabled:opacity-30 rounded hover:bg-blue-700"
+                >
+                  Next Page
+                </button>
+              </div>
+            </div>
+
+            <div className="relative bg-white dark:bg-black shadow-2xl rounded overflow-hidden min-h-[500px] flex items-center justify-center">
+              {failedPages[currentPageIndex] ? (
+                <div className="p-8 text-center flex flex-col items-center">
+                  <p className="text-red-500 font-semibold mb-3">Failed to load page image.</p>
+                  <button
+                    onClick={() => handleRetryPage(currentPageIndex)}
+                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-md"
+                  >
+                    <RefreshCw size={14} /> Retry Page
+                  </button>
+                </div>
+              ) : (
+                <img
+                  key={`single-${currentPageIndex}-${retryKeys[currentPageIndex] || 0}`}
+                  src={pages[currentPageIndex]}
+                  alt={`Blue Lock Chapter ${chapter.number} Page ${currentPageIndex + 1}`}
+                  className="w-full h-auto block cursor-pointer"
+                  onClick={() => {
+                    if (currentPageIndex < pages.length - 1) setCurrentPageIndex(p => p + 1);
+                    else if (nextChapter) handleNav(nextChapter.number);
+                  }}
+                  loading="eager"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
+                  onError={() => setFailedPages(prev => ({ ...prev, [currentPageIndex]: true }))}
+                />
+              )}
+            </div>
+          </div>
         ) : (
-          // Vertical Layout
+          /* Webtoon Continuous Scroll Mode */
           <div className="max-w-4xl mx-auto bg-white dark:bg-black shadow-2xl min-h-screen">
-            {chapter.pages.map((pageUrl, idx) => (
-              <img
-                key={idx}
-                src={pageUrl}
-                alt={`Blue Lock Chapter ${chapter.number} Page ${idx + 1}`}
-                className="w-full h-auto block"
-                loading={idx < 2 ? "eager" : "lazy"}
-                fetchPriority={idx === 0 ? "high" : "auto"}
-                decoding="async"
-                referrerPolicy="no-referrer"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
-                }}
-              />
+            {pages.map((pageUrl, idx) => (
+              <div key={idx} className="relative min-h-[250px] bg-gray-100 dark:bg-[#0a0a0a]">
+                {failedPages[idx] ? (
+                  <div className="h-64 flex flex-col items-center justify-center p-6 border-b border-gray-200 dark:border-white/5 text-center">
+                    <p className="text-red-500 text-xs font-bold mb-3">Page {idx + 1} failed to load.</p>
+                    <button
+                      onClick={() => handleRetryPage(idx)}
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded"
+                    >
+                      <RefreshCw size={13} /> Retry Page {idx + 1}
+                    </button>
+                  </div>
+                ) : (
+                  <img
+                    key={`scroll-${idx}-${retryKeys[idx] || 0}`}
+                    src={pageUrl}
+                    alt={`Blue Lock Chapter ${chapter.number} Page ${idx + 1}`}
+                    className="w-full h-auto block"
+                    loading={idx < 3 ? "eager" : "lazy"}
+                    fetchPriority={idx === 0 ? "high" : "auto"}
+                    decoding="async"
+                    referrerPolicy="no-referrer"
+                    onError={() => setFailedPages(prev => ({ ...prev, [idx]: true }))}
+                  />
+                )}
+              </div>
             ))}
           </div>
         )}
-
       </div>
 
-      {/* Chapter Programmatic SEO text targeting long-tail queries */}
-      <div className="bg-white dark:bg-[#1a1a1a] border-t border-b border-gray-200 dark:border-white/5 py-12 px-4 relative z-10">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-heading font-bold text-gray-900 dark:text-white mb-6 uppercase tracking-wide">
-            Blue Lock Chapter {chapter.number} Spoilers, Release Date & Manga Analysis
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-            <div>
-              <h3 className="font-bold text-gray-900 dark:text-white mb-2">When does Blue Lock Chapter {chapter.number} release?</h3>
-              <p className="mb-4">
-                Blue Lock Chapter {chapter.number} officially released on {new Date(chapter.releaseDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}. The manga releases chapters on a weekly cadence, updating every week in Weekly Shōnen Magazine.
-              </p>
-              <h3 className="font-bold text-gray-900 dark:text-white mb-2">Where to read Blue Lock Chapter {chapter.number} officially?</h3>
-              <p>
-                The official serialization is published by Kodansha. For the complete English scan translation archive of all chapters, you can read free online at readbluelockmanga.online.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-900 dark:text-white mb-2">Chapter {chapter.number} spoilers and raw scans summary</h3>
-              <p className="mb-4">
-                Raw scans for Blue Lock Chapter {chapter.number} usually emerge online 2-3 days before the English translation releases. In this chapter, Yoichi Isagi and other strikers from the Blue Lock project compete in high-stakes matches to survive eliminations and forge chemical reactions.
-              </p>
-              <h3 className="font-bold text-gray-900 dark:text-white mb-2">Is the Blue Lock manga ongoing?</h3>
-              <p>
-                Yes, Blue Lock is actively ongoing, written by Muneyuki Kaneshiro. The story continues to follow the intense Neo Egoist League. Bookmark this site to get updates on the latest chapters!
-              </p>
-            </div>
+      {/* Surrounding Chapters Quick Navigation Mesh for Crawlers & Users */}
+      <div className="bg-[#151515] border-t border-white/5 py-6 px-4">
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <span className="text-xs font-bold uppercase tracking-wider text-gray-400 flex items-center gap-1.5">
+            <Layers size={14} className="text-blue-500" />
+            Browse Nearby Chapters:
+          </span>
+          <div className="flex flex-wrap items-center gap-2">
+            {surroundingChapters.map(c => (
+              <Link
+                key={c.number}
+                to={`/chapter/${c.number}`}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${c.number === currentNum ? 'bg-blue-600 text-white shadow-md' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
+              >
+                Ch. {c.number}
+              </Link>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Navigation Footer (Visible in all modes, pushed to bottom) */}
+      {/* Chapter Programmatic SEO Breakdown */}
+      <div className="bg-white dark:bg-[#181818] border-t border-b border-gray-200 dark:border-white/5 py-12 px-4 relative z-10">
+        <div className="max-w-4xl mx-auto space-y-10">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-blue-500 mb-2">
+              <span>{seo.arcName}</span>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-heading font-bold text-gray-900 dark:text-white mb-4">
+              {seo.hasUniqueSummary ? `What Happens in Blue Lock Chapter ${chapter.number}` : `Blue Lock Chapter ${chapter.number}: Story Context`}
+            </h2>
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-6">
+              {seo.summary}
+            </p>
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+              <strong>Arc Context:</strong> {seo.arcDescription} <Link to={`/arcs/${seo.arcSlug}`} className="text-blue-400 hover:underline">Read the {seo.arcName} guide</Link>.
+            </p>
+          </div>
+
+          {/* Internal Linking Mesh: Key Characters Featured in this Arc */}
+          <div>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-3 flex items-center gap-2">
+              <Users size={16} className="text-blue-500" />
+              Key Strikers Featured in this Arc:
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {seo.featuredCharacters.map(char => (
+                <Link
+                  key={char.slug}
+                  to={`/characters/${char.slug}`}
+                  className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/5 hover:border-blue-500/40 hover:bg-blue-600/5 transition-all group"
+                >
+                  <div>
+                    <span className="font-bold text-gray-900 dark:text-white text-sm block group-hover:text-blue-400 transition-colors">
+                      {char.name}
+                    </span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">{char.role}</span>
+                  </div>
+                  <ArrowRight size={14} className="text-gray-400 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all" />
+                </Link>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* Navigation Footer */}
       <div className="bg-white dark:bg-[#121212] relative z-10 block">
-        <div className="max-w-4xl mx-auto py-20 px-4 flex flex-col items-center gap-10">
-          <div className="flex items-center gap-4 text-gray-400 dark:text-gray-500">
+        <div className="max-w-4xl mx-auto py-16 px-4 flex flex-col items-center gap-8">
+          <div className="flex items-center gap-4 text-gray-400 dark:text-gray-600">
             <div className="h-px w-12 bg-gray-300 dark:bg-gray-800"></div>
             <span className="uppercase tracking-[0.2em] text-xs font-bold">End of Chapter {chapter.number}</span>
             <div className="h-px w-12 bg-gray-300 dark:bg-gray-800"></div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-xl">
             {prevChapter ? (
-              <Link to={`/chapter/${prevChapter.number}`} 
-                className="group relative overflow-hidden rounded-2xl bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-white/10 p-6 text-left hover:border-gray-300 dark:hover:border-white/20 transition-all hover:shadow-xl hover:-translate-y-1"
+              <Link
+                to={`/chapter/${prevChapter.number}`}
+                className="group rounded-xl bg-gray-50 dark:bg-[#181818] border border-gray-200 dark:border-white/5 p-5 text-left hover:border-blue-500/50 transition-all hover:shadow-lg"
               >
-                <div className="relative z-10 flex items-center justify-between">
-                  <div>
-                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">Previous</span>
-                    <span className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-bb-blue transition-colors">Chapter {prevChapter.number}</span>
-                  </div>
-                  <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:bg-bb-blue group-hover:text-white transition-all">
-                    <ChevronLeft size={20} />
-                  </div>
-                </div>
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">Previous</span>
+                <span className="font-bold text-gray-900 dark:text-white text-base group-hover:text-blue-500 transition-colors">
+                  Chapter {prevChapter.number}
+                </span>
               </Link>
             ) : <div />}
 
             {nextChapter ? (
-              <Link to={`/chapter/${nextChapter.number}`} 
-                className="group relative overflow-hidden rounded-2xl bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-white/10 p-6 text-right hover:border-bb-blue/50 dark:hover:border-bb-blue/50 transition-all hover:shadow-xl hover:shadow-bb-blue/10 hover:-translate-y-1"
+              <Link
+                to={`/chapter/${nextChapter.number}`}
+                className="group rounded-xl bg-blue-600/10 dark:bg-blue-900/20 border border-blue-500/30 p-5 text-right hover:border-blue-500 transition-all hover:shadow-lg"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-bb-blue/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div className="relative z-10 flex items-center justify-between flex-row-reverse">
-                  <div>
-                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">Next</span>
-                    <span className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-bb-blue transition-colors">Chapter {nextChapter.number}</span>
-                  </div>
-                  <div className="w-10 h-10 rounded-full bg-bb-blue/10 text-bb-blue flex items-center justify-center group-hover:bg-bb-blue group-hover:text-white transition-all">
-                    <ChevronRight size={20} />
-                  </div>
-                </div>
+                <span className="text-xs font-bold text-blue-500 uppercase tracking-wider block mb-1">Next Chapter</span>
+                <span className="font-bold text-blue-600 dark:text-blue-400 text-base group-hover:underline">
+                  Chapter {nextChapter.number}
+                </span>
               </Link>
-            ) : (
-              <button disabled className="rounded-2xl bg-gray-100 dark:bg-white/5 border border-transparent p-6 text-center cursor-not-allowed opacity-50">
-                <span className="font-bold text-gray-500">Latest Chapter</span>
-              </button>
-            )}
+            ) : <div />}
           </div>
-        </div>
-
-        {/* More Manga from Our Network */}
-        <div className="max-w-4xl mx-auto mt-12 px-4 pb-20">
-          <div className="bg-[#1a1a1a] border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
-            <div className="flex items-center justify-between p-6 border-b border-white/5 bg-white/5">
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <BookOpen size={18} className="text-bb-blue" />
-                More Manga to Read
-              </h3>
-              <button
-                onClick={() => navigator.share?.({ title: `Blue Lock Chapter ${chapter.number}`, url: window.location.href })}
-                className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg text-sm font-medium transition-colors border border-white/5"
-              >
-                <Share2 size={16} /> Share Chapter
-              </button>
-            </div>
-            <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {SISTER_SITES.map(site => (
-                <a
-                  key={site.url}
-                  href={site.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex flex-col gap-1 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-bb-blue/40 hover:bg-bb-blue/5 transition-all"
-                >
-                  <span className="font-bold text-white group-hover:text-bb-blue transition-colors text-sm">{site.name}</span>
-                  <span className="text-xs text-gray-500 leading-relaxed">{site.desc}</span>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* SEO Footer (Visible in all modes, pushed to bottom) */}
-      <div className="bg-black py-12 px-4 border-t border-white/10 mt-auto">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-bb-blue font-bold uppercase tracking-widest mb-4 text-xs">Blue Lock Manga</h2>
-          <p className="text-gray-500 text-sm leading-relaxed max-w-2xl mx-auto">
-            You are currently reading <strong className="text-gray-400">Blue Lock Chapter {chapter.number}</strong> online in high quality. 
-            Enjoy the latest installment of Muneyuki Kaneshiro & Yusuke Nomura's hit masterpiece, and follow the journey to become the world's greatest striker.
-          </p>
         </div>
       </div>
     </div>

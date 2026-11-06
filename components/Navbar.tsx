@@ -13,10 +13,11 @@ const Navbar: React.FC = () => {
     { name: 'Home', path: '/' },
     { name: 'All Chapters', path: '/manga' },
     { name: 'Characters', path: '/characters' },
-    { name: 'Read Dandadan Manga', path: 'https://www.readdandadanmanga.online/', isExternal: true },
+    { name: 'Arcs', path: '/arcs' },
+    { name: 'Anime', path: '/anime' },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => path === '/' ? location.pathname === '/' : location.pathname.startsWith(path);
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-black/95 backdrop-blur-sm border-b border-gray-800 transition-colors duration-200">
@@ -58,28 +59,30 @@ const Navbar: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Actions */}
+          {/* Search & Actions */}
           <div className="hidden md:flex items-center gap-4">
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-full text-gray-400 hover:bg-gray-800 hover:text-white transition-colors"
-              aria-label="Toggle Theme"
+            <Link
+              to="/manga"
+              className="p-2 text-gray-400 hover:text-white transition-colors"
+              title="Search Chapters"
             >
-              {theme === 'dark' ? <Sun size={24} strokeWidth={2.5} /> : <Moon size={24} strokeWidth={2.5} />}
-            </button>
-            <Link to="/manga" className="p-2 text-gray-400 hover:text-bb-blue" aria-label="Search">
-              <Search size={24} strokeWidth={2.5} />
+              <Search size={20} />
             </Link>
           </div>
 
           {/* Mobile menu button */}
-          <div className="-mr-2 flex md:hidden">
+          <div className="-mr-2 flex md:hidden items-center gap-2">
+            <Link
+              to="/manga"
+              className="p-2 text-gray-400 hover:text-white transition-colors"
+            >
+              <Search size={20} />
+            </Link>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white hover:bg-bb-blue focus:outline-none"
-              aria-label="Toggle menu"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none"
             >
-              {isOpen ? <X size={24} strokeWidth={2.5} /> : <Menu size={24} strokeWidth={2.5} />}
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
@@ -87,7 +90,7 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+        <div className="md:hidden bg-black border-b border-gray-800">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {navLinks.map((link) => (
               link.isExternal ? (
@@ -97,7 +100,7 @@ const Navbar: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setIsOpen(false)}
-                  className="block px-3 py-2 rounded-md text-base font-bold tracking-wide text-gray-700 dark:text-gray-300 hover:text-bb-blue"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800"
                 >
                   {link.name}
                 </a>
@@ -106,24 +109,15 @@ const Navbar: React.FC = () => {
                   key={link.name}
                   to={link.path}
                   onClick={() => setIsOpen(false)}
-                  className={`block px-3 py-2 rounded-md text-base font-bold tracking-wide ${isActive(link.path)
-                    ? 'text-bb-blue bg-gray-50 dark:bg-gray-800'
-                    : 'text-gray-700 dark:text-gray-300 hover:text-bb-blue'
+                  className={`block px-3 py-2 rounded-md text-base font-medium ${isActive(link.path)
+                    ? 'text-bb-blue bg-gray-900 font-bold'
+                    : 'text-gray-300 hover:text-white hover:bg-gray-800'
                     }`}
                 >
                   {link.name}
                 </Link>
               )
             ))}
-            <button
-              onClick={() => {
-                toggleTheme();
-                setIsOpen(false);
-              }}
-              className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-bb-blue"
-            >
-              Switch to {theme === 'dark' ? 'Light' : 'Dark'} Mode
-            </button>
           </div>
         </div>
       )}
