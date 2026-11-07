@@ -1,6 +1,7 @@
 // Typed wrapper around utils/seo-core.js (shared with the build scripts).
 import * as core from './seo-core.js';
 import chapterNotes from '../data/chapter-notes.json';
+import { SupportedLang } from '../types';
 
 export const SITE_URL: string = core.SITE_URL;
 export const SITE_NAME: string = core.SITE_NAME;
@@ -23,19 +24,35 @@ export interface ChapterSEOData {
   canonicalUrl: string;
   noindex: boolean;
   schemas: object[];
+  alternateLinks?: { rel: string; hreflang: string; href: string }[];
 }
 
 const notes = chapterNotes as Record<string, { title?: string; summary?: string }>;
 
-export function getChapterSEOData(chapterNumber: number, opts: { title?: string; pageCount?: number } = {}): ChapterSEOData {
+export function getChapterSEOData(
+  chapterNumber: number,
+  opts: { title?: string; pageCount?: number; lang?: SupportedLang } = {}
+): ChapterSEOData {
   return core.getChapterSEOData(chapterNumber, { ...opts, note: notes[String(chapterNumber)] }) as ChapterSEOData;
 }
 
-export function getCharacterSEOData(character: { name: string; slug: string; image: string; description: string; weapon: string }) {
-  return core.getCharacterSEOData(character) as { seoTitle: string; seoDescription: string; canonicalUrl: string; ogImage: string; schemas: object[] };
+export function getCharacterSEOData(
+  character: { name: string; slug: string; image: string; description: string; weapon: string },
+  lang?: SupportedLang
+) {
+  return core.getCharacterSEOData(character, lang) as {
+    seoTitle: string;
+    seoDescription: string;
+    canonicalUrl: string;
+    ogImage: string;
+    schemas: object[];
+  };
 }
 
-export function getAdjacentChapters<T extends { number: number }>(chapters: T[], num: number): { prev: T | null; next: T | null; nearby: T[] } {
+export function getAdjacentChapters<T extends { number: number }>(
+  chapters: T[],
+  num: number
+): { prev: T | null; next: T | null; nearby: T[] } {
   return core.getAdjacentChapters(chapters, num) as { prev: T | null; next: T | null; nearby: T[] };
 }
 

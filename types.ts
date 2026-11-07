@@ -1,10 +1,16 @@
+export type SupportedLang = 'en' | 'fr' | 'pt';
+
 export interface Chapter {
   id: string;
   number: number;
   title: string;
   releaseDate: string;
   pages?: string[];
+  pagesFr?: string[];
+  pagesPt?: string[];
   pageCount?: number;
+  pageCountFr?: number;
+  pageCountPt?: number;
 }
 
 export interface Character {
@@ -48,6 +54,8 @@ export interface Comment {
   id: string;
   user: string;
   content: string;
-  date: string;
-  likes: number;
+  date?: string;
+  likes?: number;
+  createdAt?: string;
+  avatar?: string;
 }

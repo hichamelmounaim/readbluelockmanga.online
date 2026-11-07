@@ -13,7 +13,6 @@ export function trimText(text, max = 160) {
   const t = String(text).replace(/\s+/g, ' ').trim();
   if (t.length <= max) return t;
   const cut = t.slice(0, max - 1);
-  // Prefer ending on a full sentence when one ends late enough.
   const lastStop = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf('! '), cut.lastIndexOf('? '));
   if (lastStop >= max * 0.6) return cut.slice(0, lastStop + 1);
   const lastSpace = cut.lastIndexOf(' ');
@@ -60,9 +59,6 @@ const SERIES = {
   url: `${SITE_URL}/`,
 };
 
-// Arc context. Note: these summaries describe the arc / stage, not the individual chapter.
-// To give a chapter its own unique summary or real title, add it to data/chapter-notes.json:
-//   { "355": { "title": "Real Chapter Name", "summary": "2-3 sentences about this chapter." } }
 export function getArcInfo(chapterNumber) {
   const num = Math.max(1, chapterNumber);
 
@@ -186,24 +182,65 @@ export function getArcInfo(chapterNumber) {
 /**
  * SEO data for a chapter page.
  * @param {number} chapterNumber
- * @param {{ title?: string, pageCount?: number, note?: { title?: string, summary?: string } }} [opts]
+ * @param {{ title?: string, pageCount?: number, note?: { title?: string, summary?: string }, lang?: 'en' | 'fr' | 'pt' }} [opts]
  */
 export function getChapterSEOData(chapterNumber, opts = {}) {
   const num = chapterNumber;
+  const lang = opts.lang || 'en';
   const arc = getArcInfo(num);
   const note = opts.note || {};
   const title = note.title || realChapterTitle(num, opts.title);
   const hasPages = opts.pageCount === undefined ? true : opts.pageCount > 0;
   const summary = note.summary || arc.stageSummary;
-  const canonicalUrl = `${SITE_URL}/chapter/${num}`;
 
-  const seoTitle = title
-    ? trimText(`Blue Lock Chapter ${num}: ${title} – Read Online`, 65)
-    : `Blue Lock Chapter ${num} – Read Manga Online | ${SITE_NAME}`;
-  const seoDescription = trimText(
-    `Read Blue Lock Chapter ${num}${title ? ` "${title}"` : ''} online (${arc.arcName}). ${summary}`,
-    160,
-  );
+  const canonicalUrl = lang === 'fr'
+    ? `${SITE_URL}/fr/chapter/${num}`
+    : lang === 'pt'
+    ? `${SITE_URL}/pt/chapter/${num}`
+    : `${SITE_URL}/chapter/${num}`;
+
+  let seoTitle = '';
+  let seoDescription = '';
+
+  if (lang === 'fr') {
+    seoTitle = title
+      ? trimText(`Blue Lock Chapitre ${num} VF : ${title} – Scan VF Lecture en Ligne`, 65)
+      : `Blue Lock Chapitre ${num} VF – Scan VF Lecture en Ligne Gratuite HD`;
+    seoDescription = trimText(
+      `Lisez le manga Blue Lock Chapitre ${num} scan VF en ligne en haute définition. Suivez Yoichi Isagi dans le projet Blue Lock. ${summary}`,
+      160
+    );
+  } else if (lang === 'pt') {
+    seoTitle = title
+      ? trimText(`Blue Lock Capítulo ${num}: ${title} – Ler Mangá Online em Português`, 65)
+      : `Blue Lock Capítulo ${num} – Ler Mangá Online em Português HD`;
+    seoDescription = trimText(
+      `Leia o mangá Blue Lock Capítulo ${num} online grátis em português. Acompanhe Yoichi Isagi na disputa do Blue Lock. ${summary}`,
+      160
+    );
+  } else {
+    seoTitle = title
+      ? trimText(`Blue Lock Chapter ${num}: ${title} – Read Online`, 65)
+      : `Blue Lock Chapter ${num} – Read Manga Online | ${SITE_NAME}`;
+    seoDescription = trimText(
+      `Read Blue Lock Chapter ${num}${title ? ` "${title}"` : ''} online (${arc.arcName}). ${summary}`,
+      160
+    );
+  }
+
+  const breadcrumbItems = lang === 'fr' ? [
+    { name: 'Accueil', path: '/fr' },
+    { name: 'Tous les chapitres', path: '/fr/manga' },
+    { name: `Chapitre ${num}`, path: `/fr/chapter/${num}` },
+  ] : lang === 'pt' ? [
+    { name: 'Início', path: '/pt' },
+    { name: 'Todos os Capítulos', path: '/pt/manga' },
+    { name: `Capítulo ${num}`, path: `/pt/chapter/${num}` },
+  ] : [
+    { name: 'Home', path: '/' },
+    { name: 'All Chapters', path: '/manga' },
+    { name: `Chapter ${num}`, path: `/chapter/${num}` },
+  ];
 
   const schemas = [
     {
@@ -215,11 +252,14 @@ export function getChapterSEOData(chapterNumber, opts = {}) {
       isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: `${SITE_URL}/` },
       about: SERIES,
     },
-    breadcrumbSchema([
-      { name: 'Home', path: '/' },
-      { name: 'All Chapters', path: '/manga' },
-      { name: `Chapter ${num}`, path: `/chapter/${num}` },
-    ]),
+    breadcrumbSchema(breadcrumbItems),
+  ];
+
+  const alternateLinks = [
+    { rel: 'alternate', hreflang: 'en', href: `${SITE_URL}/chapter/${num}` },
+    { rel: 'alternate', hreflang: 'fr', href: `${SITE_URL}/fr/chapter/${num}` },
+    { rel: 'alternate', hreflang: 'pt', href: `${SITE_URL}/pt/chapter/${num}` },
+    { rel: 'alternate', hreflang: 'x-default', href: `${SITE_URL}/chapter/${num}` },
   ];
 
   return {
@@ -234,42 +274,69 @@ export function getChapterSEOData(chapterNumber, opts = {}) {
     canonicalUrl,
     noindex: !hasPages,
     schemas,
+    alternateLinks,
   };
 }
 
-export function getCharacterSEOData(character) {
-  const url = `${SITE_URL}/characters/${character.slug}`;
-  const image = abs(character.image);
-  // Social networks get the original JPG (best compatibility); the site shows the lighter WebP.
+export function getCharacterSEOData(character, lang = 'en') {
+  const url = lang === 'fr'
+    ? `${SITE_URL}/fr/characters/${character.slug}`
+    : lang === 'pt'
+    ? `${SITE_URL}/pt/characters/${character.slug}`
+    : `${SITE_URL}/characters/${character.slug}`;
+
+  let seoTitle = '';
+  let seoDescription = '';
+
+  if (lang === 'fr') {
+    seoTitle = trimText(`${character.name} – Profil, Armes et Capacités Blue Lock`, 65);
+    seoDescription = trimText(`Tout savoir sur ${character.name} dans Blue Lock : rôle (${character.role}), arme (${character.weapon}), capacités et moments clés.`, 160);
+  } else if (lang === 'pt') {
+    seoTitle = trimText(`${character.name} – Perfil, Armas e Habilidades Blue Lock`, 65);
+    seoDescription = trimText(`Tudo sobre ${character.name} em Blue Lock: posição (${character.role}), arma (${character.weapon}), habilidades e capítulos marcantes.`, 160);
+  } else {
+    seoTitle = character.shortName
+      ? trimText(`${character.name} (${character.shortName}) – Blue Lock Character Profile, Weapon & Role`, 65)
+      : trimText(`${character.name} – Blue Lock Character Profile, Weapon & Role`, 65);
+    seoDescription = trimText(
+      `${character.name} is a ${character.role} in Blue Lock (${character.grade}). Weapon: ${character.weapon}. Abilities: ${character.abilities} First appeared in ${character.firstAppearance}.`,
+      160,
+    );
+  }
+
   const ogImage = character.image.startsWith('/characters/') ? abs(character.image.replace(/\.webp$/, '.jpg')) : DEFAULT_OG_IMAGE;
-  // Fans search "nagi blue lock", "isagi blue lock"... so lead with the short name.
-  const lead = character.shortName ? `${character.shortName} Blue Lock: ${character.name}` : `${character.name} (Blue Lock)`;
-  const isPlayer = !/staff|coach/i.test(character.role);
-  const seoTitle = `${lead} Profile${character.age ? ', Age' : ''} & ${isPlayer ? 'Weapons' : 'Role'}`;
-  const seoDescription = trimText(
-    `${character.name} in Blue Lock: ${character.description}${character.age ? ` Age: ${character.age}.` : ''} Weapon: ${character.weapon}. Abilities, story and key chapters.`,
-    160,
-  );
+
+  const breadcrumbItems = lang === 'fr' ? [
+    { name: 'Accueil', path: '/fr' },
+    { name: 'Personnages', path: '/fr/characters' },
+    { name: character.name, path: `/fr/characters/${character.slug}` },
+  ] : lang === 'pt' ? [
+    { name: 'Início', path: '/pt' },
+    { name: 'Personagens', path: '/pt/characters' },
+    { name: character.name, path: `/pt/characters/${character.slug}` },
+  ] : [
+    { name: 'Home', path: '/' },
+    { name: 'Characters', path: '/characters' },
+    { name: character.name, path: `/characters/${character.slug}` },
+  ];
+
   const schemas = [
     {
       '@context': 'https://schema.org',
-      '@type': 'ProfilePage',
+      '@type': 'ItemPage',
       name: seoTitle,
+      description: seoDescription,
       url,
-      mainEntity: {
+      image: abs(character.image),
+      about: {
         '@type': 'Person',
         name: character.name,
         description: character.description,
-        image,
-        subjectOf: SERIES,
+        image: abs(character.image),
       },
     },
-    breadcrumbSchema([
-      { name: 'Home', path: '/' },
-      { name: 'Characters', path: '/characters' },
-      { name: character.name, path: `/characters/${character.slug}` },
-    ]),
-];
+    breadcrumbSchema(breadcrumbItems),
+  ];
   if (character.faq?.length) {
     schemas.push({
       '@context': 'https://schema.org',
@@ -280,39 +347,135 @@ export function getCharacterSEOData(character) {
   return { seoTitle, seoDescription, canonicalUrl: url, ogImage, schemas };
 }
 
-// Meta for the fixed pages. Used by the React pages AND the prerender script so they always match.
+// Meta for fixed pages
 export const PAGE_META = {
   '/': {
     title: 'Blue Lock Manga – Read Blue Lock Manga Online, All Chapters',
     description: "Read Blue Lock manga online: every chapter of Muneyuki Kaneshiro & Yusuke Nomura's soccer manga in HD, plus character profiles and answers to fans' top questions.",
   },
+  '/en': {
+    title: 'Blue Lock Manga – Read Blue Lock Manga Online, All Chapters',
+    description: "Read Blue Lock manga online: every chapter of Muneyuki Kaneshiro & Yusuke Nomura's soccer manga in HD, plus character profiles and answers to fans' top questions.",
+  },
+  '/fr': {
+    title: 'Blue Lock Manga Scan VF – Lecture en Ligne Gratuite HD',
+    description: 'Lisez le manga Blue Lock en scan VF gratuit en haute définition. Tous les chapitres disponibles en ligne sans inscription.',
+  },
+  '/pt': {
+    title: 'Blue Lock Mangá Online – Ler Todos os Capítulos em Português HD',
+    description: 'Leia o mangá Blue Lock online grátis em português. Todos os capítulos e volumes em alta qualidade sem cadastro.',
+  },
   '/manga': {
     title: 'Read Blue Lock Manga Chapters – Full Chapter List',
-    description: 'Read Blue Lock manga chapters in order, from Chapter 1 to the latest release, grouped by story arc. How many chapters there are and where each arc starts.',
+    description: 'Read Blue Lock manga chapters in order, from Chapter 1 to the latest release, grouped by story arc.',
+  },
+  '/en/manga': {
+    title: 'Read Blue Lock Manga Chapters – Full Chapter List',
+    description: 'Read Blue Lock manga chapters in order, from Chapter 1 to the latest release, grouped by story arc.',
+  },
+  '/fr/manga': {
+    title: 'Blue Lock Scan VF – Tous les Chapitres en Ligne Gratuits',
+    description: 'Liste complète des chapitres de Blue Lock en scan VF. Tous les arcs narratifs du Chapitre 1 aux derniers scans.',
+  },
+  '/pt/manga': {
+    title: 'Ler Mangá Blue Lock – Todos os Capítulos em Português',
+    description: 'Lista completa de capítulos de Blue Lock traduzidos em português. Leia do capítulo 1 aos lançamentos mais recentes.',
   },
   '/characters': {
     title: 'Blue Lock Characters – Main Character, Profiles & Weapons',
-    description: "Blue Lock's main character is Yoichi Isagi. Profiles of Isagi, Nagi, Bachira, Rin, Kaiser and more: roles, weapons, abilities and key chapters.",
+    description: "Blue Lock's main character is Yoichi Isagi. Profiles of Isagi, Nagi, Bachira, Rin, Kaiser and more.",
+  },
+  '/en/characters': {
+    title: 'Blue Lock Characters – Main Character, Profiles & Weapons',
+    description: "Blue Lock's main character is Yoichi Isagi. Profiles of Isagi, Nagi, Bachira, Rin, Kaiser and more.",
+  },
+  '/fr/characters': {
+    title: 'Personnages de Blue Lock – Profils, Armes et Capacités',
+    description: 'Retrouvez tous les personnages de Blue Lock : Yoichi Isagi, Meguru Bachira, Rin Itoshi, Nagi, Barou et les maîtres attaquants.',
+  },
+  '/pt/characters': {
+    title: 'Personagens de Blue Lock – Perfis, Armas e Habilidades',
+    description: 'Conheça todos os personagens de Blue Lock: Yoichi Isagi, Bachira, Rin Itoshi, Seishiro Nagi, Barou e muito mais.',
   },
   '/about': {
     title: 'About Blue Lock Manga – Independent Fan Project',
     description: "About Blue Lock Manga, an independent fan project and reading archive for Muneyuki Kaneshiro & Yusuke Nomura's Blue Lock.",
   },
+  '/en/about': {
+    title: 'About Blue Lock Manga – Independent Fan Project',
+    description: "About Blue Lock Manga, an independent fan project and reading archive for Muneyuki Kaneshiro & Yusuke Nomura's Blue Lock.",
+  },
+  '/fr/about': {
+    title: 'À Propos – Blue Lock Manga VF',
+    description: 'À propos de Blue Lock Manga, projet fan indépendant pour la lecture en ligne de Blue Lock en français.',
+  },
+  '/pt/about': {
+    title: 'Sobre Nós – Blue Lock Mangá',
+    description: 'Sobre o projeto Blue Lock Mangá em português, site independente feito por fãs para fãs.',
+  },
   '/privacy': {
     title: 'Privacy Policy – Blue Lock Manga',
     description: 'How Blue Lock Manga handles data and protects visitor privacy.',
+  },
+  '/en/privacy': {
+    title: 'Privacy Policy – Blue Lock Manga',
+    description: 'How Blue Lock Manga handles data and protects visitor privacy.',
+  },
+  '/fr/privacy': {
+    title: 'Politique de Confidentialité – Blue Lock Manga',
+    description: 'Politique de confidentialité et protection des données sur Blue Lock Manga.',
+  },
+  '/pt/privacy': {
+    title: 'Política de Privacidade – Blue Lock Mangá',
+    description: 'Política de privacidade e proteção de dados no Blue Lock Mangá.',
   },
   '/terms': {
     title: 'Terms and Conditions – Blue Lock Manga',
     description: 'Terms of service, user agreements and conduct guidelines for Blue Lock Manga.',
   },
+  '/en/terms': {
+    title: 'Terms and Conditions – Blue Lock Manga',
+    description: 'Terms of service, user agreements and conduct guidelines for Blue Lock Manga.',
+  },
+  '/fr/terms': {
+    title: 'Conditions d\'Utilisation – Blue Lock Manga',
+    description: 'Conditions générales d\'utilisation du site Blue Lock Manga.',
+  },
+  '/pt/terms': {
+    title: 'Termos e Condições – Blue Lock Mangá',
+    description: 'Termos de serviço e diretrizes de uso do Blue Lock Mangá.',
+  },
   '/dmca': {
     title: 'DMCA Copyright Notice & Takedown Policy – Blue Lock Manga',
     description: 'DMCA compliance and how to submit a copyright takedown notice to Blue Lock Manga.',
   },
+  '/en/dmca': {
+    title: 'DMCA Copyright Notice & Takedown Policy – Blue Lock Manga',
+    description: 'DMCA compliance and how to submit a copyright takedown notice to Blue Lock Manga.',
+  },
+  '/fr/dmca': {
+    title: 'DMCA et Droits d\'Auteur – Blue Lock Manga',
+    description: 'Notification DMCA et procédure de retrait pour Blue Lock Manga.',
+  },
+  '/pt/dmca': {
+    title: 'Aviso de DMCA e Direitos Autorais – Blue Lock Mangá',
+    description: 'Política de DMCA e solicitação de remoção no Blue Lock Mangá.',
+  },
   '/disclaimer': {
     title: 'Legal Disclaimer – Blue Lock Manga',
     description: 'Legal disclaimer and copyright notices for Blue Lock Manga, an unofficial fan project.',
+  },
+  '/en/disclaimer': {
+    title: 'Legal Disclaimer – Blue Lock Manga',
+    description: 'Legal disclaimer and copyright notices for Blue Lock Manga, an unofficial fan project.',
+  },
+  '/fr/disclaimer': {
+    title: 'Avertissement Légal – Blue Lock Manga',
+    description: 'Mentions légales et avertissement de droit d\'auteur pour Blue Lock Manga.',
+  },
+  '/pt/disclaimer': {
+    title: 'Aviso Legal – Blue Lock Mangá',
+    description: 'Aviso legal e isenção de responsabilidade do projeto de fãs Blue Lock Mangá.',
   },
 };
 

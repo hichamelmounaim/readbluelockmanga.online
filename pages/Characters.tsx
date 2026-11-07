@@ -3,24 +3,37 @@ import { Link } from 'react-router-dom';
 import SEOHead from '../components/SEOHead';
 import { CHARACTERS } from '../constants';
 import { PAGE_META, SITE_URL } from '../utils/seo';
-import { CHARACTERS_FAQ } from '../data/characters-faq.js';
-import { ArrowRight, Shield, Zap } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { ArrowRight, Zap } from 'lucide-react';
 
 const Characters: React.FC = () => {
+  const { lang, t, localizePath } = useLanguage();
+
+  const metaPath = lang === 'en' ? '/characters' : `/${lang}/characters`;
+  const pageMeta = PAGE_META[metaPath] || PAGE_META['/characters'];
+
+  const alternateLinks = [
+    { rel: 'alternate', hreflang: 'en', href: `${SITE_URL}/characters` },
+    { rel: 'alternate', hreflang: 'fr', href: `${SITE_URL}/fr/characters` },
+    { rel: 'alternate', hreflang: 'pt', href: `${SITE_URL}/pt/characters` },
+    { rel: 'alternate', hreflang: 'x-default', href: `${SITE_URL}/characters` },
+  ];
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <SEOHead
-        title={PAGE_META['/characters'].title}
-        description={PAGE_META['/characters'].description}
-        canonicalUrl={`${SITE_URL}/characters`}
+        title={pageMeta.title}
+        description={pageMeta.description}
+        canonicalUrl={lang === 'en' ? `${SITE_URL}/characters` : `${SITE_URL}/${lang}/characters`}
+        alternateLinks={alternateLinks}
       />
 
       <div className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">
-          Blue Lock <span className="text-blue-500">Characters</span>
+          Blue Lock <span className="text-blue-500">{t.nav.characters}</span>
         </h1>
         <p className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
-          The main character of Blue Lock is <Link to="/characters/yoichi-isagi" className="text-blue-400 hover:underline">Yoichi Isagi</Link>. Below are profiles of every key Blue Lock character, from Isagi's rivals Nagi, Rin and Kaiser to coach Jinpachi Ego: roles, weapons and the chapters where they shine.
+          {t.home.charactersPreviewSubtitle}
         </p>
       </div>
 
@@ -59,44 +72,26 @@ const Characters: React.FC = () => {
                   {char.description}
                 </p>
 
-                {char.weapon && (
-                  <div className="flex items-start gap-2 text-xs text-gray-300 bg-white/5 p-2.5 rounded-lg mb-4">
-                    <Zap size={14} className="text-yellow-400 mt-0.5 flex-shrink-0" />
-                    <span><strong>Weapon:</strong> {char.weapon}</span>
-                  </div>
-                )}
+                <div className="border-t border-white/5 pt-3 mb-4">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-gray-400 block mb-1 flex items-center gap-1">
+                    <Zap size={12} className="text-blue-500" />
+                    Specialty Weapon:
+                  </span>
+                  <span className="text-xs text-gray-300 line-clamp-1">{char.weapon}</span>
+                </div>
               </div>
 
-              <div className="pt-4 border-t border-white/5">
-                <Link
-                  to={`/characters/${char.slug}`}
-                  className="text-sm font-bold text-blue-400 hover:text-blue-300 transition-colors flex items-center justify-between group-hover:translate-x-1 duration-200"
-                >
-                  <span>View Full Profile</span>
-                  <ArrowRight size={16} />
-                </Link>
-              </div>
+              <Link
+                to={localizePath(`/characters/${char.slug}`)}
+                className="w-full py-2.5 px-4 bg-white/5 hover:bg-blue-600 text-gray-300 hover:text-white text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 transition-colors border border-white/5 hover:border-transparent group-hover:border-blue-500/30"
+              >
+                <span>View Full Profile</span>
+                <ArrowRight size={14} />
+              </Link>
             </div>
           </div>
         ))}
       </div>
-
-      <section className="mt-20">
-        <h2 className="text-2xl md:text-3xl font-heading font-bold text-white mb-6">Blue Lock Characters FAQ</h2>
-        <div className="grid gap-4 md:grid-cols-2">
-          {CHARACTERS_FAQ.map(f => (
-            <div key={f.q} className="bg-[#181818] border border-white/5 rounded-xl p-5">
-              <h3 className="font-bold text-white text-sm mb-2">{f.q}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">{f.a}</p>
-            </div>
-          ))}
-        </div>
-        <div className="flex flex-wrap gap-4 mt-6 text-sm">
-          <Link to="/teams" className="text-blue-400 hover:underline">All Blue Lock teams</Link>
-          <Link to="/arcs" className="text-blue-400 hover:underline">Blue Lock arcs</Link>
-          <Link to="/anime" className="text-blue-400 hover:underline">Blue Lock anime</Link>
-        </div>
-      </section>
     </div>
   );
 };

@@ -4,6 +4,7 @@ const path = require('path');
 const projectRoot = path.resolve(__dirname, '..');
 const scrapedFilePath = path.join(projectRoot, 'scraped_nlrjm4-blue-lock.json');
 const newChaptersPath = path.join(__dirname, 'scraped_new_chapters.json');
+const ptChaptersPath = path.join(__dirname, 'pt-chapters.mjs');
 const publicDir = path.join(projectRoot, 'public');
 const dataDir = path.join(publicDir, 'data');
 const chaptersDir = path.join(dataDir, 'chapters');
@@ -19,6 +20,58 @@ const newChaptersData = fs.existsSync(newChaptersPath)
   ? JSON.parse(fs.readFileSync(newChaptersPath, 'utf8'))
   : {};
 
+// Load Portuguese chapters from pt-chapters.mjs
+let ptData = {};
+try {
+  if (fs.existsSync(ptChaptersPath)) {
+    const ptFile = fs.readFileSync(ptChaptersPath, 'utf8');
+    const jsonMatch = ptFile.match(/export\s+default\s+({[\s\S]+});/);
+    if (jsonMatch) {
+      ptData = eval('(' + jsonMatch[1] + ')');
+    }
+  }
+} catch (e) {
+  console.warn('Warning: Could not parse pt-chapters.mjs:', e.message);
+}
+
+// French scans page count mapping
+const qFr = {343:19, 344:19, 345:21, 346:16, 347:17, 348:20, 349:18, 350:22, 351:20, 352:20, 353:20, 354:19, 355:18, 356:20, 357:19, 358:19, 359:19, 360:18, 361:19, 362:18, 363:20, 364:9};
+
+function getPagesFr(num) {
+  if (num === 365) return Array.from({length: 20}, (_, a) => `https://anime-sama.to/s2/scans/Blue%20Lock%20%20/366/${a+1}.jpg`);
+  if (num === 366) return Array.from({length: 17}, (_, a) => `https://anime-sama.to/s2/scans/Blue%20Lock%20%20/367/${a+1}.jpg`);
+  if (num === 364.2) return Array.from({length: 11}, (_, a) => `https://anime-sama.to/s2/scans/Blue%20Lock%20%20/365/${a+1}.jpg`);
+  if (num > 366 || num % 1 !== 0) return [];
+  const count = qFr[num] || 20;
+  return Array.from({length: count}, (_, t) => `https://anime-sama.to/s2/scans/Blue%20Lock%20%20/${num}/${t+1}.jpg`);
+}
+
+function getMangafreakFolderName(num) {
+  if (num === 364.2) return 'blue_lock_364b';
+  if (num === 346.2) return 'blue_lock_346b';
+  if (num === 340.2) return 'blue_lock_340b';
+  if (num === 327.2) return 'blue_lock_327b';
+  if (num === 314.1 || num === 314.2) return 'blue_lock_314b';
+  return `blue_lock_${num}`;
+}
+
+function getEnglishPages(num, baseUrls = []) {
+  if (num === 367 || num === 368) return [];
+  // Use newest chapters from scraped_new_chapters.json if available
+  if (newChaptersData[String(num)]) {
+    return newChaptersData[String(num)];
+  }
+  // If baseUrls point to dead host s11-95168.t34798ndc.com, replace with MangaFreak working URLs
+  const folder = getMangafreakFolderName(num);
+  const count = (baseUrls && baseUrls.length > 0)
+    ? baseUrls.length
+    : (num === 1 ? 75 : num === 2 ? 73 : 20);
+
+  return Array.from({ length: count }, (_, i) =>
+    `https://images.mangafreak.me/mangas/blue_lock/${folder}/${folder}_${i + 1}.jpg`
+  );
+}
+
 const SERIES_START = new Date("2018-08-01T00:00:00Z").getTime();
 const MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
 
@@ -26,10 +79,11 @@ const MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
 const chaptersMap = new Map();
 
 for (const ch of mangaData.chapters) {
-  chaptersMap.set(ch.chapter_number, {
-    number: ch.chapter_number,
-    title: ch.chapter_title && ch.chapter_title.trim() ? ch.chapter_title.trim() : `Chapter ${ch.chapter_number}`,
-    image_urls: ch.image_urls || []
+  const num = ch.chapter_number;
+  chaptersMap.set(num, {
+    number: num,
+    title: ch.chapter_title && ch.chapter_title.trim() ? ch.chapter_title.trim() : `Chapter ${num}`,
+    image_urls: getEnglishPages(num, ch.image_urls)
   });
 }
 
@@ -43,7 +97,7 @@ for (const [chNumStr, pageUrls] of Object.entries(newChaptersData)) {
   });
 }
 
-// Add upcoming chapters 367 and 368 (for ranking and early indexation)
+// Add upcoming chapters 367 and 368
 if (!chaptersMap.has(367)) {
   chaptersMap.set(367, {
     number: 367,
@@ -61,7 +115,6 @@ if (!chaptersMap.has(368)) {
 
 // Sort descending
 const sortedChapters = Array.from(chaptersMap.values()).sort((a, b) => b.number - a.number);
-
 const chapterIndex = [];
 
 for (const ch of sortedChapters) {
@@ -69,12 +122,18 @@ for (const ch of sortedChapters) {
   const releaseDate = new Date(SERIES_START + (Math.max(1, Math.floor(chNum)) - 1) * MS_PER_WEEK).toISOString();
   const cleanTitle = ch.title || `Chapter ${chNum}`;
 
+  const pagesEn = ch.image_urls || [];
+  const pagesFr = getPagesFr(chNum);
+  const pagesPt = ptData[String(chNum)] || ptData[chNum] || [];
+
   const summaryItem = {
     id: String(chNum),
     number: chNum,
     title: cleanTitle,
     releaseDate,
-    pageCount: ch.image_urls ? ch.image_urls.length : 0
+    pageCount: pagesEn.length,
+    pageCountFr: pagesFr.length,
+    pageCountPt: pagesPt.length
   };
   chapterIndex.push(summaryItem);
 
@@ -83,7 +142,9 @@ for (const ch of sortedChapters) {
     number: chNum,
     title: cleanTitle,
     releaseDate,
-    pages: ch.image_urls || []
+    pages: pagesEn,
+    pagesFr,
+    pagesPt
   };
 
   fs.writeFileSync(

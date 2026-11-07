@@ -5,28 +5,52 @@ import SEOHead from '../components/SEOHead';
 import { PAGE_META, SITE_URL } from '../utils/seo';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { useManga } from '../context/MangaContext';
+import { useLanguage } from '../context/LanguageContext';
 
 const STORAGE_KEY = 'bluelock_read_chapters';
 
 const MangaList: React.FC = () => {
   const { chapters } = useManga();
+  const { lang, t, localizePath } = useLanguage();
+
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>(() => (localStorage.getItem('manga_view_mode') as 'grid' | 'list') || 'grid');
   const [readChapters, setReadChapters] = useState<Set<number>>(new Set());
 
   useEffect(() => {
-    try { const saved = localStorage.getItem(STORAGE_KEY); if (saved) setReadChapters(new Set(JSON.parse(saved))); } catch {}
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) setReadChapters(new Set(JSON.parse(saved)));
+    } catch {}
   }, []);
 
   const toggleRead = (e: React.MouseEvent, num: number) => {
-    e.preventDefault(); e.stopPropagation();
-    setReadChapters(prev => { const next = new Set(prev); if (next.has(num)) next.delete(num); else next.add(num); localStorage.setItem(STORAGE_KEY, JSON.stringify([...next])); return next; });
+    e.preventDefault();
+    e.stopPropagation();
+    setReadChapters(prev => {
+      const next = new Set(prev);
+      if (next.has(num)) next.delete(num);
+      else next.add(num);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([...next]));
+      return next;
+    });
   };
 
-  const handleViewMode = (mode: 'grid' | 'list') => { setViewMode(mode); localStorage.setItem('manga_view_mode', mode); };
+  const handleViewMode = (mode: 'grid' | 'list') => {
+    setViewMode(mode);
+    localStorage.setItem('manga_view_mode', mode);
+  };
 
-  const latestReadable = Math.max(0, ...chapters.filter(c => (c.pageCount ?? 0) > 0).map(c => Math.floor(c.number)));
+  const metaPath = lang === 'en' ? '/manga' : `/${lang}/manga`;
+  const pageMeta = PAGE_META[metaPath] || PAGE_META['/manga'];
+
+  const alternateLinks = [
+    { rel: 'alternate', hreflang: 'en', href: `${SITE_URL}/manga` },
+    { rel: 'alternate', hreflang: 'fr', href: `${SITE_URL}/fr/manga` },
+    { rel: 'alternate', hreflang: 'pt', href: `${SITE_URL}/pt/manga` },
+    { rel: 'alternate', hreflang: 'x-default', href: `${SITE_URL}/manga` },
+  ];
 
   const filteredChapters = React.useMemo(() => {
     return chapters.filter(ch =>
@@ -40,147 +64,184 @@ const MangaList: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a]">
       <SEOHead
-        title={PAGE_META['/manga'].title}
-        description={PAGE_META['/manga'].description}
-        canonicalUrl={`${SITE_URL}/manga`}
-        schemas={[{ "@context": "https://schema.org", "@type": "CollectionPage", "name": PAGE_META['/manga'].title, "url": `${SITE_URL}/manga` }]}
+        title={pageMeta.title}
+        description={pageMeta.description}
+        canonicalUrl={lang === 'en' ? `${SITE_URL}/manga` : `${SITE_URL}/${lang}/manga`}
+        schemas={[{ "@context": "https://schema.org", "@type": "CollectionPage", "name": pageMeta.title, "url": `${SITE_URL}${metaPath}` }]}
+        alternateLinks={alternateLinks}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        <Breadcrumbs items={[{ label: 'Manga List', path: '/manga' }]} />
+        <Breadcrumbs items={[
+          { label: t.nav.home, path: '/' },
+          { label: t.nav.allChapters, path: '/manga' }
+        ]} />
       </div>
 
       {/* Hero Header */}
       <div className="relative bg-[#111] border-b border-white/5 py-16 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-bb-blue/5 blur-3xl rounded-full scale-150 opacity-20 translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute inset-0 bg-blue-500/5 blur-3xl rounded-full scale-150 opacity-20 translate-x-1/2 -translate-y-1/2"></div>
         <div className="max-w-7xl mx-auto relative z-10 text-center">
-          <span className="text-bb-blue font-bold tracking-widest uppercase text-xs mb-3 block">Complete Collection</span>
+          <span className="text-blue-500 font-bold tracking-widest uppercase text-xs mb-3 block">
+            {t.mangaList.completeCollection} ({chapters.length})
+          </span>
           <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6">
-            Blue Lock Manga <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Chapters</span>
+            BLUE <span className="text-blue-500">LOCK MANGA</span> {t.nav.allChapters}
           </h1>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg font-light">
-            Read Blue Lock online, from Chapter 1 to Chapter {latestReadable}. There are {latestReadable} numbered chapters so far (plus a few half chapters), split across the First Selection, Second Selection, U-20 match, Neo Egoist League and U-20 World Cup arcs.
+          <p className="text-gray-400 max-w-2xl mx-auto text-base">
+            {t.hero.subtitle}
           </p>
         </div>
       </div>
 
-      {/* Latest chapter + release schedule ("blue lock latest chapter", "when do blue lock chapters come out") */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        <div className="grid gap-4 md:grid-cols-2">
-          <div className="bg-[#181818] border border-white/5 rounded-xl p-5">
-            <h2 className="text-lg font-bold text-white mb-2">Blue Lock latest chapter</h2>
-            <p className="text-gray-400 text-sm leading-relaxed">
-              The latest Blue Lock chapter on the site is <Link to={`/chapter/${latestReadable}`} className="text-blue-400 hover:underline">Chapter {latestReadable}</Link>, part of the <Link to="/arcs/u20-world-cup" className="text-blue-400 hover:underline">U-20 World Cup arc</Link>.
-            </p>
-          </div>
-          <div className="bg-[#181818] border border-white/5 rounded-xl p-5">
-            <h2 className="text-lg font-bold text-white mb-2">When do new Blue Lock chapters come out?</h2>
-            <p className="text-gray-400 text-sm leading-relaxed">
-              Blue Lock comes out weekly in Kodansha's Weekly Shōnen Magazine, released on Wednesdays in Japan, except during break weeks. New chapters are added here as soon as they are available.
-            </p>
-          </div>
-        </div>
-        <p className="text-sm text-gray-400 mt-4">
-          Browse by story arc: <Link to="/arcs/first-selection" className="text-blue-400 hover:underline">First Selection</Link> · <Link to="/arcs/second-selection" className="text-blue-400 hover:underline">Second Selection</Link> · <Link to="/arcs/third-selection-u20" className="text-blue-400 hover:underline">U-20 match</Link> · <Link to="/arcs/neo-egoist-league" className="text-blue-400 hover:underline">Neo Egoist League</Link> · <Link to="/arcs/u20-world-cup" className="text-blue-400 hover:underline">U-20 World Cup</Link>
-        </p>
-      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
-      {/* Synopsis & Metadata Band */}
-      <div className="bg-white dark:bg-[#0f0f0f] border-b border-gray-100 dark:border-white/5 py-10 px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex flex-wrap gap-2 mb-4">
-            {['Action', 'Sports', 'Soccer', 'Shounen', 'Competition'].map(g => (
-              <span key={g} className="px-3 py-1 rounded-full text-xs font-bold bg-bb-blue/10 text-bb-blue border border-bb-blue/20">{g}</span>
-            ))}
-          </div>
-          <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
-            Japan's national football team is struggling. To forge the world's best striker, 300 elite high school players are gathered in an isolated facility called Blue Lock. Only the most egoist striker — the one who can prioritise himself above all else — will earn the right to lead Japan. Yoichi Isagi aims to become that player.
-          </p>
-          <div className="flex flex-wrap gap-6 text-xs text-gray-500 dark:text-gray-500">
-            <span><strong className="text-gray-700 dark:text-gray-300">Author:</strong> Muneyuki Kaneshiro</span>
-            <span><strong className="text-gray-700 dark:text-gray-300">Artist:</strong> Yusuke Nomura</span>
-            <span><strong className="text-gray-700 dark:text-gray-300">Publisher:</strong> Kodansha / Weekly Shōnen Magazine</span>
-            <span><strong className="text-gray-700 dark:text-gray-300">Status:</strong> Ongoing</span>
-            <span><strong className="text-gray-700 dark:text-gray-300">Started:</strong> August 2018</span>
-          </div>
-        </div>
-      </div>
+        {/* Search & Filter Bar */}
+        <div className="bg-white dark:bg-[#141414] rounded-2xl p-4 md:p-6 mb-8 border border-gray-200 dark:border-white/5 shadow-sm">
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 -mt-8 relative z-20">
-
-        {/* Controls Bar */}
-        <div className="bg-white dark:bg-[#1a1a1a] p-4 rounded-xl shadow-xl shadow-black/10 border border-gray-100 dark:border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 mb-10 backdrop-blur-md">
-
-          <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 font-medium px-2">
-            <BookOpen size={20} className="text-bb-blue" />
-            <span>{filteredChapters.length} Chapters</span>
-          </div>
-
-          <div className="flex items-center gap-3 w-full md:w-auto">
-            <div className="relative flex-1 md:w-80">
+            {/* Search Input */}
+            <div className="relative w-full md:w-96">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
               <input
                 type="text"
-                placeholder="Search by Title or Number..."
+                placeholder={t.mangaList.searchPlaceholder}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2.5 w-full border border-gray-200 dark:border-white/10 rounded-lg bg-gray-50 dark:bg-black/30 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-bb-blue/50 transition-all font-medium"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/40 text-gray-900 dark:text-white placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
               />
-              <Search className="absolute left-3 top-3 text-gray-400" size={18} />
             </div>
 
-            <button onClick={() => setSortOrder(prev => prev === 'desc' ? 'asc' : 'desc')} className="flex items-center gap-2 px-4 py-2.5 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 dark:text-white transition-colors font-medium min-w-[110px] justify-center">
-              <Filter size={16} />{sortOrder === 'desc' ? 'Newest' : 'Oldest'}
-            </button>
-            <div className="flex items-center gap-1 bg-gray-100 dark:bg-white/5 p-1 rounded-lg border border-gray-200 dark:border-white/10">
-              <button onClick={() => handleViewMode('grid')} className={`p-2 rounded-md transition-all ${viewMode === 'grid' ? 'bg-white dark:bg-bb-blue text-bb-blue dark:text-white shadow-sm' : 'text-gray-400 hover:text-gray-700 dark:hover:text-white'}`} title="Grid view"><Grid size={16} /></button>
-              <button onClick={() => handleViewMode('list')} className={`p-2 rounded-md transition-all ${viewMode === 'list' ? 'bg-white dark:bg-bb-blue text-bb-blue dark:text-white shadow-sm' : 'text-gray-400 hover:text-gray-700 dark:hover:text-white'}`} title="List view"><List size={16} /></button>
+            {/* Sort & View Options */}
+            <div className="flex items-center gap-3 w-full md:w-auto justify-end">
+              <button
+                onClick={() => setSortOrder(o => o === 'desc' ? 'asc' : 'desc')}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/40 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
+              >
+                <Filter size={16} />
+                <span>{sortOrder === 'desc' ? t.mangaList.newest : t.mangaList.oldest}</span>
+              </button>
+
+              <div className="flex items-center rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/40 p-1">
+                <button
+                  onClick={() => handleViewMode('grid')}
+                  className={`p-1.5 rounded-lg transition-colors ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
+                  title="Grid View"
+                >
+                  <Grid size={18} />
+                </button>
+                <button
+                  onClick={() => handleViewMode('list')}
+                  className={`p-1.5 rounded-lg transition-colors ${viewMode === 'list' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
+                  title="List View"
+                >
+                  <List size={18} />
+                </button>
+              </div>
             </div>
+
           </div>
         </div>
-        {readChapters.size > 0 && (
-          <div className="flex items-center gap-3 mb-6 px-1">
-            <div className="flex-1 h-1.5 bg-gray-200 dark:bg-white/10 rounded-full overflow-hidden"><div className="h-full bg-green-500 transition-all duration-500 rounded-full" style={{ width: `${Math.round((readChapters.size / chapters.length) * 100)}%` }} /></div>
-            <span className="text-xs font-bold text-gray-500 dark:text-gray-400 whitespace-nowrap">{readChapters.size} / {chapters.length} read</span>
-            <button onClick={() => { setReadChapters(new Set()); localStorage.removeItem(STORAGE_KEY); }} className="text-xs text-gray-400 hover:text-red-500 transition-colors font-medium">Reset</button>
-          </div>
-        )}
+
+        {/* Chapter Grid View */}
         {viewMode === 'grid' ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {filteredChapters.map((chapter) => { const isRead = readChapters.has(chapter.number); return (
-              <Link key={chapter.id} to={`/chapter/${chapter.number}`} className={`group relative flex flex-col justify-between h-32 bg-white dark:bg-[#1a1a1a] rounded-xl border p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg overflow-hidden ${isRead ? 'border-green-500/30 dark:border-green-500/20' : 'border-gray-100 dark:border-white/5 hover:border-bb-blue/50'}`}>
-                {isRead && <div className="absolute inset-0 bg-green-500/3 pointer-events-none" />}
-                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-bb-blue/0 to-bb-blue/5 rounded-bl-full -mr-4 -mt-4 group-hover:scale-150 transition-all"></div>
-                <div className="relative z-10">
-                  <div className="flex justify-between items-start mb-2">
-                    <span className={`text-xs font-bold uppercase tracking-widest ${isRead ? 'text-green-500' : 'text-gray-400 dark:text-gray-500'}`}>Chapter {chapter.number}</span>
-                    <span className="text-[10px] font-mono text-gray-300 dark:text-gray-600 bg-gray-100 dark:bg-white/5 px-2 py-0.5 rounded">{chapter.pageCount ? `${chapter.pageCount} pages` : 'Coming soon'}</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {filteredChapters.map((ch) => {
+              const isRead = readChapters.has(ch.number);
+              const pCount = lang === 'fr' ? (ch.pageCountFr || 20) : lang === 'pt' ? (ch.pageCountPt || 20) : (ch.pageCount || 20);
+              return (
+                <Link
+                  key={ch.id}
+                  to={localizePath(`/chapter/${ch.number}`)}
+                  className={`group relative flex flex-col justify-between p-5 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+                    isRead
+                      ? 'bg-gray-100/60 dark:bg-white/[0.02] border-gray-200 dark:border-white/5 opacity-75'
+                      : 'bg-white dark:bg-[#141414] border-gray-200 dark:border-white/5 hover:border-blue-500/50'
+                  }`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs font-bold text-blue-500 uppercase tracking-wider">
+                        {t.home.chapter} {ch.number}
+                      </span>
+                      <button
+                        onClick={(e) => toggleRead(e, ch.number)}
+                        className={`p-1 rounded-full text-xs transition-colors ${
+                          isRead ? 'text-green-400 bg-green-500/10' : 'text-gray-400 hover:text-white hover:bg-white/10'
+                        }`}
+                        title={isRead ? 'Mark as Unread' : 'Mark as Read'}
+                      >
+                        <Check size={14} />
+                      </button>
+                    </div>
+
+                    <h3 className="font-heading font-bold text-base text-gray-900 dark:text-white group-hover:text-blue-400 transition-colors line-clamp-1 mb-2">
+                      {ch.title}
+                    </h3>
+                    <p className="text-xs text-gray-400 line-clamp-1">
+                      {pCount} {t.reader.page}s
+                    </p>
                   </div>
-                  <h3 className={`text-base font-bold transition-colors line-clamp-1 pr-4 group-hover:text-bb-blue ${isRead ? 'text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'}`}>{chapter.title}</h3>
-                </div>
-                <div className="relative z-10 flex items-center justify-between mt-auto pt-2">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-gray-400 group-hover:text-bb-blue transition-colors">
-                    {isRead ? <><Check size={12} className="text-green-500" /><span className="text-green-500">Read</span></> : <><span>Read Now</span><ArrowRight size={12} className="group-hover:translate-x-1 transition-transform text-bb-blue" /></>}
+
+                  <div className="mt-4 pt-3 border-t border-gray-100 dark:border-white/5 flex items-center justify-between text-xs text-gray-500 group-hover:text-blue-400 transition-colors">
+                    <span>{t.home.readNow}</span>
+                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                   </div>
-                  <button onClick={(e) => toggleRead(e, chapter.number)} className={`w-7 h-7 rounded-full flex items-center justify-center transition-all border ${isRead ? 'bg-green-500 border-green-500 text-white hover:bg-red-500 hover:border-red-500' : 'border-gray-300 dark:border-white/20 text-gray-400 hover:border-green-500 hover:text-green-500'}`} title={isRead ? 'Mark as unread' : 'Mark as read'}><Check size={12} strokeWidth={3} /></button>
-                </div>
-              </Link>
-            ); })}
-            {filteredChapters.length === 0 && <div className="col-span-full py-20 text-center"><div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 dark:bg-white/5 mb-4"><Search size={32} className="text-gray-400" /></div><h3 className="text-xl font-bold dark:text-white mb-2">No chapters found</h3><p className="text-gray-500">Try adjusting your search criteria</p></div>}
+                </Link>
+              );
+            })}
           </div>
         ) : (
-          <div className="flex flex-col divide-y divide-gray-100 dark:divide-white/5 rounded-xl overflow-hidden border border-gray-100 dark:border-white/5 bg-white dark:bg-[#1a1a1a]">
-            {filteredChapters.map((chapter) => { const isRead = readChapters.has(chapter.number); return (
-              <div key={chapter.id} className={`flex items-center gap-4 px-5 py-3 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors group ${isRead ? 'opacity-70' : ''}`}>
-                <span className={`text-sm font-bold w-16 flex-shrink-0 ${isRead ? 'text-green-500' : 'text-gray-400 dark:text-gray-500'}`}>Ch. {chapter.number}</span>
-                <Link to={`/chapter/${chapter.number}`} className="flex-1 font-semibold text-sm text-gray-900 dark:text-white group-hover:text-bb-blue transition-colors truncate">{chapter.title}</Link>
-                <span className="text-xs text-gray-400 dark:text-gray-600 font-mono flex-shrink-0 hidden sm:block">{chapter.pageCount ? `${chapter.pageCount} pages` : 'Coming soon'}</span>
-                <button onClick={(e) => toggleRead(e, chapter.number)} className={`w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center transition-all border ${isRead ? 'bg-green-500 border-green-500 text-white hover:bg-red-500 hover:border-red-500' : 'border-gray-300 dark:border-white/20 text-gray-400 hover:border-green-500 hover:text-green-500'}`} title={isRead ? 'Mark as unread' : 'Mark as read'}><Check size={12} strokeWidth={3} /></button>
-                <Link to={`/chapter/${chapter.number}`} className="flex-shrink-0 text-xs font-bold text-bb-blue hover:underline hidden md:block">Read →</Link>
-              </div>
-            ); })}
-            {filteredChapters.length === 0 && <div className="py-16 text-center text-gray-500">No chapters found</div>}
+          /* Chapter List View */
+          <div className="bg-white dark:bg-[#141414] rounded-2xl border border-gray-200 dark:border-white/5 divide-y divide-gray-100 dark:divide-white/5 overflow-hidden">
+            {filteredChapters.map((ch) => {
+              const isRead = readChapters.has(ch.number);
+              const pCount = lang === 'fr' ? (ch.pageCountFr || 20) : lang === 'pt' ? (ch.pageCountPt || 20) : (ch.pageCount || 20);
+              return (
+                <div
+                  key={ch.id}
+                  className={`flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors ${
+                    isRead ? 'opacity-60' : ''
+                  }`}
+                >
+                  <Link
+                    to={localizePath(`/chapter/${ch.number}`)}
+                    className="flex-1 flex items-center gap-4 min-w-0"
+                  >
+                    <span className="text-sm font-bold text-blue-500 min-w-[70px]">
+                      {t.home.chapter} {ch.number}
+                    </span>
+                    <span className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                      {ch.title}
+                    </span>
+                    <span className="text-xs text-gray-400 hidden sm:inline">
+                      {pCount} {t.reader.page}s
+                    </span>
+                  </Link>
+
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={(e) => toggleRead(e, ch.number)}
+                      className={`p-1.5 rounded-lg text-xs transition-colors ${
+                        isRead ? 'text-green-400 bg-green-500/10' : 'text-gray-400 hover:text-white hover:bg-white/10'
+                      }`}
+                      title={isRead ? 'Mark as Unread' : 'Mark as Read'}
+                    >
+                      <Check size={16} />
+                    </button>
+                    <Link
+                      to={localizePath(`/chapter/${ch.number}`)}
+                      className="px-3 py-1 bg-blue-600/10 text-blue-400 hover:bg-blue-600 hover:text-white rounded-lg text-xs font-bold transition-colors"
+                    >
+                      {t.home.readNow}
+                    </Link>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
+
       </div>
     </div>
   );

@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://www.bluelockchapter.com/sitemap.xml
+Sitemap: https://www.bluelockchapter.com/sitemap_fr.xml
+Sitemap: https://www.bluelockchapter.com/sitemap_pt.xml

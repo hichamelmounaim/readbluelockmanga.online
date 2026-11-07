@@ -11,10 +11,9 @@ interface SEOHeadProps {
   schemas?: object[];
   /** Set for "not found" and empty placeholder pages so Google doesn't index them. */
   noindex?: boolean;
+  alternateLinks?: { rel: string; hreflang: string; href: string }[];
 }
 
-// The prerendered HTML ships the same tags (marked data-prerender). index.tsx removes those
-// before React mounts, so the page never ends up with two canonicals / descriptions / titles.
 const SEOHead: React.FC<SEOHeadProps> = ({
   title,
   description,
@@ -23,6 +22,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
   ogType = 'website',
   ogImage = DEFAULT_OG_IMAGE,
   noindex = false,
+  alternateLinks,
 }) => {
   return (
     <Helmet>
@@ -40,6 +40,9 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
+      {alternateLinks && alternateLinks.map((alt, i) => (
+        <link key={i} rel={alt.rel} hrefLang={alt.hreflang} href={alt.href} />
+      ))}
       {schemas && schemas.map((s, i) => (
         <script type="application/ld+json" key={i}>
           {JSON.stringify(s)}

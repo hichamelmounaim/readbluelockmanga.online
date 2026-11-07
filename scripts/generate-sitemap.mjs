@@ -1,5 +1,5 @@
-// Builds public/sitemap.xml (and dist/sitemap.xml if dist exists).
-// Only indexable pages go in: placeholder chapters with no pages (noindex) are left out.
+// Builds public/sitemap.xml, public/sitemap_fr.xml, and public/sitemap_pt.xml
+// (and mirrors them to dist/ if dist exists).
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -12,28 +12,120 @@ const chaptersFile = path.join(root, 'public/data/chapters.json');
 const chapters = fs.existsSync(chaptersFile) ? JSON.parse(fs.readFileSync(chaptersFile, 'utf8')) : [];
 const today = new Date().toISOString().split('T')[0];
 
-const urls = [];
-const add = (loc, lastmod) => urls.push({ loc: `${SITE_URL}${loc}`, lastmod });
+const sortedChapters = [...chapters].sort((a, b) => a.number - b.number);
 
-// Home + chapter list change whenever a chapter is added, so they get today's date.
-// Other lastmod values are left out on purpose: Google only trusts lastmod when it is accurate.
-add('/', today);
-add('/manga', today);
-add('/characters');
-for (const c of CHARACTERS_DATA) add(`/characters/${c.slug}`);
-for (const route of Object.keys(GUIDES)) add(route);
-for (const ch of [...chapters].sort((a, b) => a.number - b.number)) {
-  if ((ch.pageCount ?? 0) > 0) add(`/chapter/${ch.number}`);
+// Base paths available across languages
+const staticRoutes = [
+  '/',
+  '/manga',
+  '/characters',
+  ...CHARACTERS_DATA.map(c => `/characters/${c.slug}`),
+  ...Object.keys(GUIDES),
+  '/about', '/privacy', '/terms', '/dmca', '/disclaimer'
+];
+
+function buildUrlEntry(baseRoute, lang, lastmod) {
+  let loc = '';
+  if (lang === 'en') {
+    loc = `${SITE_URL}${baseRoute}`;
+  } else {
+    loc = `${SITE_URL}/${lang}${baseRoute === '/' ? '' : baseRoute}`;
+  }
+
+  const enUrl = `${SITE_URL}${baseRoute}`;
+  const frUrl = `${SITE_URL}/fr${baseRoute === '/' ? '' : baseRoute}`;
+  const ptUrl = `${SITE_URL}/pt${baseRoute === '/' ? '' : baseRoute}`;
+
+  return `  <url>
+    <loc>${loc}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ''}
+    <changefreq>${baseRoute === '/' || baseRoute === '/manga' ? 'daily' : 'weekly'}</changefreq>
+    <priority>${baseRoute === '/' ? '1.0' : baseRoute === '/manga' ? '0.9' : '0.8'}</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="${enUrl}" />
+    <xhtml:link rel="alternate" hreflang="fr" href="${frUrl}" />
+    <xhtml:link rel="alternate" hreflang="pt" href="${ptUrl}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="${enUrl}" />
+  </url>`;
 }
-for (const p of ['/about', '/privacy', '/terms', '/dmca', '/disclaimer']) add(p);
 
-const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map(u => `  <url>\n    <loc>${u.loc}</loc>${u.lastmod ? `\n    <lastmod>${u.lastmod}</lastmod>` : ''}\n  </url>`).join('\n')}
+function buildChapterUrlEntry(chNum, lang) {
+  const enUrl = `${SITE_URL}/chapter/${chNum}`;
+  const frUrl = `${SITE_URL}/fr/chapter/${chNum}`;
+  const ptUrl = `${SITE_URL}/pt/chapter/${chNum}`;
+
+  const loc = lang === 'en' ? enUrl : lang === 'fr' ? frUrl : ptUrl;
+
+  return `  <url>
+    <loc>${loc}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="${enUrl}" />
+    <xhtml:link rel="alternate" hreflang="fr" href="${frUrl}" />
+    <xhtml:link rel="alternate" hreflang="pt" href="${ptUrl}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="${enUrl}" />
+  </url>`;
+}
+
+function wrapUrlset(entries) {
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${entries.join('\n')}
 </urlset>
 `;
+}
 
-fs.writeFileSync(path.join(root, 'public/sitemap.xml'), xml);
+// 1. Build English sitemap entries
+const enEntries = [];
+for (const r of staticRoutes) {
+  const lastmod = (r === '/' || r === '/manga') ? today : undefined;
+  enEntries.push(buildUrlEntry(r, 'en', lastmod));
+}
+for (const ch of sortedChapters) {
+  if ((ch.pageCount ?? 0) > 0) {
+    enEntries.push(buildChapterUrlEntry(ch.number, 'en'));
+  }
+}
+
+// 2. Build French sitemap entries
+const frEntries = [];
+for (const r of staticRoutes) {
+  const lastmod = (r === '/' || r === '/manga') ? today : undefined;
+  frEntries.push(buildUrlEntry(r, 'fr', lastmod));
+}
+for (const ch of sortedChapters) {
+  if ((ch.pageCountFr ?? 0) > 0 || ch.number <= 366) {
+    frEntries.push(buildChapterUrlEntry(ch.number, 'fr'));
+  }
+}
+
+// 3. Build Portuguese sitemap entries
+const ptEntries = [];
+for (const r of staticRoutes) {
+  const lastmod = (r === '/' || r === '/manga') ? today : undefined;
+  ptEntries.push(buildUrlEntry(r, 'pt', lastmod));
+}
+for (const ch of sortedChapters) {
+  if ((ch.pageCountPt ?? 0) > 0 || ch.number <= 366) {
+    ptEntries.push(buildChapterUrlEntry(ch.number, 'pt'));
+  }
+}
+
+// 4. Combined master sitemap
+const allEntries = [...enEntries, ...frEntries, ...ptEntries];
+
 const distDir = path.join(root, 'dist');
-if (fs.existsSync(distDir)) fs.writeFileSync(path.join(distDir, 'sitemap.xml'), xml);
-console.log(`[OK] Sitemap generated with ${urls.length} URLs for ${SITE_URL}`);
+const saveXml = (fileName, xmlContent) => {
+  fs.writeFileSync(path.join(root, 'public', fileName), xmlContent, 'utf8');
+  if (fs.existsSync(distDir)) {
+    fs.writeFileSync(path.join(distDir, fileName), xmlContent, 'utf8');
+  }
+};
+
+saveXml('sitemap.xml', wrapUrlset(allEntries));
+saveXml('sitemap_fr.xml', wrapUrlset(frEntries));
+saveXml('sitemap_pt.xml', wrapUrlset(ptEntries));
+
+console.log(`[OK] Sitemaps generated:`);
+console.log(`     - public/sitemap.xml: ${allEntries.length} URLs (Master multi-language sitemap)`);
+console.log(`     - public/sitemap_fr.xml: ${frEntries.length} URLs (French sitemap)`);
+console.log(`     - public/sitemap_pt.xml: ${ptEntries.length} URLs (Portuguese sitemap)`);

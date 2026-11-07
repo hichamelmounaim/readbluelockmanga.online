@@ -1,17 +1,19 @@
 import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Share2, ArrowDown, ArrowRight, Send, BookOpen, ChevronUp, RefreshCw, LayoutList, FileText, Layers, Users, HelpCircle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Share2, ArrowDown, ArrowRight, Send, BookOpen, ChevronUp, RefreshCw, LayoutList, FileText, Layers, Users, Globe } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { useManga } from '../context/MangaContext';
-import { Chapter } from '../types';
+import { useLanguage } from '../context/LanguageContext';
+import { Chapter, SupportedLang } from '../types';
 import { getChapterSEOData, getAdjacentChapters, realChapterTitle, DEFAULT_OG_IMAGE, SITE_URL } from '../utils/seo';
-
 
 const ChapterReader: React.FC = () => {
   const { chapterId } = useParams<{ chapterId: string }>();
   const navigate = useNavigate();
   const { chapters, getChapterWithPages } = useManga();
+  const { lang, t, setLang, localizePath } = useLanguage();
+
   const [chapter, setChapter] = useState<Chapter | null>(null);
   const [loading, setLoading] = useState(true);
   const [showControls, setShowControls] = useState(true);
@@ -51,7 +53,7 @@ const ChapterReader: React.FC = () => {
     return () => {
       isCancelled = true;
     };
-  }, [currentNum]);
+  }, [currentNum, getChapterWithPages]);
 
   const lastScrollY = useRef(0);
   useEffect(() => {
@@ -68,7 +70,7 @@ const ChapterReader: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Prev/next by position in the list, so decimal chapters (314.1, 364.2 ...) are never skipped.
+  // Prev/next by position in the list
   const { prev: prevChapter, next: nextChapter, nearby: surroundingChapters } = useMemo(
     () => getAdjacentChapters(chapters, currentNum),
     [chapters, currentNum]
@@ -79,164 +81,210 @@ const ChapterReader: React.FC = () => {
   prevChapterRef.current = prevChapter;
   nextChapterRef.current = nextChapter;
 
+  // Select pages based on active language
+  const pages = useMemo(() => {
+    if (!chapter) return [];
+    if (lang === 'fr' && chapter.pagesFr && chapter.pagesFr.length > 0) return chapter.pagesFr;
+    if (lang === 'pt' && chapter.pagesPt && chapter.pagesPt.length > 0) return chapter.pagesPt;
+    return chapter.pages || [];
+  }, [chapter, lang]);
+
   // Keyboard navigation
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement)?.tagName)) return;
-      if (readingMode === 'single' && chapter && chapter.pages && chapter.pages.length > 0) {
+      if (readingMode === 'single' && pages.length > 0) {
         if (e.key === 'ArrowRight') {
-          if (currentPageIndex < chapter.pages.length - 1) {
+          if (currentPageIndex < pages.length - 1) {
             setCurrentPageIndex(p => p + 1);
             window.scrollTo({ top: 0, behavior: 'smooth' });
           } else if (nextChapterRef.current) {
-            navigate(`/chapter/${nextChapterRef.current.number}`);
+            navigate(localizePath(`/chapter/${nextChapterRef.current.number}`));
           }
-        }
-        if (e.key === 'ArrowLeft') {
+        } else if (e.key === 'ArrowLeft') {
           if (currentPageIndex > 0) {
             setCurrentPageIndex(p => p - 1);
             window.scrollTo({ top: 0, behavior: 'smooth' });
           } else if (prevChapterRef.current) {
-            navigate(`/chapter/${prevChapterRef.current.number}`);
+            navigate(localizePath(`/chapter/${prevChapterRef.current.number}`));
           }
         }
-      } else {
-        if (e.key === 'ArrowRight' && nextChapterRef.current) navigate(`/chapter/${nextChapterRef.current.number}`);
-        if (e.key === 'ArrowLeft' && prevChapterRef.current) navigate(`/chapter/${prevChapterRef.current.number}`);
       }
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [navigate, readingMode, chapter, currentPageIndex]);
+  }, [readingMode, currentPageIndex, pages.length, navigate, localizePath]);
 
-  const handleNav = useCallback((num: number) => {
-    if (num) navigate(`/chapter/${num}`);
-  }, [navigate]);
-
-  useEffect(() => {
-    const BASE = SITE_URL;
-    document.querySelector('link[rel="prev"]')?.remove();
-    document.querySelector('link[rel="next"]')?.remove();
-    if (prevChapter) { const el = document.createElement('link'); el.rel = 'prev'; el.href = `${BASE}/chapter/${prevChapter.number}`; document.head.appendChild(el); }
-    if (nextChapter) { const el = document.createElement('link'); el.rel = 'next'; el.href = `${BASE}/chapter/${nextChapter.number}`; document.head.appendChild(el); }
-    return () => { document.querySelector('link[rel="prev"]')?.remove(); document.querySelector('link[rel="next"]')?.remove(); };
-  }, [prevChapter, nextChapter]);
-
-  const handleRetryPage = (idx: number) => {
-    setFailedPages(prev => ({ ...prev, [idx]: false }));
-    setRetryKeys(prev => ({ ...prev, [idx]: (prev[idx] || 0) + 1 }));
+  const handleNav = (num: number) => {
+    navigate(localizePath(`/chapter/${num}`));
   };
 
-  // Programmatic SEO computation
+  const handleRetryPage = (idx: number) => {
+    setFailedPages(prev => {
+      const next = { ...prev };
+      delete next[idx];
+      return next;
+    });
+    setRetryKeys(prev => ({
+      ...prev,
+      [idx]: (prev[idx] || 0) + 1
+    }));
+  };
+
   const seo = useMemo(() => {
-    return getChapterSEOData(currentNum, { title: chapter?.title, pageCount: chapter?.pages?.length });
-  }, [currentNum, chapter?.title, chapter?.pages?.length]);
+    return getChapterSEOData(currentNum, {
+      title: chapter?.title,
+      pageCount: pages.length,
+      lang
+    });
+  }, [currentNum, chapter?.title, pages.length, lang]);
 
-
-  if (loading) {
+  if (loading && !chapter) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-[#121212]">
-        <div className="animate-spin rounded-full h-14 w-14 border-t-4 border-b-4 border-blue-500 mb-4"></div>
-        <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Loading Chapter {currentNum}...</p>
+      <div className="min-h-screen bg-[#0d0d0d] flex flex-col items-center justify-center p-4">
+        <div className="w-12 h-12 border-3 border-blue-500/20 border-t-blue-500 rounded-full animate-spin mb-4" />
+        <p className="text-gray-400 text-sm font-semibold tracking-wider uppercase animate-pulse">
+          {t.reader.loading}
+        </p>
       </div>
     );
   }
 
   if (!chapter) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-10 text-center bg-gray-50 dark:bg-[#121212]">
-        <SEOHead title="Chapter Not Found – Blue Lock Manga" description="This Blue Lock chapter is not available." noindex />
-        <h1 className="text-2xl font-bold dark:text-white mb-2">Chapter not found</h1>
-        <p className="text-gray-500 mb-6">Chapter {currentNum} is not available yet.</p>
-        <Link to="/manga" className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold">
-          View All Chapters
+      <div className="min-h-screen bg-gray-50 dark:bg-[#121212] flex flex-col items-center justify-center p-4">
+        <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Chapter not found</h2>
+        <Link to={localizePath('/manga')} className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          {t.reader.backToChapters}
         </Link>
       </div>
     );
   }
 
-  const pages = chapter.pages || [];
+  const langList: { code: SupportedLang; label: string; flag: string }[] = [
+    { code: 'en', label: 'EN', flag: '🇺🇸' },
+    { code: 'fr', label: 'FR', flag: '🇫🇷' },
+    { code: 'pt', label: 'PT', flag: '🇧🇷' },
+  ];
 
   return (
-    <div className="bg-gray-100 dark:bg-[#121212] min-h-screen flex flex-col">
+    <div className="min-h-screen bg-white dark:bg-[#121212] text-gray-900 dark:text-gray-100 flex flex-col selection:bg-blue-600 selection:text-white transition-colors duration-200">
       <SEOHead
         title={seo.seoTitle}
         description={seo.seoDescription}
-        canonicalUrl={seo.canonicalUrl}
-        ogType="article"
-        ogImage={DEFAULT_OG_IMAGE}
-        schemas={seo.schemas}
-        noindex={seo.noindex}
+        image={DEFAULT_OG_IMAGE}
+        type="article"
+        schema={seo.schema}
+        canonical={seo.canonicalUrl}
+        noindex={pages.length === 0}
       />
 
-      {/* Sticky Top Controls */}
-      <div className={`fixed top-0 left-0 right-0 bg-white/95 dark:bg-[#181818]/95 backdrop-blur-md shadow-md transition-transform duration-300 z-50 ${showControls ? 'translate-y-0' : '-translate-y-full'}`}>
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-200 dark:bg-gray-800">
-          <div className="h-full bg-blue-600 transition-all duration-150 ease-out" style={{ width: `${readProgress}%` }} />
+      {/* Floating Reader Top Bar */}
+      <div
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          showControls ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+        } bg-[#0e0e0e]/95 backdrop-blur-md border-b border-white/10 px-3 sm:px-6 py-2.5 flex items-center justify-between text-white shadow-xl`}
+      >
+        <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+          <Link
+            to={localizePath('/')}
+            className="p-1.5 hover:bg-white/10 rounded-lg text-gray-300 hover:text-white transition-colors flex-shrink-0"
+            title={t.reader.home}
+          >
+            <ChevronLeft size={20} />
+          </Link>
+          <div className="min-w-0">
+            <h1 className="font-heading font-bold text-sm sm:text-base leading-tight truncate text-white">
+              {lang === 'fr' ? `Chapitre ${chapter.number}` : lang === 'pt' ? `Capítulo ${chapter.number}` : `Chapter ${chapter.number}`}
+              {seo.hasRealTitle && <span className="text-gray-400 font-normal hidden sm:inline">: {seo.title}</span>}
+            </h1>
+            <p className="text-[11px] text-gray-400 truncate hidden sm:block">
+              {pages.length > 0 ? `${pages.length} ${t.reader.page}s` : t.reader.availableSoon}
+            </p>
+          </div>
         </div>
-        <div className="max-w-7xl mx-auto px-3 h-14 flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2 min-w-0">
-            <Link to="/manga" className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors flex-shrink-0" title="Back to chapter list">
-              <ChevronLeft size={20} className="dark:text-white" />
-            </Link>
-            <div className="flex flex-col min-w-0">
-              <span className="text-[10px] text-blue-500 font-bold uppercase tracking-wider leading-none mb-0.5">Blue Lock</span>
-              <select
-                value={chapter.number}
-                onChange={e => navigate(`/chapter/${e.target.value}`)}
-                className="font-bold text-sm dark:text-white bg-transparent focus:outline-none cursor-pointer truncate max-w-[160px] md:max-w-[280px] dark:bg-[#181818]"
-                title="Jump to chapter"
-              >
-                {[...chapters].sort((a, b) => b.number - a.number).map(ch => (
-                  <option key={ch.number} value={ch.number} className="dark:bg-[#181818]">
-                    Ch. {ch.number}{(() => { const t = realChapterTitle(ch.number, ch.title); return t ? ` — ${t.length > 30 ? t.substring(0, 30) + '…' : t}` : ''; })()}
-                  </option>
-                ))}
-              </select>
+
+        {/* Center: Language Switcher in Reader */}
+        <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-lg p-0.5">
+          {langList.map((l) => (
+            <button
+              key={l.code}
+              onClick={() => setLang(l.code)}
+              className={`px-2 py-1 text-[11px] font-bold rounded flex items-center gap-1 transition-all ${
+                lang === l.code
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-gray-400 hover:text-white hover:bg-white/5'
+              }`}
+              title={`Switch to ${l.label}`}
+            >
+              <span>{l.flag}</span>
+              <span className="uppercase">{l.code}</span>
+            </button>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+          {/* Chapter Selector Dropdown */}
+          <div className="relative">
+            <select
+              value={chapter.number}
+              onChange={(e) => handleNav(parseFloat(e.target.value))}
+              className="bg-white/10 border border-white/10 text-white text-xs font-bold rounded-lg px-2.5 py-1.5 pr-7 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+            >
+              {chapters.map((c) => (
+                <option key={c.number} value={c.number} className="bg-[#1a1a1a] text-white">
+                  {lang === 'fr' ? `Ch. ${c.number}` : lang === 'pt' ? `Cap. ${c.number}` : `Ch. ${c.number}`}
+                </option>
+              ))}
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1.5 text-gray-400">
+              <ChevronRight size={14} className="rotate-90" />
             </div>
           </div>
 
-          {/* Reader Mode Toggle */}
-          <div className="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
-            <button
-              onClick={() => setReadingMode('webtoon')}
-              className={`p-1.5 rounded text-xs font-semibold flex items-center gap-1 transition-colors ${readingMode === 'webtoon' ? 'bg-blue-600 text-white' : 'text-gray-600 dark:text-gray-300 hover:text-white'}`}
-              title="Continuous Scroll Mode"
-            >
-              <LayoutList size={15} />
-              <span className="hidden md:inline">Scroll</span>
-            </button>
-            <button
-              onClick={() => { setReadingMode('single'); setCurrentPageIndex(0); }}
-              className={`p-1.5 rounded text-xs font-semibold flex items-center gap-1 transition-colors ${readingMode === 'single' ? 'bg-blue-600 text-white' : 'text-gray-600 dark:text-gray-300 hover:text-white'}`}
-              title="Single Page Mode"
-            >
-              <FileText size={15} />
-              <span className="hidden md:inline">Page</span>
-            </button>
-          </div>
+          {/* Reading Mode Switcher */}
+          <button
+            onClick={() => setReadingMode(m => (m === 'webtoon' ? 'single' : 'webtoon'))}
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-bold transition-colors"
+            title="Toggle Webtoon Scroll / Single Page"
+          >
+            {readingMode === 'webtoon' ? (
+              <>
+                <ArrowDown size={14} className="text-blue-400" />
+                <span>{t.reader.verticalScroll}</span>
+              </>
+            ) : (
+              <>
+                <BookOpen size={14} className="text-blue-400" />
+                <span>{t.reader.horizontalSlide}</span>
+              </>
+            )}
+          </button>
 
-          <div className="flex items-center gap-1 flex-shrink-0">
-            {prevChapter && (
-              <button
-                onClick={() => handleNav(prevChapter.number)}
-                className="flex items-center gap-1 px-2 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-white transition-colors text-xs font-bold"
-                title="Previous chapter (←)"
-              >
-                <ChevronLeft size={16} /><span className="hidden sm:block">Prev</span>
-              </button>
-            )}
-            {nextChapter && (
-              <button
-                onClick={() => handleNav(nextChapter.number)}
-                className="flex items-center gap-1 px-2.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors text-xs font-bold"
-                title="Next chapter (→)"
-              >
-                <span className="hidden sm:block">Next</span><ChevronRight size={16} />
-              </button>
-            )}
-          </div>
+          {/* Prev/Next buttons */}
+          <button
+            disabled={!prevChapter}
+            onClick={() => prevChapter && handleNav(prevChapter.number)}
+            className="p-1.5 hover:bg-white/10 disabled:opacity-30 rounded-lg text-gray-300 hover:text-white transition-colors"
+            title={t.reader.prev}
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <button
+            disabled={!nextChapter}
+            onClick={() => nextChapter && handleNav(nextChapter.number)}
+            className="p-1.5 hover:bg-white/10 disabled:opacity-30 rounded-lg text-gray-300 hover:text-white transition-colors"
+            title={t.reader.next}
+          >
+            <ChevronRight size={18} />
+          </button>
         </div>
+
+        {/* Read progress bar across top */}
+        <div
+          className="absolute bottom-0 left-0 h-0.5 bg-blue-500 transition-all duration-150"
+          style={{ width: `${readingMode === 'single' && pages.length > 0 ? Math.round(((currentPageIndex + 1) / pages.length) * 100) : readProgress}%` }}
+        />
       </div>
 
       {showScrollTop && (
@@ -255,9 +303,9 @@ const ChapterReader: React.FC = () => {
         {pages.length > 0 && (
           <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
             <Breadcrumbs items={[
-              { label: 'Home', path: '/' },
-              { label: 'All Chapters', path: '/manga' },
-              { label: `Chapter ${chapter.number}` }
+              { label: t.nav.home, path: '/' },
+              { label: t.nav.allChapters, path: '/manga' },
+              { label: `${t.reader.chapter} ${chapter.number}` }
             ]} />
             <div className="flex items-center gap-2">
               <span className="px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider bg-white/5 text-gray-300 border border-white/10 rounded-md">
@@ -270,25 +318,18 @@ const ChapterReader: React.FC = () => {
         {pages.length === 0 ? (
           <div className="flex flex-col items-center justify-center min-h-[50vh] p-8 text-center">
             <div className="bg-white dark:bg-[#1a1a1a] p-8 rounded-2xl border border-gray-200 dark:border-white/10 max-w-md w-full shadow-lg">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Chapter Coming Soon</h2>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                {t.reader.availableSoon}
+              </h2>
               <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm">
-                Chapter {chapter.number} scans are being prepared. Check back shortly or join our Telegram for instant release alerts!
+                {t.reader.nextChapterSoon}
               </p>
               <div className="flex flex-col gap-3">
-                <a
-                  href="https://t.me/Mangalix"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-6 py-2.5 bg-[#0088cc] hover:bg-[#0077b5] text-white font-bold rounded-lg transition-all"
-                >
-                  <Send size={18} />
-                  Join Telegram Channel
-                </a>
                 <button
-                  onClick={() => navigate('/manga')}
-                  className="px-6 py-2.5 bg-gray-200 dark:bg-white/10 hover:bg-gray-300 dark:hover:bg-white/15 text-gray-900 dark:text-white font-bold rounded-lg transition-all"
+                  onClick={() => navigate(localizePath('/manga'))}
+                  className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-all"
                 >
-                  Back to Chapter List
+                  {t.reader.backToChapters}
                 </button>
               </div>
             </div>
@@ -297,21 +338,21 @@ const ChapterReader: React.FC = () => {
           /* Single Page Reader Mode */
           <div className="max-w-4xl mx-auto px-2 py-4">
             <div className="flex items-center justify-between text-xs font-semibold text-gray-500 dark:text-gray-400 mb-3 px-2">
-              <span>Page {currentPageIndex + 1} of {pages.length}</span>
+              <span>{t.reader.page} {currentPageIndex + 1} / {pages.length}</span>
               <div className="flex gap-2">
                 <button
                   disabled={currentPageIndex === 0}
                   onClick={() => setCurrentPageIndex(p => Math.max(0, p - 1))}
                   className="px-3 py-1 bg-gray-200 dark:bg-gray-800 disabled:opacity-30 rounded hover:bg-gray-300 dark:hover:bg-gray-700"
                 >
-                  Previous Page
+                  {t.reader.prevPage}
                 </button>
                 <button
                   disabled={currentPageIndex === pages.length - 1}
                   onClick={() => setCurrentPageIndex(p => Math.min(pages.length - 1, p + 1))}
                   className="px-3 py-1 bg-blue-600 text-white disabled:opacity-30 rounded hover:bg-blue-700"
                 >
-                  Next Page
+                  {t.reader.nextPage}
                 </button>
               </div>
             </div>
@@ -319,12 +360,12 @@ const ChapterReader: React.FC = () => {
             <div className="relative bg-white dark:bg-black shadow-2xl rounded overflow-hidden min-h-[500px] flex items-center justify-center">
               {failedPages[currentPageIndex] ? (
                 <div className="p-8 text-center flex flex-col items-center">
-                  <p className="text-red-500 font-semibold mb-3">Failed to load page image.</p>
+                  <p className="text-red-500 font-semibold mb-3">{t.reader.errorLoading}</p>
                   <button
                     onClick={() => handleRetryPage(currentPageIndex)}
                     className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-md"
                   >
-                    <RefreshCw size={14} /> Retry Page
+                    <RefreshCw size={14} /> Retry
                   </button>
                 </div>
               ) : (
@@ -340,7 +381,14 @@ const ChapterReader: React.FC = () => {
                   loading="eager"
                   decoding="async"
                   referrerPolicy="no-referrer"
-                  onError={() => setFailedPages(prev => ({ ...prev, [currentPageIndex]: true }))}
+                  onError={(e) => {
+                    // Gracefully hide if past end of chapter or flag failure
+                    if (currentPageIndex >= 15 && (e.currentTarget.naturalWidth === 0)) {
+                      e.currentTarget.style.display = 'none';
+                    } else {
+                      setFailedPages(prev => ({ ...prev, [currentPageIndex]: true }));
+                    }
+                  }}
                 />
               )}
             </div>
@@ -349,10 +397,10 @@ const ChapterReader: React.FC = () => {
           /* Webtoon Continuous Scroll Mode */
           <div className="max-w-4xl mx-auto bg-white dark:bg-black shadow-2xl min-h-screen">
             {pages.map((pageUrl, idx) => (
-              <div key={idx} className="relative min-h-[250px] bg-gray-100 dark:bg-[#0a0a0a]">
+              <div key={idx} className="relative min-h-[200px] bg-gray-100 dark:bg-[#0a0a0a]">
                 {failedPages[idx] ? (
-                  <div className="h-64 flex flex-col items-center justify-center p-6 border-b border-gray-200 dark:border-white/5 text-center">
-                    <p className="text-red-500 text-xs font-bold mb-3">Page {idx + 1} failed to load.</p>
+                  <div className="h-48 flex flex-col items-center justify-center p-6 border-b border-gray-200 dark:border-white/5 text-center">
+                    <p className="text-red-500 text-xs font-bold mb-3">{t.reader.page} {idx + 1} {t.reader.errorLoading}</p>
                     <button
                       onClick={() => handleRetryPage(idx)}
                       className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded"
@@ -370,7 +418,16 @@ const ChapterReader: React.FC = () => {
                     fetchPriority={idx === 0 ? "high" : "auto"}
                     decoding="async"
                     referrerPolicy="no-referrer"
-                    onError={() => setFailedPages(prev => ({ ...prev, [idx]: true }))}
+                    onError={(e) => {
+                      // If trailing page returned 404, cleanly hide it without showing error box
+                      if (idx >= 15) {
+                        e.currentTarget.style.display = 'none';
+                        const parent = e.currentTarget.parentElement;
+                        if (parent) parent.style.display = 'none';
+                      } else {
+                        setFailedPages(prev => ({ ...prev, [idx]: true }));
+                      }
+                    }}
                   />
                 )}
               </div>
@@ -379,21 +436,23 @@ const ChapterReader: React.FC = () => {
         )}
       </div>
 
-      {/* Surrounding Chapters Quick Navigation Mesh for Crawlers & Users */}
+      {/* Surrounding Chapters Quick Navigation Mesh */}
       <div className="bg-[#151515] border-t border-white/5 py-6 px-4">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="text-xs font-bold uppercase tracking-wider text-gray-400 flex items-center gap-1.5">
             <Layers size={14} className="text-blue-500" />
-            Browse Nearby Chapters:
+            {lang === 'fr' ? 'Chapitres proches :' : lang === 'pt' ? 'Capítulos Próximos:' : 'Browse Nearby Chapters:'}
           </span>
           <div className="flex flex-wrap items-center gap-2">
             {surroundingChapters.map(c => (
               <Link
                 key={c.number}
-                to={`/chapter/${c.number}`}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${c.number === currentNum ? 'bg-blue-600 text-white shadow-md' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
+                to={localizePath(`/chapter/${c.number}`)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  c.number === currentNum ? 'bg-blue-600 text-white shadow-md' : 'bg-white/5 text-gray-300 hover:bg-white/10'
+                }`}
               >
-                Ch. {c.number}
+                {lang === 'fr' ? `Ch. ${c.number}` : lang === 'pt' ? `Cap. ${c.number}` : `Ch. ${c.number}`}
               </Link>
             ))}
           </div>
@@ -408,13 +467,17 @@ const ChapterReader: React.FC = () => {
               <span>{seo.arcName}</span>
             </div>
             <h2 className="text-2xl md:text-3xl font-heading font-bold text-gray-900 dark:text-white mb-4">
-              {seo.hasUniqueSummary ? `What Happens in Blue Lock Chapter ${chapter.number}` : `Blue Lock Chapter ${chapter.number}: Story Context`}
+              {lang === 'fr'
+                ? `Que se passe-t-il dans Blue Lock Chapitre ${chapter.number}`
+                : lang === 'pt'
+                ? `O que acontece em Blue Lock Capítulo ${chapter.number}`
+                : `What Happens in Blue Lock Chapter ${chapter.number}`}
             </h2>
             <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-6">
               {seo.summary}
             </p>
             <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-              <strong>Arc Context:</strong> {seo.arcDescription} <Link to={`/arcs/${seo.arcSlug}`} className="text-blue-400 hover:underline">Read the {seo.arcName} guide</Link>.
+              <strong>Context:</strong> {seo.arcDescription} <Link to={localizePath(`/arcs/${seo.arcSlug}`)} className="text-blue-400 hover:underline">Read the {seo.arcName} guide</Link>.
             </p>
           </div>
 
@@ -422,13 +485,13 @@ const ChapterReader: React.FC = () => {
           <div>
             <h3 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-3 flex items-center gap-2">
               <Users size={16} className="text-blue-500" />
-              Key Strikers Featured in this Arc:
+              {t.home.charactersPreviewTitle}:
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {seo.featuredCharacters.map(char => (
                 <Link
                   key={char.slug}
-                  to={`/characters/${char.slug}`}
+                  to={localizePath(`/characters/${char.slug}`)}
                   className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/5 hover:border-blue-500/40 hover:bg-blue-600/5 transition-all group"
                 >
                   <div>
@@ -451,31 +514,33 @@ const ChapterReader: React.FC = () => {
         <div className="max-w-4xl mx-auto py-16 px-4 flex flex-col items-center gap-8">
           <div className="flex items-center gap-4 text-gray-400 dark:text-gray-600">
             <div className="h-px w-12 bg-gray-300 dark:bg-gray-800"></div>
-            <span className="uppercase tracking-[0.2em] text-xs font-bold">End of Chapter {chapter.number}</span>
+            <span className="uppercase tracking-[0.2em] text-xs font-bold">
+              {t.reader.endOfChapter} {chapter.number}
+            </span>
             <div className="h-px w-12 bg-gray-300 dark:bg-gray-800"></div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-xl">
             {prevChapter ? (
               <Link
-                to={`/chapter/${prevChapter.number}`}
+                to={localizePath(`/chapter/${prevChapter.number}`)}
                 className="group rounded-xl bg-gray-50 dark:bg-[#181818] border border-gray-200 dark:border-white/5 p-5 text-left hover:border-blue-500/50 transition-all hover:shadow-lg"
               >
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">Previous</span>
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">{t.reader.prev}</span>
                 <span className="font-bold text-gray-900 dark:text-white text-base group-hover:text-blue-500 transition-colors">
-                  Chapter {prevChapter.number}
+                  {lang === 'fr' ? `Chapitre ${prevChapter.number}` : lang === 'pt' ? `Capítulo ${prevChapter.number}` : `Chapter ${prevChapter.number}`}
                 </span>
               </Link>
             ) : <div />}
 
             {nextChapter ? (
               <Link
-                to={`/chapter/${nextChapter.number}`}
+                to={localizePath(`/chapter/${nextChapter.number}`)}
                 className="group rounded-xl bg-blue-600/10 dark:bg-blue-900/20 border border-blue-500/30 p-5 text-right hover:border-blue-500 transition-all hover:shadow-lg"
               >
-                <span className="text-xs font-bold text-blue-500 uppercase tracking-wider block mb-1">Next Chapter</span>
+                <span className="text-xs font-bold text-blue-500 uppercase tracking-wider block mb-1">{t.reader.readNext}</span>
                 <span className="font-bold text-blue-600 dark:text-blue-400 text-base group-hover:underline">
-                  Chapter {nextChapter.number}
+                  {lang === 'fr' ? `Chapitre ${nextChapter.number}` : lang === 'pt' ? `Capítulo ${nextChapter.number}` : `Chapter ${nextChapter.number}`}
                 </span>
               </Link>
             ) : <div />}
