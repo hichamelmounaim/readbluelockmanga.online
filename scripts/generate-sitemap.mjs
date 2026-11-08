@@ -1,5 +1,5 @@
 // Builds public/sitemap.xml, public/sitemap_fr.xml, and public/sitemap_pt.xml
-// (and mirrors them to dist/ if dist exists).
+// (and mirrors them to dist/ if dist exists) with XSL styling and tiered priority strategy.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -24,6 +24,64 @@ const staticRoutes = [
   '/about', '/privacy', '/terms', '/dmca', '/disclaimer'
 ];
 
+function getStaticPriorityAndFreq(baseRoute, lang) {
+  if (baseRoute === '/') {
+    return {
+      priority: lang === 'en' ? '1.0' : '0.9',
+      changefreq: 'daily'
+    };
+  }
+  if (baseRoute === '/manga') {
+    return {
+      priority: lang === 'en' ? '0.9' : '0.8',
+      changefreq: 'daily'
+    };
+  }
+  if (baseRoute === '/characters' || baseRoute.startsWith('/characters/')) {
+    return {
+      priority: lang === 'en' ? '0.8' : '0.7',
+      changefreq: 'weekly'
+    };
+  }
+  if (baseRoute.startsWith('/guide')) {
+    return {
+      priority: lang === 'en' ? '0.8' : '0.7',
+      changefreq: 'weekly'
+    };
+  }
+  if (baseRoute === '/about') {
+    return {
+      priority: lang === 'en' ? '0.7' : '0.6',
+      changefreq: 'monthly'
+    };
+  }
+  // Policy & legal pages
+  return {
+    priority: '0.5',
+    changefreq: 'monthly'
+  };
+}
+
+function getChapterPriorityAndFreq(chNum, lang) {
+  const num = Number(chNum);
+  if (num >= 350) {
+    return {
+      priority: lang === 'en' ? '1.0' : '0.9',
+      changefreq: 'weekly'
+    };
+  }
+  if (num >= 300) {
+    return {
+      priority: lang === 'en' ? '0.9' : '0.8',
+      changefreq: 'weekly'
+    };
+  }
+  return {
+    priority: '0.8',
+    changefreq: 'weekly'
+  };
+}
+
 function buildUrlEntry(baseRoute, lang, lastmod) {
   let loc = '';
   if (lang === 'en') {
@@ -36,10 +94,12 @@ function buildUrlEntry(baseRoute, lang, lastmod) {
   const frUrl = `${SITE_URL}/fr${baseRoute === '/' ? '' : baseRoute}`;
   const ptUrl = `${SITE_URL}/pt${baseRoute === '/' ? '' : baseRoute}`;
 
+  const { priority, changefreq } = getStaticPriorityAndFreq(baseRoute, lang);
+
   return `  <url>
     <loc>${loc}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ''}
-    <changefreq>${baseRoute === '/' || baseRoute === '/manga' ? 'daily' : 'weekly'}</changefreq>
-    <priority>${baseRoute === '/' ? '1.0' : baseRoute === '/manga' ? '0.9' : '0.8'}</priority>
+    <priority>${priority}</priority>
+    <changefreq>${changefreq}</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="${enUrl}" />
     <xhtml:link rel="alternate" hreflang="fr" href="${frUrl}" />
     <xhtml:link rel="alternate" hreflang="pt" href="${ptUrl}" />
@@ -53,11 +113,12 @@ function buildChapterUrlEntry(chNum, lang) {
   const ptUrl = `${SITE_URL}/pt/chapter/${chNum}`;
 
   const loc = lang === 'en' ? enUrl : lang === 'fr' ? frUrl : ptUrl;
+  const { priority, changefreq } = getChapterPriorityAndFreq(chNum, lang);
 
   return `  <url>
     <loc>${loc}</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>${priority}</priority>
+    <changefreq>${changefreq}</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="${enUrl}" />
     <xhtml:link rel="alternate" hreflang="fr" href="${frUrl}" />
     <xhtml:link rel="alternate" hreflang="pt" href="${ptUrl}" />
@@ -67,6 +128,7 @@ function buildChapterUrlEntry(chNum, lang) {
 
 function wrapUrlset(entries) {
   return `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${entries.join('\n')}
@@ -125,7 +187,13 @@ saveXml('sitemap.xml', wrapUrlset(allEntries));
 saveXml('sitemap_fr.xml', wrapUrlset(frEntries));
 saveXml('sitemap_pt.xml', wrapUrlset(ptEntries));
 
-console.log(`[OK] Sitemaps generated:`);
+// Mirror sitemap.xsl if dist exists
+const xslSrc = path.join(root, 'public', 'sitemap.xsl');
+if (fs.existsSync(xslSrc) && fs.existsSync(distDir)) {
+  fs.copyFileSync(xslSrc, path.join(distDir, 'sitemap.xsl'));
+}
+
+console.log(`[OK] Sitemaps generated with XSL stylesheet & tiered priority strategy:`);
 console.log(`     - public/sitemap.xml: ${allEntries.length} URLs (Master multi-language sitemap)`);
 console.log(`     - public/sitemap_fr.xml: ${frEntries.length} URLs (French sitemap)`);
 console.log(`     - public/sitemap_pt.xml: ${ptEntries.length} URLs (Portuguese sitemap)`);
