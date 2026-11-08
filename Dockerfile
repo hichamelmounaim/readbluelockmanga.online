@@ -16,6 +16,9 @@ RUN npm run build
 # Stage 2: Production Nginx Server
 FROM nginx:alpine AS runner
 
+# Install curl for Coolify / Docker health checks
+RUN apk add --no-cache curl
+
 # Remove default static files
 RUN rm -rf /usr/share/nginx/html/*
 
@@ -28,9 +31,9 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 # Expose port 80
 EXPOSE 80
 
-# Health check to ensure Nginx is healthy and serving pages
+# Health check using curl (compatible with Coolify and Docker)
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://127.0.0.1/ || exit 1
+  CMD curl -f http://127.0.0.1/ || exit 1
 
 # Start Nginx in the foreground
 CMD ["nginx", "-g", "daemon off;"]
