@@ -12,7 +12,14 @@ const chaptersFile = path.join(root, 'public/data/chapters.json');
 const chapters = fs.existsSync(chaptersFile) ? JSON.parse(fs.readFileSync(chaptersFile, 'utf8')) : [];
 const today = new Date().toISOString().split('T')[0];
 
-const sortedChapters = [...chapters].sort((a, b) => a.number - b.number);
+// Sort chapters numerically ascending and remove any potential duplicates
+const chapterMap = new Map();
+for (const ch of chapters) {
+  if (ch && ch.number != null && !chapterMap.has(ch.number)) {
+    chapterMap.set(ch.number, ch);
+  }
+}
+const sortedChapters = Array.from(chapterMap.values()).sort((a, b) => a.number - b.number);
 
 // Base paths available across languages
 const staticRoutes = [
@@ -136,44 +143,40 @@ ${entries.join('\n')}
 `;
 }
 
-// 1. Build English sitemap entries
-const enEntries = [];
-for (const r of staticRoutes) {
-  const lastmod = (r === '/' || r === '/manga') ? today : undefined;
-  enEntries.push(buildUrlEntry(r, 'en', lastmod));
-}
-for (const ch of sortedChapters) {
-  if ((ch.pageCount ?? 0) > 0) {
-    enEntries.push(buildChapterUrlEntry(ch.number, 'en'));
+// Helper to assemble unique entries for a language
+function buildSitemapList(lang) {
+  const entries = [];
+  const seenLocs = new Set();
+
+  for (const r of staticRoutes) {
+    const loc = lang === 'en' ? `${SITE_URL}${r}` : `${SITE_URL}/${lang}${r === '/' ? '' : r}`;
+    if (!seenLocs.has(loc)) {
+      seenLocs.add(loc);
+      const lastmod = (r === '/' || r === '/manga') ? today : undefined;
+      entries.push(buildUrlEntry(r, lang, lastmod));
+    }
   }
+
+  // Include ALL chapters up to the latest one (368+)
+  for (const ch of sortedChapters) {
+    const loc = lang === 'en' ? `${SITE_URL}/chapter/${ch.number}` : `${SITE_URL}/${lang}/chapter/${ch.number}`;
+    if (!seenLocs.has(loc)) {
+      seenLocs.add(loc);
+      entries.push(buildChapterUrlEntry(ch.number, lang));
+    }
+  }
+
+  return { entries, count: seenLocs.size };
 }
 
-// 2. Build French sitemap entries
-const frEntries = [];
-for (const r of staticRoutes) {
-  const lastmod = (r === '/' || r === '/manga') ? today : undefined;
-  frEntries.push(buildUrlEntry(r, 'fr', lastmod));
-}
-for (const ch of sortedChapters) {
-  if ((ch.pageCountFr ?? 0) > 0 || ch.number <= 366) {
-    frEntries.push(buildChapterUrlEntry(ch.number, 'fr'));
-  }
-}
+// 1. Build English sitemap (sitemap.xml with EN <loc> + hreflang alternates)
+const enData = buildSitemapList('en');
 
-// 3. Build Portuguese sitemap entries
-const ptEntries = [];
-for (const r of staticRoutes) {
-  const lastmod = (r === '/' || r === '/manga') ? today : undefined;
-  ptEntries.push(buildUrlEntry(r, 'pt', lastmod));
-}
-for (const ch of sortedChapters) {
-  if ((ch.pageCountPt ?? 0) > 0 || ch.number <= 366) {
-    ptEntries.push(buildChapterUrlEntry(ch.number, 'pt'));
-  }
-}
+// 2. Build French sitemap (sitemap_fr.xml with FR <loc> + hreflang alternates)
+const frData = buildSitemapList('fr');
 
-// 4. Combined master sitemap
-const allEntries = [...enEntries, ...frEntries, ...ptEntries];
+// 3. Build Portuguese sitemap (sitemap_pt.xml with PT <loc> + hreflang alternates)
+const ptData = buildSitemapList('pt');
 
 const distDir = path.join(root, 'dist');
 const saveXml = (fileName, xmlContent) => {
@@ -183,9 +186,9 @@ const saveXml = (fileName, xmlContent) => {
   }
 };
 
-saveXml('sitemap.xml', wrapUrlset(allEntries));
-saveXml('sitemap_fr.xml', wrapUrlset(frEntries));
-saveXml('sitemap_pt.xml', wrapUrlset(ptEntries));
+saveXml('sitemap.xml', wrapUrlset(enData.entries));
+saveXml('sitemap_fr.xml', wrapUrlset(frData.entries));
+saveXml('sitemap_pt.xml', wrapUrlset(ptData.entries));
 
 // Mirror sitemap.xsl if dist exists
 const xslSrc = path.join(root, 'public', 'sitemap.xsl');
@@ -194,6 +197,6 @@ if (fs.existsSync(xslSrc) && fs.existsSync(distDir)) {
 }
 
 console.log(`[OK] Sitemaps generated with XSL stylesheet & tiered priority strategy:`);
-console.log(`     - public/sitemap.xml: ${allEntries.length} URLs (Master multi-language sitemap)`);
-console.log(`     - public/sitemap_fr.xml: ${frEntries.length} URLs (French sitemap)`);
-console.log(`     - public/sitemap_pt.xml: ${ptEntries.length} URLs (Portuguese sitemap)`);
+console.log(`     - public/sitemap.xml: ${enData.count} URLs (English + hreflang alternates)`);
+console.log(`     - public/sitemap_fr.xml: ${frData.count} URLs (French + hreflang alternates)`);
+console.log(`     - public/sitemap_pt.xml: ${ptData.count} URLs (Portuguese + hreflang alternates)`);
