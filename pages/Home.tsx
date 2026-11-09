@@ -58,6 +58,8 @@ const Home: React.FC = () => {
             width="1920"
             height="1080"
             fetchPriority="high"
+            loading="eager"
+            decoding="async"
             className="w-full h-full object-cover"
           />
         </div>
@@ -189,7 +191,7 @@ const Home: React.FC = () => {
                 <h2 className="text-2xl md:text-3xl font-heading font-bold text-gray-900 dark:text-white">
                   {t.home.latestReleases}
                 </h2>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-gray-600 dark:text-gray-400">
                   {lang === 'fr' ? 'Scans VF en haute définition' : lang === 'pt' ? 'Scans em português em alta definição' : 'Updated automatically with verified English scans'}
                 </p>
               </div>
@@ -211,7 +213,7 @@ const Home: React.FC = () => {
                     <span className="text-xs font-bold text-blue-500 uppercase tracking-wider">
                       {t.home.chapter} {ch.number}
                     </span>
-                    <span className="text-[11px] text-gray-400 dark:text-gray-500">
+                    <span className="text-[11px] text-gray-500 dark:text-gray-400">
                       {lang === 'fr'
                         ? `${ch.pageCountFr || 20} Pages`
                         : lang === 'pt'
@@ -225,7 +227,7 @@ const Home: React.FC = () => {
                 </div>
 
                 <div className="mt-4 pt-3 border-t border-gray-100 dark:border-white/5 flex items-center justify-between">
-                  <span className="text-xs text-gray-500 dark:text-gray-400 font-medium group-hover:text-white transition-colors">
+                  <span className="text-xs text-gray-600 dark:text-gray-300 font-medium group-hover:text-white transition-colors">
                     {t.home.readNow}
                   </span>
                   <ArrowRight size={15} className="text-gray-400 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
@@ -275,7 +277,7 @@ const Home: React.FC = () => {
               <h2 className="text-2xl md:text-3xl font-heading font-bold text-gray-900 dark:text-white">
                 Major Story Arcs &amp; Progression
               </h2>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-gray-600 dark:text-gray-400">
                 Explore the chronological timeline of the Blue Lock project
               </p>
             </div>

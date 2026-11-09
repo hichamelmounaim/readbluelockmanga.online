@@ -229,6 +229,7 @@ const ChapterReader: React.FC = () => {
             <select
               value={chapter.number}
               onChange={(e) => handleNav(parseFloat(e.target.value))}
+              aria-label="Select chapter"
               className="bg-white/10 border border-white/10 text-white text-xs font-bold rounded-lg px-2.5 py-1.5 pr-7 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
             >
               {chapters.map((c) => (
@@ -247,6 +248,7 @@ const ChapterReader: React.FC = () => {
             onClick={() => setReadingMode(m => (m === 'webtoon' ? 'single' : 'webtoon'))}
             className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-bold transition-colors"
             title="Toggle Webtoon Scroll / Single Page"
+            aria-label="Toggle Webtoon Scroll or Single Page mode"
           >
             {readingMode === 'webtoon' ? (
               <>
@@ -267,6 +269,7 @@ const ChapterReader: React.FC = () => {
             onClick={() => prevChapter && handleNav(prevChapter.number)}
             className="p-1.5 hover:bg-white/10 disabled:opacity-30 rounded-lg text-gray-300 hover:text-white transition-colors"
             title={t.reader.prev}
+            aria-label={t.reader.prev}
           >
             <ChevronLeft size={18} />
           </button>
@@ -275,6 +278,7 @@ const ChapterReader: React.FC = () => {
             onClick={() => nextChapter && handleNav(nextChapter.number)}
             className="p-1.5 hover:bg-white/10 disabled:opacity-30 rounded-lg text-gray-300 hover:text-white transition-colors"
             title={t.reader.next}
+            aria-label={t.reader.next}
           >
             <ChevronRight size={18} />
           </button>
@@ -292,6 +296,7 @@ const ChapterReader: React.FC = () => {
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="fixed bottom-6 right-5 z-50 w-11 h-11 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110"
           title="Back to top"
+          aria-label="Scroll back to top"
         >
           <ChevronUp size={22} strokeWidth={2.5} />
         </button>
@@ -373,12 +378,15 @@ const ChapterReader: React.FC = () => {
                   key={`single-${currentPageIndex}-${retryKeys[currentPageIndex] || 0}`}
                   src={pages[currentPageIndex]}
                   alt={`Blue Lock Chapter ${chapter.number} Page ${currentPageIndex + 1}`}
+                  width="800"
+                  height="1200"
                   className="w-full h-auto block cursor-pointer"
                   onClick={() => {
                     if (currentPageIndex < pages.length - 1) setCurrentPageIndex(p => p + 1);
                     else if (nextChapter) handleNav(nextChapter.number);
                   }}
                   loading="eager"
+                  fetchPriority="high"
                   decoding="async"
                   referrerPolicy="no-referrer"
                   onError={(e) => {
@@ -397,13 +405,14 @@ const ChapterReader: React.FC = () => {
           /* Webtoon Continuous Scroll Mode */
           <div className="max-w-4xl mx-auto bg-white dark:bg-black shadow-2xl min-h-screen">
             {pages.map((pageUrl, idx) => (
-              <div key={idx} className="relative min-h-[200px] bg-gray-100 dark:bg-[#0a0a0a]">
+              <div key={idx} className="relative min-h-[300px] sm:min-h-[500px] bg-gray-100 dark:bg-[#0a0a0a]">
                 {failedPages[idx] ? (
                   <div className="h-48 flex flex-col items-center justify-center p-6 border-b border-gray-200 dark:border-white/5 text-center">
                     <p className="text-red-500 text-xs font-bold mb-3">{t.reader.page} {idx + 1} {t.reader.errorLoading}</p>
                     <button
                       onClick={() => handleRetryPage(idx)}
                       className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded"
+                      aria-label={`Retry loading page ${idx + 1}`}
                     >
                       <RefreshCw size={13} /> Retry Page {idx + 1}
                     </button>
@@ -413,8 +422,10 @@ const ChapterReader: React.FC = () => {
                     key={`scroll-${idx}-${retryKeys[idx] || 0}`}
                     src={pageUrl}
                     alt={`Blue Lock Chapter ${chapter.number} Page ${idx + 1}`}
+                    width="800"
+                    height="1200"
                     className="w-full h-auto block"
-                    loading={idx < 3 ? "eager" : "lazy"}
+                    loading={idx < 2 ? "eager" : "lazy"}
                     fetchPriority={idx === 0 ? "high" : "auto"}
                     decoding="async"
                     referrerPolicy="no-referrer"

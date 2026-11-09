@@ -70,7 +70,12 @@ const CharacterDetail: React.FC = () => {
             <div className="aspect-[3/4] relative rounded-xl overflow-hidden bg-gray-900 shadow-lg border border-white/10 max-w-sm mx-auto lg:max-w-none">
               <img
                 src={character.image}
-                alt={character.name}
+                alt={`${character.name} - Blue Lock Character Profile`}
+                width="400"
+                height="533"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
                 className="w-full h-full object-cover object-top"
               />
             </div>

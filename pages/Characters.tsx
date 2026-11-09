@@ -47,9 +47,12 @@ const Characters: React.FC = () => {
             <div className="aspect-[4/3] w-full overflow-hidden bg-gray-900 relative">
               <img
                 src={char.image}
-                alt={char.name}
+                alt={`${char.name} - Blue Lock Character Profile`}
+                width="400"
+                height="300"
                 className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                 loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#181818] via-transparent to-transparent"></div>
               <span className="absolute bottom-3 left-4 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-blue-400 bg-blue-950/80 backdrop-blur-md rounded-md border border-blue-500/30">

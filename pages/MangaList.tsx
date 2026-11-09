@@ -106,6 +106,7 @@ const MangaList: React.FC = () => {
               <input
                 type="text"
                 placeholder={t.mangaList.searchPlaceholder}
+                aria-label={t.mangaList.searchPlaceholder || "Search chapters"}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/40 text-gray-900 dark:text-white placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
@@ -116,6 +117,7 @@ const MangaList: React.FC = () => {
             <div className="flex items-center gap-3 w-full md:w-auto justify-end">
               <button
                 onClick={() => setSortOrder(o => o === 'desc' ? 'asc' : 'desc')}
+                aria-label={`Sort chapters, currently ${sortOrder === 'desc' ? t.mangaList.newest : t.mangaList.oldest}`}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/40 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
               >
                 <Filter size={16} />
@@ -127,6 +129,7 @@ const MangaList: React.FC = () => {
                   onClick={() => handleViewMode('grid')}
                   className={`p-1.5 rounded-lg transition-colors ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
                   title="Grid View"
+                  aria-label="Grid View"
                 >
                   <Grid size={18} />
                 </button>
@@ -134,6 +137,7 @@ const MangaList: React.FC = () => {
                   onClick={() => handleViewMode('list')}
                   className={`p-1.5 rounded-lg transition-colors ${viewMode === 'list' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
                   title="List View"
+                  aria-label="List View"
                 >
                   <List size={18} />
                 </button>
@@ -170,6 +174,7 @@ const MangaList: React.FC = () => {
                           isRead ? 'text-green-400 bg-green-500/10' : 'text-gray-400 hover:text-white hover:bg-white/10'
                         }`}
                         title={isRead ? 'Mark as Unread' : 'Mark as Read'}
+                        aria-label={isRead ? `Mark Chapter ${ch.number} as Unread` : `Mark Chapter ${ch.number} as Read`}
                       >
                         <Check size={14} />
                       </button>
@@ -226,6 +231,7 @@ const MangaList: React.FC = () => {
                         isRead ? 'text-green-400 bg-green-500/10' : 'text-gray-400 hover:text-white hover:bg-white/10'
                       }`}
                       title={isRead ? 'Mark as Unread' : 'Mark as Read'}
+                      aria-label={isRead ? `Mark Chapter ${ch.number} as Unread` : `Mark Chapter ${ch.number} as Read`}
                     >
                       <Check size={16} />
                     </button>

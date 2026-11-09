@@ -41,8 +41,15 @@ const Navbar: React.FC = () => {
         <div className="flex items-center justify-between h-16">
 
           {/* Logo */}
-          <Link to={localizePath('/')} className="flex-shrink-0 flex items-center gap-2 group">
-            <img src="/logo.png" alt="Blue Lock Manga" className="h-10 w-auto" />
+          <Link to={localizePath('/')} className="flex-shrink-0 flex items-center gap-2 group" aria-label="Blue Lock Manga Home">
+            <img
+              src="/logo.png"
+              alt="Blue Lock Manga Logo"
+              width="216"
+              height="40"
+              fetchPriority="high"
+              className="h-10 w-auto"
+            />
           </Link>
 
           {/* Desktop Nav */}
@@ -72,8 +79,9 @@ const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center gap-3">
             <Link
               to={localizePath('/manga')}
-              className="p-2 text-gray-400 hover:text-white transition-colors"
+              className="p-2 text-gray-300 hover:text-white transition-colors"
               title="Search Chapters"
+              aria-label="Search Chapters"
             >
               <Search size={20} />
             </Link>
@@ -84,6 +92,8 @@ const Navbar: React.FC = () => {
                 onClick={() => setIsLangOpen(!isLangOpen)}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-700 bg-gray-900/80 hover:bg-gray-800 text-xs font-bold text-gray-200 transition-colors"
                 title="Change Language / Changer de langue / Mudar de idioma"
+                aria-label={`Change language (currently ${currentLangObj.label})`}
+                aria-expanded={isLangOpen}
               >
                 <Globe size={14} className="text-blue-400" />
                 <span>{currentLangObj.flag}</span>
@@ -130,6 +140,7 @@ const Navbar: React.FC = () => {
               }}
               className="flex items-center gap-1 px-2.5 py-1 rounded border border-gray-700 bg-gray-900 text-xs font-bold text-gray-200"
               title="Switch Language"
+              aria-label={`Switch language from ${currentLangObj.label}`}
             >
               <span>{currentLangObj.flag}</span>
               <span className="uppercase">{currentLangObj.code}</span>
@@ -137,14 +148,18 @@ const Navbar: React.FC = () => {
 
             <Link
               to={localizePath('/manga')}
-              className="p-2 text-gray-400 hover:text-white transition-colors"
+              className="p-2 text-gray-300 hover:text-white transition-colors"
+              title="Search Chapters"
+              aria-label="Search Chapters"
             >
               <Search size={20} />
             </Link>
 
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none"
+              aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={isOpen}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white hover:bg-gray-800 focus:outline-none"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
