@@ -52,16 +52,19 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <section className="relative w-full min-h-[85vh] flex items-center justify-center overflow-hidden bg-[#121212] py-20">
         <div className="absolute inset-0 z-0 opacity-25 select-none pointer-events-none">
-          <img
-            src="/blue-lock.webp"
-            alt="Blue Lock Manga - Yoichi Isagi and players competing in the Blue Lock Project"
-            width="1920"
-            height="1080"
-            fetchPriority="high"
-            loading="eager"
-            decoding="async"
-            className="w-full h-full object-cover"
-          />
+          <picture>
+            <source media="(max-width: 768px)" srcSet="/blue-lock-mobile.webp" type="image/webp" />
+            <img
+              src="/blue-lock.webp"
+              alt="Blue Lock Manga - Yoichi Isagi and players competing in the Blue Lock Project"
+              width="1920"
+              height="1080"
+              fetchPriority="high"
+              loading="eager"
+              decoding="async"
+              className="w-full h-full object-cover"
+            />
+          </picture>
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-[#121212]/70 to-transparent z-0 pointer-events-none"></div>
 
