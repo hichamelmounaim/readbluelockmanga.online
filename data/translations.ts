@@ -9,7 +9,7 @@ export const translations = {
     "hero": {
       "titlePrefix": "HAIKYU!! ",
       "titleHighlight": "MANGA ONLINE",
-      "subtitle": "Read Haikyu!! Manga Online In High Quality, All 402 Chapters and 45 Volumes in English With HD Scans and No Sign-Up Required.",
+      "subtitle": "Read all 402 chapters and 45 volumes of Haikyu!! online in English, in HD, with no sign-up required.",
       "readChapter": "Read Chapter",
       "exploreMore": "Read Chapter 1"
     },

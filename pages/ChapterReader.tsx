@@ -230,12 +230,12 @@ const ChapterReader: React.FC = () => {
           >
             {readingMode === 'webtoon' ? (
               <>
-                <ArrowDown size={14} className="text-blue-400" />
+                <ArrowDown size={14} className="text-orange-400" />
                 <span>{t.reader.verticalScroll}</span>
               </>
             ) : (
               <>
-                <BookOpen size={14} className="text-blue-400" />
+                <BookOpen size={14} className="text-orange-400" />
                 <span>{t.reader.horizontalSlide}</span>
               </>
             )}
@@ -264,7 +264,7 @@ const ChapterReader: React.FC = () => {
 
         {/* Read progress bar across top */}
         <div
-          className="absolute bottom-0 left-0 h-0.5 bg-blue-500 transition-all duration-150"
+          className="absolute bottom-0 left-0 h-0.5 bg-orange-500 transition-all duration-150"
           style={{ width: `${readingMode === 'single' && pages.length > 0 ? Math.round(((currentPageIndex + 1) / pages.length) * 100) : readProgress}%` }}
         />
       </div>
@@ -272,7 +272,7 @@ const ChapterReader: React.FC = () => {
       {showScrollTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-6 right-5 z-50 w-11 h-11 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110"
+          className="fixed bottom-6 right-5 z-50 w-11 h-11 bg-orange-600 hover:bg-orange-700 text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110"
           title="Back to top"
           aria-label="Scroll back to top"
         >
@@ -282,7 +282,7 @@ const ChapterReader: React.FC = () => {
 
       {/* Reader Content */}
       <div className="flex-1 pt-16">
-        <h1 className="sr-only">Haikyu!! Chapter {chapter.number}{seo.hasRealTitle ? `: ${seo.title}` : ''} English</h1>
+        <h1 className="sr-only">Haikyu!! Chapter {chapter.number}{seo.hasRealTitle ? `: ${seo.title}` : ''} – Read Online in English</h1>
         {pages.length > 0 && (
           <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
             <Breadcrumbs items={[
@@ -310,7 +310,7 @@ const ChapterReader: React.FC = () => {
               <div className="flex flex-col gap-3">
                 <button
                   onClick={() => navigate(localizePath('/manga'))}
-                  className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-all"
+                  className="px-6 py-2.5 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg transition-all"
                 >
                   {t.reader.backToChapters}
                 </button>
@@ -333,7 +333,7 @@ const ChapterReader: React.FC = () => {
                 <button
                   disabled={currentPageIndex === pages.length - 1}
                   onClick={() => setCurrentPageIndex(p => Math.min(pages.length - 1, p + 1))}
-                  className="px-3 py-1 bg-blue-600 text-white disabled:opacity-30 rounded hover:bg-blue-700"
+                  className="px-3 py-1 bg-orange-600 text-white disabled:opacity-30 rounded hover:bg-orange-700"
                 >
                   {t.reader.nextPage}
                 </button>
@@ -346,7 +346,7 @@ const ChapterReader: React.FC = () => {
                   <p className="text-red-500 font-semibold mb-3">{t.reader.errorLoading}</p>
                   <button
                     onClick={() => handleRetryPage(currentPageIndex)}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-md"
+                    className="flex items-center gap-2 px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white text-xs font-bold rounded-md"
                   >
                     <RefreshCw size={14} /> Retry
                   </button>
@@ -389,7 +389,7 @@ const ChapterReader: React.FC = () => {
                     <p className="text-red-500 text-xs font-bold mb-3">{t.reader.page} {idx + 1} {t.reader.errorLoading}</p>
                     <button
                       onClick={() => handleRetryPage(idx)}
-                      className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded"
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-orange-600 hover:bg-orange-700 text-white text-xs font-bold rounded"
                       aria-label={`Retry loading page ${idx + 1}`}
                     >
                       <RefreshCw size={13} /> Retry Page {idx + 1}
@@ -453,10 +453,10 @@ const ChapterReader: React.FC = () => {
         <div className="max-w-4xl mx-auto space-y-10">
           <div>
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-orange-500 mb-2">
-              <span>{seo.arcName}</span>
+              <span>{seo.arcName} · {seo.segmentName}</span>
             </div>
             <h2 className="text-2xl md:text-3xl font-heading font-bold text-gray-900 dark:text-white mb-4">
-              What Happens in Haikyu!! Chapter {chapter.number}
+              {seo.hasUniqueSummary ? 'What Happens in' : 'About'} Haikyu!! Chapter {chapter.number}
             </h2>
             <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-4">
               {seo.summary}
@@ -469,6 +469,16 @@ const ChapterReader: React.FC = () => {
               <Link to={`/arcs/${seo.arcSlug}`} className="text-orange-400 hover:underline">
                 Read the {seo.arcName} guide
               </Link>.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">
+              Is Haikyu!! Chapter {chapter.number} in the anime?
+            </h3>
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+              {seo.animeNote}{' '}
+              <Link to={seo.animePath} className="text-orange-400 hover:underline">Haikyu!! anime guide</Link>.
             </p>
           </div>
 
@@ -521,6 +531,11 @@ const ChapterReader: React.FC = () => {
                 <span className="font-bold text-gray-900 dark:text-white text-base group-hover:text-orange-500 transition-colors">
                   Chapter {prevChapter.number}
                 </span>
+                {realChapterTitle(prevChapter.number, prevChapter.title) && (
+                  <span className="block text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-1">
+                    {realChapterTitle(prevChapter.number, prevChapter.title)}
+                  </span>
+                )}
               </Link>
             ) : <div />}
 
@@ -533,6 +548,11 @@ const ChapterReader: React.FC = () => {
                 <span className="font-bold text-orange-600 dark:text-orange-400 text-base group-hover:underline">
                   Chapter {nextChapter.number}
                 </span>
+                {realChapterTitle(nextChapter.number, nextChapter.title) && (
+                  <span className="block text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-1">
+                    {realChapterTitle(nextChapter.number, nextChapter.title)}
+                  </span>
+                )}
               </Link>
             ) : <div />}
           </div>

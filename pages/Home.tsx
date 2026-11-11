@@ -60,13 +60,13 @@ const Home: React.FC = () => {
 
         <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
 
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-600/10 border border-blue-500/30 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
-            <Flame size={14} className="text-blue-500" />
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-600/10 border border-orange-500/30 text-orange-400 text-xs font-bold uppercase tracking-widest mb-6">
+            <Flame size={14} className="text-orange-500" />
             #1 Sports Volleyball Manga Worldwide
           </div>
 
           <h1 className="text-5xl md:text-8xl font-heading font-extrabold text-white mb-4 drop-shadow-2xl tracking-tighter text-center">
-            {t.hero.titlePrefix}<span className="text-blue-500">{t.hero.titleHighlight}</span>
+            {t.hero.titlePrefix}<span className="text-orange-500">{t.hero.titleHighlight}</span>
           </h1>
 
           <p className="text-gray-300 text-lg md:text-xl max-w-3xl text-center mb-10 font-light leading-relaxed">
@@ -130,7 +130,7 @@ const Home: React.FC = () => {
                 {continueChapter ? (
                   <Link
                     to={localizePath(`/chapter/${continueChapter}`)}
-                    className="w-full py-4 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02]"
+                    className="w-full py-4 px-6 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-orange-600/30 transition-all hover:scale-[1.02]"
                   >
                     <BookOpen size={20} />
                     <span>{t.home.readNow} Ch. {continueChapter}</span>
@@ -138,7 +138,7 @@ const Home: React.FC = () => {
                 ) : (
                   <Link
                     to={localizePath('/chapter/1')}
-                    className="w-full py-4 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02]"
+                    className="w-full py-4 px-6 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-orange-600/30 transition-all hover:scale-[1.02]"
                   >
                     <BookOpen size={20} />
                     <span>{t.hero.exploreMore}</span>
@@ -177,7 +177,7 @@ const Home: React.FC = () => {
         <section className="mb-20">
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-600/10 text-blue-500 rounded-lg">
+              <div className="p-2 bg-orange-600/10 text-orange-500 rounded-lg">
                 <BookOpen size={24} />
               </div>
               <div>
@@ -189,7 +189,7 @@ const Home: React.FC = () => {
                 </p>
               </div>
             </div>
-            <Link to={localizePath('/manga')} className="text-blue-500 hover:underline text-sm font-bold flex items-center gap-1">
+            <Link to={localizePath('/manga')} className="text-orange-500 hover:underline text-sm font-bold flex items-center gap-1">
               {t.home.viewAll} ({readableChapters.length}) <ArrowRight size={16} />
             </Link>
           </div>
@@ -199,18 +199,18 @@ const Home: React.FC = () => {
               <Link
                 key={ch.id}
                 to={localizePath(`/chapter/${ch.number}`)}
-                className="group relative flex flex-col justify-between bg-white dark:bg-[#181818] rounded-xl border border-gray-200 dark:border-white/5 p-5 hover:border-blue-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10"
+                className="group relative flex flex-col justify-between bg-white dark:bg-[#181818] rounded-xl border border-gray-200 dark:border-white/5 p-5 hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-orange-500/10"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-bold text-blue-500 uppercase tracking-wider">
+                    <span className="text-xs font-bold text-orange-500 uppercase tracking-wider">
                       {t.home.chapter} {ch.number}
                     </span>
                     <span className="text-[11px] text-gray-500 dark:text-gray-400">
                       {ch.pageCount || 20} Pages
                     </span>
                   </div>
-                  <h3 className="text-base font-bold text-gray-900 dark:text-white leading-snug group-hover:text-blue-400 transition-colors line-clamp-1">
+                  <h3 className="text-base font-bold text-gray-900 dark:text-white leading-snug group-hover:text-orange-400 transition-colors line-clamp-1">
                     {ch.title}
                   </h3>
                 </div>
@@ -219,7 +219,7 @@ const Home: React.FC = () => {
                   <span className="text-xs text-gray-600 dark:text-gray-300 font-medium group-hover:text-white transition-colors">
                     {t.home.readNow}
                   </span>
-                  <ArrowRight size={15} className="text-gray-400 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
+                  <ArrowRight size={15} className="text-gray-400 group-hover:text-orange-400 group-hover:translate-x-1 transition-all" />
                 </div>
               </Link>
             ))}
@@ -230,7 +230,7 @@ const Home: React.FC = () => {
         <section className="mb-20">
           <div className="bg-white dark:bg-[#181818] rounded-2xl p-8 md:p-12 border border-gray-200 dark:border-white/5 shadow-sm space-y-8">
             <div>
-              <span className="text-blue-500 text-xs font-bold uppercase tracking-widest block mb-2">
+              <span className="text-orange-500 text-xs font-bold uppercase tracking-widest block mb-2">
                 {t.home.aboutTitle}
               </span>
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white">
@@ -259,7 +259,7 @@ const Home: React.FC = () => {
         {/* Story Arcs Overview */}
         <section className="mb-20">
           <div className="flex items-center gap-3 mb-8">
-            <div className="p-2 bg-blue-600/10 text-blue-500 rounded-lg">
+            <div className="p-2 bg-orange-600/10 text-orange-500 rounded-lg">
               <Zap size={24} />
             </div>
             <div>
@@ -276,10 +276,10 @@ const Home: React.FC = () => {
             {ARCS.map((arc) => (
               <div
                 key={arc.id}
-                className="bg-white dark:bg-[#181818] rounded-xl border border-gray-200 dark:border-white/5 p-6 hover:border-blue-500/30 transition-all shadow-sm"
+                className="bg-white dark:bg-[#181818] rounded-xl border border-gray-200 dark:border-white/5 p-6 hover:border-orange-500/30 transition-all shadow-sm"
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-bold uppercase tracking-wider text-blue-500 bg-blue-500/10 px-2.5 py-1 rounded-md">
+                  <span className="text-xs font-bold uppercase tracking-wider text-orange-500 bg-orange-500/10 px-2.5 py-1 rounded-md">
                     {t.home.chapter}s {arc.chapterStart} – {arc.ongoing ? 'ongoing' : arc.chapterEnd}
                   </span>
                   <span className="text-xs text-gray-400">
@@ -294,7 +294,7 @@ const Home: React.FC = () => {
                 </p>
                 <Link
                   to={localizePath(`/chapter/${arc.chapterStart}`)}
-                  className="text-xs font-bold text-blue-500 hover:text-blue-400 flex items-center gap-1"
+                  className="text-xs font-bold text-orange-500 hover:text-orange-400 flex items-center gap-1"
                 >
                   {t.home.readNow} {arc.title} <ArrowRight size={14} />
                 </Link>
@@ -306,7 +306,7 @@ const Home: React.FC = () => {
         {/* FAQ Section */}
         <section className="mb-16">
           <div className="flex items-center gap-3 mb-8">
-            <div className="p-2 bg-blue-600/10 text-blue-500 rounded-lg">
+            <div className="p-2 bg-orange-600/10 text-orange-500 rounded-lg">
               <BookOpen size={24} />
             </div>
             <div>

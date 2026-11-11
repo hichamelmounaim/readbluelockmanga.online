@@ -18,7 +18,7 @@ const CharacterDetail: React.FC = () => {
         <SEOHead title="Character Not Found – Haikyu!! Manga" description="This Haikyu!! character profile does not exist." noindex />
         <h1 className="text-3xl font-heading font-bold mb-4">Character Not Found</h1>
         <p className="text-gray-400 mb-8">The character you are looking for does not exist in our database.</p>
-        <Link to={localizePath('/characters')} className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition-all">
+        <Link to={localizePath('/characters')} className="inline-flex items-center gap-2 px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-bold transition-all">
           <ArrowLeft size={18} /> {t.nav.characters}
         </Link>
       </div>
@@ -52,7 +52,7 @@ const CharacterDetail: React.FC = () => {
       ]} />
 
       <div className="mt-4">
-        <Link to={localizePath('/characters')} className="inline-flex items-center gap-1 text-sm text-gray-400 hover:text-blue-400 transition-colors mb-6 font-semibold">
+        <Link to={localizePath('/characters')} className="inline-flex items-center gap-1 text-sm text-gray-400 hover:text-orange-400 transition-colors mb-6 font-semibold">
           <ArrowLeft size={16} /> {t.nav.characters}
         </Link>
       </div>
@@ -79,7 +79,7 @@ const CharacterDetail: React.FC = () => {
           <div className="lg:col-span-2 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-3 mb-2 flex-wrap">
-                <span className="px-3 py-1 bg-blue-600/10 border border-blue-500/30 text-blue-400 text-xs font-bold uppercase tracking-widest rounded-full">
+                <span className="px-3 py-1 bg-orange-600/10 border border-orange-500/30 text-orange-400 text-xs font-bold uppercase tracking-widest rounded-full">
                   {character.grade}
                 </span>
                 <span className="text-gray-400 text-sm font-medium">
@@ -98,26 +98,26 @@ const CharacterDetail: React.FC = () => {
               {/* Attributes Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <div className="bg-white/5 p-4 rounded-xl border border-white/5">
-                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400 mb-1">
+                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-orange-400 mb-1">
                     <Sword size={14} /> Specialty Weapon
                   </div>
                   <span className="text-white text-sm font-semibold">{character.weapon}</span>
                 </div>
                 <div className="bg-white/5 p-4 rounded-xl border border-white/5">
-                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400 mb-1">
+                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-orange-400 mb-1">
                     <Sparkles size={14} /> Key Abilities
                   </div>
                   <span className="text-white text-sm font-semibold">{character.abilities}</span>
                 </div>
                 <div className="bg-white/5 p-4 rounded-xl border border-white/5">
-                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400 mb-1">
+                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-orange-400 mb-1">
                     <Trophy size={14} /> Debut
                   </div>
                   <span className="text-white text-sm font-semibold">{character.firstAppearance}</span>
                 </div>
                 {character.birthday && (
                   <div className="bg-white/5 p-4 rounded-xl border border-white/5">
-                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400 mb-1">
+                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-orange-400 mb-1">
                       <CheckCircle2 size={14} /> Birthday / Age
                     </div>
                     <span className="text-white text-sm font-semibold">{character.birthday} ({character.age || '17'})</span>
@@ -130,14 +130,14 @@ const CharacterDetail: React.FC = () => {
             {character.keyChapters && character.keyChapters.length > 0 && (
               <div className="border-t border-white/10 pt-6">
                 <h3 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-3 flex items-center gap-2">
-                  <BookOpen size={16} className="text-blue-500" /> Key Chapters for {character.name}:
+                  <BookOpen size={16} className="text-orange-500" /> Key Chapters for {character.name}:
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {character.keyChapters.map(ch => (
                     <Link
                       key={ch.number}
                       to={localizePath(`/chapter/${ch.number}`)}
-                      className="px-3 py-1.5 rounded-lg bg-blue-600/10 hover:bg-blue-600 border border-blue-500/20 hover:border-transparent text-blue-400 hover:text-white text-xs font-bold transition-all"
+                      className="px-3 py-1.5 rounded-lg bg-orange-600/10 hover:bg-orange-600 border border-orange-500/20 hover:border-transparent text-orange-400 hover:text-white text-xs font-bold transition-all"
                     >
                       {ch.label}
                     </Link>
@@ -153,14 +153,14 @@ const CharacterDetail: React.FC = () => {
       {relatedCharacters.length > 0 && (
         <div>
           <h2 className="text-2xl font-heading font-bold text-white mb-6 flex items-center gap-2">
-            <Users size={22} className="text-blue-500" /> Teammates &amp; Rivals of {character.name}
+            <Users size={22} className="text-orange-500" /> Teammates &amp; Rivals of {character.name}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             {relatedCharacters.map(rel => (
               <Link
                 key={rel.slug}
                 to={localizePath(`/characters/${rel.slug}`)}
-                className="group p-4 bg-[#181818] rounded-xl border border-white/5 hover:border-blue-500/40 hover:bg-blue-600/5 transition-all flex items-center gap-3"
+                className="group p-4 bg-[#181818] rounded-xl border border-white/5 hover:border-orange-500/40 hover:bg-orange-600/5 transition-all flex items-center gap-3"
               >
                 <img
                   src={rel.image}
@@ -168,12 +168,12 @@ const CharacterDetail: React.FC = () => {
                   className="w-12 h-12 rounded-lg object-cover object-top border border-white/10"
                 />
                 <div className="min-w-0 flex-1">
-                  <h4 className="text-sm font-bold text-white truncate group-hover:text-blue-400 transition-colors">
+                  <h4 className="text-sm font-bold text-white truncate group-hover:text-orange-400 transition-colors">
                     {rel.name}
                   </h4>
                   <span className="text-xs text-gray-500 block truncate">{rel.role}</span>
                 </div>
-                <ArrowRight size={14} className="text-gray-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
+                <ArrowRight size={14} className="text-gray-500 group-hover:text-orange-400 group-hover:translate-x-1 transition-all" />
               </Link>
             ))}
           </div>

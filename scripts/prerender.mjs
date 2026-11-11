@@ -162,19 +162,21 @@ for (const ch of chapters) {
   const chapterUrl = `/chapter/${ch.number}`;
 
   const body = wrap(`<article class="max-w-4xl mx-auto px-4 py-10">
-      <p class="text-xs font-bold uppercase text-orange-500 mb-2"><a href="/arcs/${seo.arcSlug}">${esc(seo.arcName)}</a></p>
+      <p class="text-xs font-bold uppercase text-orange-500 mb-2"><a href="/arcs/${seo.arcSlug}">${esc(seo.arcName)}</a> · ${esc(seo.segmentName)}</p>
       <h1 class="text-3xl md:text-5xl font-heading font-bold mb-4">Haikyu!! Chapter ${ch.number}${seo.hasRealTitle ? `: ${esc(seo.title)}` : ''}${UI.h1Suffix}</h1>
       <p class="text-gray-400">${seo.noindex ? UI.notYet(ch.number) : UI.read(ch.number, pCount)}</p>
       <nav class="flex flex-wrap gap-3 my-6 text-sm font-semibold">
-        ${prev ? `<a href="/chapter/${prev.number}" class="text-orange-400">← Chapter ${prev.number}</a>` : ''}
+        ${prev ? `<a href="/chapter/${prev.number}" class="text-orange-400">← ${esc(chapterLabel(prev))}</a>` : ''}
         <a href="/manga" class="text-gray-300">${UI.allChapters}</a>
-        ${next ? `<a href="/chapter/${next.number}" class="text-orange-400">Chapter ${next.number} →</a>` : ''}
+        ${next ? `<a href="/chapter/${next.number}" class="text-orange-400">${esc(chapterLabel(next))} →</a>` : ''}
       </nav>
       <section class="border-t border-white/10 pt-6 text-gray-300 text-sm leading-relaxed">
-        <h2 class="text-2xl font-bold text-white mb-3">${UI.whatHappens(ch.number)}</h2>
+        <h2 class="text-2xl font-bold text-white mb-3">${seo.hasUniqueSummary ? UI.whatHappens(ch.number) : `About Haikyu!! Chapter ${ch.number}`}</h2>
         <p class="mb-4">${esc(seo.summary)}</p>
         <p class="mb-4">${esc(seo.facts)}</p>
-        <p class="text-gray-400 mb-6"><strong>${UI.context}:</strong> ${esc(seo.arcDescription)}</p>
+        <p class="text-gray-400 mb-6"><strong>${UI.context}:</strong> ${esc(seo.arcDescription)} <a href="/arcs/${seo.arcSlug}">Read the ${esc(seo.arcName)} guide</a>.</p>
+        <h3 class="text-base font-bold text-white mb-2">Is Haikyu!! Chapter ${ch.number} in the anime?</h3>
+        <p class="mb-6">${esc(seo.animeNote)} <a href="${seo.animePath}">Haikyu!! anime guide</a>.</p>
         ${featured.length ? `<h3 class="text-sm font-bold uppercase text-gray-400 mb-3">${UI.keyPlayers}</h3>
         <ul class="flex flex-wrap gap-3 mb-6">${featured.map(c => `<li><a href="/characters/${c.slug}">${esc(c.name)}</a></li>`).join('')}</ul>` : ''}
         <h3 class="text-sm font-bold uppercase text-gray-400 mb-3">${UI.nearby}</h3>

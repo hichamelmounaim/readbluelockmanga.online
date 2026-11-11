@@ -36,7 +36,7 @@ const Characters: React.FC = () => {
         {CHARACTERS.map((char) => (
           <div
             key={char.id}
-            className="group flex flex-col bg-[#181818] rounded-2xl border border-white/5 overflow-hidden hover:border-blue-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1"
+            className="group flex flex-col bg-[#181818] rounded-2xl border border-white/5 overflow-hidden hover:border-orange-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1"
           >
             {/* Character Image */}
             <div className="aspect-[4/3] w-full overflow-hidden bg-gray-900 relative">
@@ -50,7 +50,7 @@ const Characters: React.FC = () => {
                 decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#181818] via-transparent to-transparent"></div>
-              <span className="absolute bottom-3 left-4 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-blue-400 bg-blue-950/80 backdrop-blur-md rounded-md border border-blue-500/30">
+              <span className="absolute bottom-3 left-4 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-orange-400 bg-orange-950/80 backdrop-blur-md rounded-md border border-orange-500/30">
                 {char.grade}
               </span>
             </div>
@@ -58,7 +58,7 @@ const Characters: React.FC = () => {
             <div className="p-6 flex-1 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <h2 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
+                  <h2 className="text-2xl font-bold text-white group-hover:text-orange-400 transition-colors">
                     {char.name}
                   </h2>
                   <span className="text-xs font-medium text-gray-400 bg-white/5 px-2.5 py-0.5 rounded-full">
@@ -72,7 +72,7 @@ const Characters: React.FC = () => {
 
                 <div className="border-t border-white/5 pt-3 mb-4">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-gray-400 block mb-1 flex items-center gap-1">
-                    <Zap size={12} className="text-blue-500" />
+                    <Zap size={12} className="text-orange-500" />
                     Specialty Weapon:
                   </span>
                   <span className="text-xs text-gray-300 line-clamp-1">{char.weapon}</span>
@@ -81,7 +81,7 @@ const Characters: React.FC = () => {
 
               <Link
                 to={localizePath(`/characters/${char.slug}`)}
-                className="w-full py-2.5 px-4 bg-white/5 hover:bg-blue-600 text-gray-300 hover:text-white text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 transition-colors border border-white/5 hover:border-transparent group-hover:border-blue-500/30"
+                className="w-full py-2.5 px-4 bg-white/5 hover:bg-orange-600 text-gray-300 hover:text-white text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 transition-colors border border-white/5 hover:border-transparent group-hover:border-orange-500/30"
               >
                 <span>View Full Profile</span>
                 <ArrowRight size={14} />

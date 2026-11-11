@@ -1,7 +1,9 @@
 // Haikyu!! Manga Service Worker
-const CACHE_NAME = 'haikyuu-cache-v1';
+// Pages (HTML): network-first, so a new deploy is picked up right away and the
+// page never points at hashed JS/CSS bundles that no longer exist.
+// Static assets (hashed bundles, images): cache-first.
+const CACHE_NAME = 'haikyuu-cache-v2';
 const PRECACHE_URLS = [
-  '/',
   '/manifest.webmanifest',
   '/favicon.png',
   '/icon-192.png',
@@ -11,58 +13,57 @@ const PRECACHE_URLS = [
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(PRECACHE_URLS).catch(() => {});
-    })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS).catch(() => {}))
   );
   self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
-      );
-    })
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))
+    )
   );
   self.clients.claim();
 });
 
+const isStaticAsset = (url) =>
+  url.pathname.startsWith('/assets/') || /\.(png|jpe?g|webp|avif|svg|ico|css|js|woff2?)$/.test(url.pathname);
+
 self.addEventListener('fetch', (event) => {
-  // Only handle GET requests
   if (event.request.method !== 'GET') return;
-
   const url = new URL(event.request.url);
-
-  // Avoid intercepting third-party analytics or external CDNs in SW
   if (url.origin !== self.location.origin) return;
 
-  // Stale-while-revalidate for local static assets, Network-first for pages
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      const fetchPromise = fetch(event.request)
-        .then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
-            const responseToCache = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              // Cache hashed assets and images
-              if (url.pathname.startsWith('/assets/') || url.pathname.match(/\.(png|jpg|webp|svg|css|js)$/)) {
-                cache.put(event.request, responseToCache);
-              }
-            });
+  // HTML pages: network-first, fall back to a cached copy only when offline.
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then((res) => {
+          if (res && res.status === 200) {
+            const copy = res.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
           }
-          return networkResponse;
+          return res;
         })
-        .catch(() => {
-          // If offline and request is an HTML page navigation, return cached home
-          if (event.request.mode === 'navigate') {
-            return caches.match('/');
-          }
-          return cachedResponse;
-        });
+        .catch(() => caches.match(event.request).then((r) => r || caches.match('/')))
+    );
+    return;
+  }
 
-      return cachedResponse || fetchPromise;
-    })
+  if (!isStaticAsset(url)) return; // JSON data etc. go straight to the network
+
+  // Static assets: cache-first, then network (and store it).
+  event.respondWith(
+    caches.match(event.request).then((cached) =>
+      cached ||
+      fetch(event.request).then((res) => {
+        if (res && res.status === 200) {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+        }
+        return res;
+      })
+    )
   );
 });

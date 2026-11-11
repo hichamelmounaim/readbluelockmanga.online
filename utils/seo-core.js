@@ -2,7 +2,12 @@
 // Plain ES module so it can be imported by the React app (via utils/seo.ts)
 // AND by the Node build scripts (scripts/prerender.mjs, scripts/generate-sitemap.mjs).
 
-export const SITE_URL = 'https://www.haikyuu.org';
+import { getStorySegment, getAnimeCoverage, STORY_SEGMENTS } from '../data/story-segments.js';
+import { CHARACTERS_DATA } from '../data/characters.js';
+
+export { getStorySegment, STORY_SEGMENTS };
+
+export const SITE_URL ='https://www.haikyuu.org';
 export const SITE_NAME = 'Haikyu!! Manga';
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.jpg`;
 
@@ -36,8 +41,8 @@ export function realChapterTitle(num, title) {
 
 /** "Haikyu!! Chapter N: Title" plus the longest suffix that keeps it within max chars. */
 function chapterSeoTitle(num, title, max = 65) {
-  if (!title) return `Haikyu!! Chapter ${num} – Read Manga Online in English`;
-  const base = `Haikyu!! Chapter ${num}: ${title}`;
+  if (!title) return `Haikyuu Chapter ${num} – Read Haikyu!! Manga Online in English`;
+  const base = `Haikyuu Chapter ${num}: ${title}`;
   for (const suffix of [' – Read Online in English', ' – Read Online', '']) {
     if ((base + suffix).length <= max) return base + suffix;
   }
@@ -117,28 +122,38 @@ const ARC_RANGES = {
 };
 
 /**
- * A short paragraph of facts for each chapter.
+ * A short paragraph of facts for each chapter: where it sits in its match /
+ * story beat and in its arc, and how long it is.
  */
-export function chapterFacts(num, _lang = 'en', pageCount = 0) {
+export function chapterFacts(num, _lang = 'en', pageCount = 0, title = null) {
   const arc = getArcInfo(num);
+  const seg = getStorySegment(num);
   const [start, end] = ARC_RANGES[arc.arcSlug] || [1, 402];
   const whole = Math.floor(num);
   const isHalf = whole !== num;
-  const pos = whole - start + 1;
-  const total = end ? end - start + 1 : null;
+  const name = title ? `Chapter ${num}, "${title}",` : `Chapter ${num}`;
   const out = [];
 
   if (isHalf) {
-    out.push(`Chapter ${num} is a bonus special chapter belonging to the ${arc.arcName}.`);
-  } else if (total) {
-    out.push(`Chapter ${num} is chapter ${pos} of ${total} in the ${arc.arcName} (chapters ${start}–${end}).`);
+    out.push(`${name} is a bonus special chapter from the ${arc.arcName}.`);
   } else {
-    out.push(`Chapter ${num} is chapter ${pos} of the ${arc.arcName} (starting at chapter ${start}).`);
+    const segLen = Math.floor(seg.end) - seg.start + 1;
+    const segPos = whole - seg.start + 1;
+    out.push(segLen > 1
+      ? `${name} is chapter ${segPos} of ${segLen} in "${seg.name}" (chapters ${seg.start}–${Math.floor(seg.end)}).`
+      : `${name} covers "${seg.name}" on its own.`);
+    out.push(`It is chapter ${whole - start + 1} of ${end - start + 1} in the ${arc.arcName} (chapters ${start}–${end}).`);
   }
-  if (pageCount > 0) {
-    out.push(`This chapter contains ${pageCount} pages.`);
-  }
+  if (pageCount > 0) out.push(`It has ${pageCount} pages.`);
   return out.join(' ');
+}
+
+/** One sentence on whether, and where, the anime adapts this chapter. */
+export function chapterAnimeNote(num) {
+  const a = getAnimeCoverage(num);
+  if (a) return { text: `Yes. Chapter ${num} is adapted in ${a.label}.`, path: a.path };
+  if (num < 370) return { text: `Not yet. Chapter ${num} comes after the Dumpster Battle film (chapters 293–325) and is expected in the second Haikyu!! FINAL film.`, path: '/anime' };
+  return { text: `Not yet. Chapter ${num} is part of the post-time-skip story, which the anime has not adapted so far.`, path: '/anime' };
 }
 
 export const LANGS = ['en'];
@@ -241,13 +256,19 @@ export function getChapterSEOData(chapterNumber, opts = {}) {
   const note = opts.note || {};
   const title = note.title || realChapterTitle(num, opts.title);
   const hasPages = opts.pageCount === undefined ? true : opts.pageCount > 0;
-  const summary = note.summary || arc.stageSummary;
+  const segment = getStorySegment(num);
+  const summary = note.summary || segment.summary;
+  const anime = chapterAnimeNote(num);
+  const featuredCharacters = segment.characters
+    .map(slug => CHARACTERS_DATA.find(c => c.slug === slug))
+    .filter(Boolean)
+    .map(c => ({ name: c.name, slug: c.slug, role: c.role }));
 
   const canonicalUrl = `${SITE_URL}/chapter/${num}`;
 
   const seoTitle = chapterSeoTitle(num, title);
   const seoDescription = trimText(
-    `Read Haikyu!! Chapter ${num}${title ? ` "${title}"` : ''} in English online for free, in HD. ${arc.arcName}: ${summary}`,
+    `Read Haikyuu Chapter ${num}${title ? ` "${title}"` : ''} online in English for free. ${summary}`,
     160
   );
 
@@ -277,6 +298,7 @@ export function getChapterSEOData(chapterNumber, opts = {}) {
         author: [
           { '@type': 'Person', name: 'Haruichi Furudate' },
         ],
+        about: segment.name,
         isPartOf: SERIES,
       },
     },
@@ -293,8 +315,13 @@ export function getChapterSEOData(chapterNumber, opts = {}) {
     hasRealTitle: Boolean(title),
     summary,
     hasUniqueSummary: Boolean(note.summary),
-    facts: chapterFacts(num, 'en', hasPages ? (opts.pageCount || 0) : 0),
+    facts: chapterFacts(num, 'en', hasPages ? (opts.pageCount || 0) : 0, title),
     ...arc,
+    featuredCharacters,
+    segmentName: segment.name,
+    segmentSlug: segment.slug,
+    animeNote: anime.text,
+    animePath: anime.path,
     seoTitle,
     seoDescription,
     canonicalUrl,
@@ -307,9 +334,10 @@ export function getChapterSEOData(chapterNumber, opts = {}) {
 export function getCharacterSEOData(character) {
   const url = `${SITE_URL}/characters/${character.slug}`;
 
-  const seoTitle = character.shortName
-    ? trimText(`${character.name} (${character.shortName}) – Haikyu!! Character Profile & Position`, 65)
-    : trimText(`${character.name} – Haikyu!! Character Profile & Position`, 65);
+  const nick = character.shortName && !character.name.includes(character.shortName) ? ` (${character.shortName})` : '';
+  const seoTitle = [` – Haikyu!! Profile, Position & Key Chapters`, ` – Haikyu!! Character Profile`, ` – Haikyu!!`]
+    .map(suffix => `${character.name}${nick}${suffix}`)
+    .find(t => t.length <= 65) || trimText(`${character.name} – Haikyu!!`, 65);
   const seoDescription = trimText(
     `${character.name} is a ${character.role} in Haikyu!! (${character.grade}). Signature weapon: ${character.weapon}. Abilities: ${character.abilities} First appeared in ${character.firstAppearance}.`,
     160,
@@ -354,18 +382,18 @@ export function getCharacterSEOData(character) {
 export const PAGE_META = {
   '/': {
     title: 'Haikyu!! Manga Online – Read All Haikyuu Chapters & Volumes Free',
-    description: "Read Haikyu!! manga online in high quality: all 402 chapters and 45 volumes by Haruichi Furudate in English with HD scans, no sign-up required, plus character profiles and arc guides.",
+    description: "Read Haikyuu (Haikyu!!) manga online in English: all 402 chapters by Haruichi Furudate in HD, free with no sign-up, plus character profiles and arc guides.",
   },
   '/en': {
     title: 'Haikyu!! Manga Online – Read All Haikyuu Chapters & Volumes Free',
-    description: "Read Haikyu!! manga online in high quality: all 402 chapters and 45 volumes by Haruichi Furudate in English with HD scans, no sign-up required, plus character profiles and arc guides.",
+    description: "Read Haikyuu (Haikyu!!) manga online in English: all 402 chapters by Haruichi Furudate in HD, free with no sign-up, plus character profiles and arc guides.",
   },
   '/manga': {
-    title: 'Haikyu!! Chapter List – Read All 402 Chapters Online in English',
+    title: 'Haikyuu Manga Chapter List – All 402 Haikyu!! Chapters in Order',
     description: 'Every Haikyu!! manga chapter in order, from Chapter 1 to Chapter 402, grouped by story arc. Read them all online in English for free.',
   },
   '/en/manga': {
-    title: 'Haikyu!! Chapter List – Read All 402 Chapters Online in English',
+    title: 'Haikyuu Manga Chapter List – All 402 Haikyu!! Chapters in Order',
     description: 'Every Haikyu!! manga chapter in order, from Chapter 1 to Chapter 402, grouped by story arc. Read them all online in English for free.',
   },
   '/characters': {

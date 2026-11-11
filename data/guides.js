@@ -79,7 +79,7 @@ export const GUIDES = {
   },
 
   '/anime/dumpster-battle': {
-    title: 'Haikyu!! The Dumpster Battle Movie: Box Office, Plot & Manga Chapters',
+    title: 'Haikyu!! The Dumpster Battle Movie: Plot & Manga Chapters',
     description: 'Everything about the record-breaking film Haikyu!! The Dumpster Battle: Karasuno vs Nekoma, adapted manga chapters, box office records, and where to watch.',
     kicker: 'Anime Movie',
     h1: 'Haikyu!! The Dumpster Battle Movie Guide',
@@ -109,7 +109,7 @@ export const GUIDES = {
   },
 
   '/anime/season-4': {
-    title: 'Haikyu!! Season 4 (To The Top): Episodes, Inarizaki Match & Manga Comparison',
+    title: 'Haikyu!! Season 4 (To The Top): Episodes & Manga Chapters',
     description: 'Guide to Haikyu!! Season 4 (To The Top): All-Japan Youth Training Camp, the Miyagi First-Year Camp, the Inarizaki showdown, and manga chapters.',
     kicker: 'Season 4 Guide',
     h1: 'Haikyu!! To The Top (Season 4)',
@@ -164,7 +164,7 @@ export const GUIDES = {
 
   // ------------------------------------------------------------------ ARCS
   '/arcs': {
-    title: 'Haikyu!! Arcs: Complete Chronological Manga Order & Chapters Breakdown',
+    title: 'Haikyu!! Arcs in Order: Every Manga Arc & Chapter Range',
     description: 'Every story arc in Haikyu!! in order: Karasuno Formation, Interhigh, Tokyo Training Camp, Spring High Miyagi Prelims, Tokyo Nationals, and Final Arc.',
     kicker: 'Arcs Overview',
     h1: 'All Haikyu!! Story Arcs in Order',
@@ -193,7 +193,7 @@ export const GUIDES = {
   },
 
   '/arcs/karasuno-formation': {
-    title: 'Karasuno Formation Arc: Chapters 1 to 35 - Hinata & Kageyama Unite',
+    title: 'Haikyu!! Karasuno Formation Arc (Ch. 1–35): Hinata & Kageyama',
     description: 'Read the Karasuno Formation Arc (Chapters 1–35): Hinata and Kageyama meet at Karasuno, form the Freak-Quick, recruit Nishinoya and Asahi, and play Nekoma.',
     kicker: 'Arc 1',
     h1: 'Karasuno Formation Arc (Chapters 1–35)',
@@ -210,7 +210,7 @@ export const GUIDES = {
   },
 
   '/arcs/interhigh': {
-    title: 'Interhigh Preliminary Arc: Chapters 36 to 71 - Date Tech & Aoba Johsai',
+    title: 'Haikyu!! Interhigh Arc (Ch. 36–71): Date Tech & Aoba Johsai',
     description: 'Read the Interhigh Arc (Chapters 36–71): Karasuno battles Date Tech\'s Iron Wall and clashes with Toru Oikawa\'s Aoba Johsai in an emotional semi-final.',
     kicker: 'Arc 2',
     h1: 'Interhigh Preliminary Arc (Chapters 36–71)',
@@ -227,7 +227,7 @@ export const GUIDES = {
   },
 
   '/arcs/tokyo-training-camp': {
-    title: 'Tokyo Training Camp Arc: Chapters 72 to 96 - The Evolution of Crows',
+    title: 'Haikyu!! Tokyo Training Camp Arc (Ch. 72–96): Karasuno Evolves',
     description: 'Read the Tokyo Training Camp Arc (Chapters 72–96): Training alongside Nekoma, Fukurodani, Shinzen, and Ubugawa as Karasuno invents new weapons.',
     kicker: 'Arc 3',
     h1: 'Tokyo Training Camp Arc (Chapters 72–96)',
@@ -244,7 +244,7 @@ export const GUIDES = {
   },
 
   '/arcs/spring-high-preliminary': {
-    title: 'Spring High Miyagi Prelims Arc: Chapters 97 to 206 - Aoba Johsai & Shiratorizawa',
+    title: 'Haikyu!! Spring High Prelims Arc (Ch. 97–206): Shiratorizawa',
     description: 'Read the Spring High Prelims (Chapters 97–206): Karasuno defeats Aoba Johsai in an epic rematch and topples Ushijima\'s Shiratorizawa in 5 legendary sets.',
     kicker: 'Arc 4',
     h1: 'Spring High Preliminary Arc (Chapters 97–206)',
@@ -261,7 +261,7 @@ export const GUIDES = {
   },
 
   '/arcs/tokyo-nationals': {
-    title: 'Spring High Nationals Arc: Chapters 207 to 369 - Inarizaki & Dumpster Battle',
+    title: 'Haikyu!! Nationals Arc (Ch. 207–369): Inarizaki & Nekoma',
     description: 'Read the Spring High Nationals Arc (Chapters 207–369): Karasuno in Tokyo facing Tsubakihara, Inarizaki (Miya Twins), Nekoma, and Kamomedai.',
     kicker: 'Arc 5',
     h1: 'Spring High National Tournament Arc (Chapters 207–369)',
@@ -278,7 +278,7 @@ export const GUIDES = {
   },
 
   '/arcs/final-arc': {
-    title: 'Final Arc: Chapters 370 to 402 - Brazil Beach Volleyball, V.League & Olympics',
+    title: 'Haikyu!! Final Arc (Ch. 370–402): Brazil, V.League & Olympics',
     description: 'Read the Final Arc (Chapters 370–402): Hinata\'s journey to Brazil, the MSBY Black Jackals vs Schweiden Adlers Division 1 clash, and the Tokyo Olympics.',
     kicker: 'Arc 6',
     h1: 'Final Arc / V.League & Beyond (Chapters 370–402)',
@@ -296,7 +296,7 @@ export const GUIDES = {
 
   // ------------------------------------------------------------------ TEAMS
   '/teams': {
-    title: 'Haikyu!! Teams & High Schools Guide: Karasuno, Aoba Johsai, Nekoma & More',
+    title: 'Haikyu!! Teams Guide: Karasuno, Aoba Johsai, Nekoma & More',
     description: 'Comprehensive guide to all major volleyball powerhouses in Haikyu!!: Karasuno, Aoba Johsai, Nekoma, Fukurodani, Shiratorizawa, Inarizaki, and Kamomedai.',
     kicker: 'Teams & Schools',
     h1: 'Haikyu!! High School Teams Guide',

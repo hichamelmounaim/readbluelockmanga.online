@@ -39,7 +39,7 @@ const GuidePage: React.FC = () => {
       <Breadcrumbs items={guide.breadcrumbs.slice(1).map((b, i, arr) => ({ label: b.name, path: i < arr.length - 1 ? b.path : undefined }))} />
 
       <header className="mt-6 mb-10">
-        {guide.kicker && <span className="text-blue-500 text-xs font-bold uppercase tracking-widest block mb-2">{guide.kicker}</span>}
+        {guide.kicker && <span className="text-orange-500 text-xs font-bold uppercase tracking-widest block mb-2">{guide.kicker}</span>}
         <h1 className="text-3xl md:text-5xl font-heading font-bold text-white mb-4">{guide.h1}</h1>
         {guide.intro?.map((p, i) => <p key={i} className="text-gray-300 text-lg leading-relaxed">{p}</p>)}
       </header>
@@ -56,7 +56,7 @@ const GuidePage: React.FC = () => {
           {sec.links && (
             <div className="flex flex-wrap gap-2 mt-3">
               {sec.links.map(l => (
-                <Link key={l.to + l.label} to={l.to} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-600/10 border border-blue-500/30 text-blue-400 text-sm font-semibold hover:bg-blue-600/20">
+                <Link key={l.to + l.label} to={l.to} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-orange-600/10 border border-orange-500/30 text-orange-400 text-sm font-semibold hover:bg-orange-600/20">
                   {l.label} <ArrowRight size={14} />
                 </Link>
               ))}
@@ -67,7 +67,7 @@ const GuidePage: React.FC = () => {
 
       {rangeChapters.length > 0 && (
         <section className="mb-10">
-          <h2 className="text-2xl font-heading font-bold text-white mb-3 flex items-center gap-2"><BookOpen size={20} className="text-blue-500" /> Read this arc ({rangeChapters.length} chapters)</h2>
+          <h2 className="text-2xl font-heading font-bold text-white mb-3 flex items-center gap-2"><BookOpen size={20} className="text-orange-500" /> Read this arc ({rangeChapters.length} chapters)</h2>
           <div className="flex flex-wrap gap-2">
             {rangeChapters.map(c => {
               const t = realChapterTitle(c.number, c.title);
@@ -100,7 +100,7 @@ const GuidePage: React.FC = () => {
           <h2 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-3">Related</h2>
           <div className="flex flex-wrap gap-3 text-sm">
             {guide.related.filter(r => r.to !== path).map(r => (
-              <Link key={r.to + r.label} to={r.to} className="text-blue-400 hover:underline">{r.label}</Link>
+              <Link key={r.to + r.label} to={r.to} className="text-orange-400 hover:underline">{r.label}</Link>
             ))}
           </div>
         </nav>

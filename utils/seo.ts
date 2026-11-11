@@ -20,6 +20,10 @@ export interface ChapterSEOData {
   arcDescription: string;
   stageSummary: string;
   featuredCharacters: { name: string; slug: string; role: string }[];
+  segmentName: string;
+  segmentSlug: string;
+  animeNote: string;
+  animePath: string;
   seoTitle: string;
   seoDescription: string;
   canonicalUrl: string;
