@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { DEFAULT_OG_IMAGE, SITE_NAME } from '../utils/seo';
+import { DEFAULT_OG_IMAGE, SITE_NAME, HTML_LANG, OG_LOCALE } from '../utils/seo';
+import { useLanguage } from '../context/LanguageContext';
 
 interface SEOHeadProps {
   title: string;
@@ -24,13 +25,17 @@ const SEOHead: React.FC<SEOHeadProps> = ({
   noindex = false,
   alternateLinks,
 }) => {
+  const { lang } = useLanguage();
+  const otherLocales = (Object.keys(OG_LOCALE) as (keyof typeof OG_LOCALE)[]).filter(l => l !== lang);
   return (
-    <Helmet>
+    <Helmet htmlAttributes={{ lang: HTML_LANG[lang] }}>
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
       {canonicalUrl && !noindex && <link rel="canonical" href={canonicalUrl} />}
       <meta property="og:site_name" content={SITE_NAME} />
+      <meta property="og:locale" content={OG_LOCALE[lang]} />
+      {otherLocales.map(l => <meta key={l} property="og:locale:alternate" content={OG_LOCALE[l]} />)}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content={ogType} />
@@ -40,7 +45,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
-      {alternateLinks && alternateLinks.map((alt, i) => (
+      {!noindex && alternateLinks && alternateLinks.map((alt, i) => (
         <link key={i} rel={alt.rel} hrefLang={alt.hreflang} href={alt.href} />
       ))}
       {schemas && schemas.map((s, i) => (

@@ -4,7 +4,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.bluelockchapter.com/fr</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-11</lastmod>
     <priority>0.9</priority>
     <changefreq>daily</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/" />
@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/manga</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-11</lastmod>
     <priority>0.8</priority>
     <changefreq>daily</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/manga" />
@@ -167,160 +167,8 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/characters/yudai-imamura" />
   </url>
   <url>
-    <loc>https://www.bluelockchapter.com/fr/anime</loc>
-    <priority>0.5</priority>
-    <changefreq>monthly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/anime" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/anime" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/anime" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/anime" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/anime/season-3</loc>
-    <priority>0.5</priority>
-    <changefreq>monthly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/anime/season-3" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/anime/season-3" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/anime/season-3" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/anime/season-3" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/anime/season-2</loc>
-    <priority>0.5</priority>
-    <changefreq>monthly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/anime/season-2" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/anime/season-2" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/anime/season-2" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/anime/season-2" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/anime/episode-nagi</loc>
-    <priority>0.5</priority>
-    <changefreq>monthly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/anime/episode-nagi" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/anime/episode-nagi" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/anime/episode-nagi" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/anime/episode-nagi" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/arcs</loc>
-    <priority>0.5</priority>
-    <changefreq>monthly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/arcs" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/arcs" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/arcs" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/arcs" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/arcs/first-selection</loc>
-    <priority>0.5</priority>
-    <changefreq>monthly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/arcs/first-selection" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/arcs/first-selection" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/arcs/first-selection" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/arcs/first-selection" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/arcs/second-selection</loc>
-    <priority>0.5</priority>
-    <changefreq>monthly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/arcs/second-selection" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/arcs/second-selection" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/arcs/second-selection" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/arcs/second-selection" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/arcs/third-selection-u20</loc>
-    <priority>0.5</priority>
-    <changefreq>monthly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/arcs/third-selection-u20" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/arcs/third-selection-u20" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/arcs/third-selection-u20" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/arcs/third-selection-u20" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/arcs/neo-egoist-league</loc>
-    <priority>0.5</priority>
-    <changefreq>monthly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/arcs/neo-egoist-league" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/arcs/neo-egoist-league" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/arcs/neo-egoist-league" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/arcs/neo-egoist-league" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/arcs/u20-world-cup</loc>
-    <priority>0.5</priority>
-    <changefreq>monthly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/arcs/u20-world-cup" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/arcs/u20-world-cup" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/arcs/u20-world-cup" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/arcs/u20-world-cup" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/teams</loc>
-    <priority>0.5</priority>
-    <changefreq>monthly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/teams" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/teams" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/teams" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/teams" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/author</loc>
-    <priority>0.5</priority>
-    <changefreq>monthly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/author" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/author" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/author" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/author" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/about</loc>
-    <priority>0.6</priority>
-    <changefreq>monthly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/about" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/about" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/about" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/about" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/privacy</loc>
-    <priority>0.5</priority>
-    <changefreq>monthly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/privacy" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/privacy" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/privacy" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/privacy" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/terms</loc>
-    <priority>0.5</priority>
-    <changefreq>monthly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/terms" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/terms" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/terms" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/terms" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/dmca</loc>
-    <priority>0.5</priority>
-    <changefreq>monthly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/dmca" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/dmca" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/dmca" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/dmca" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/disclaimer</loc>
-    <priority>0.5</priority>
-    <changefreq>monthly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/disclaimer" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/disclaimer" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/disclaimer" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/disclaimer" />
-  </url>
-  <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/1</loc>
+    <lastmod>2018-08-01</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/1" />
@@ -330,6 +178,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/2</loc>
+    <lastmod>2018-08-08</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/2" />
@@ -339,6 +188,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/3</loc>
+    <lastmod>2018-08-15</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/3" />
@@ -348,6 +198,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/4</loc>
+    <lastmod>2018-08-22</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/4" />
@@ -357,6 +208,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/5</loc>
+    <lastmod>2018-08-29</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/5" />
@@ -366,6 +218,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/6</loc>
+    <lastmod>2018-09-05</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/6" />
@@ -375,6 +228,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/7</loc>
+    <lastmod>2018-09-12</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/7" />
@@ -384,6 +238,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/8</loc>
+    <lastmod>2018-09-19</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/8" />
@@ -393,6 +248,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/9</loc>
+    <lastmod>2018-09-26</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/9" />
@@ -402,6 +258,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/10</loc>
+    <lastmod>2018-10-03</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/10" />
@@ -411,6 +268,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/11</loc>
+    <lastmod>2018-10-10</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/11" />
@@ -420,6 +278,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/12</loc>
+    <lastmod>2018-10-17</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/12" />
@@ -429,6 +288,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/13</loc>
+    <lastmod>2018-10-24</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/13" />
@@ -438,6 +298,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/14</loc>
+    <lastmod>2018-10-31</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/14" />
@@ -447,6 +308,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/15</loc>
+    <lastmod>2018-11-07</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/15" />
@@ -456,6 +318,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/16</loc>
+    <lastmod>2018-11-14</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/16" />
@@ -465,6 +328,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/17</loc>
+    <lastmod>2018-11-21</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/17" />
@@ -474,6 +338,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/18</loc>
+    <lastmod>2018-11-28</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/18" />
@@ -483,6 +348,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/19</loc>
+    <lastmod>2018-12-05</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/19" />
@@ -492,6 +358,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/20</loc>
+    <lastmod>2018-12-12</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/20" />
@@ -501,6 +368,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/21</loc>
+    <lastmod>2018-12-19</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/21" />
@@ -510,6 +378,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/22</loc>
+    <lastmod>2018-12-26</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/22" />
@@ -519,6 +388,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/23</loc>
+    <lastmod>2019-01-02</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/23" />
@@ -528,6 +398,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/24</loc>
+    <lastmod>2019-01-09</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/24" />
@@ -537,6 +408,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/25</loc>
+    <lastmod>2019-01-16</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/25" />
@@ -546,6 +418,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/26</loc>
+    <lastmod>2019-01-23</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/26" />
@@ -555,6 +428,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/27</loc>
+    <lastmod>2019-01-30</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/27" />
@@ -564,6 +438,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/28</loc>
+    <lastmod>2019-02-06</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/28" />
@@ -573,6 +448,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/29</loc>
+    <lastmod>2019-02-13</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/29" />
@@ -582,6 +458,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/30</loc>
+    <lastmod>2019-02-20</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/30" />
@@ -591,6 +468,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/31</loc>
+    <lastmod>2019-02-27</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/31" />
@@ -600,6 +478,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/32</loc>
+    <lastmod>2019-03-06</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/32" />
@@ -609,6 +488,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/33</loc>
+    <lastmod>2019-03-13</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/33" />
@@ -618,6 +498,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/34</loc>
+    <lastmod>2019-03-20</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/34" />
@@ -627,6 +508,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/35</loc>
+    <lastmod>2019-03-27</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/35" />
@@ -636,6 +518,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/36</loc>
+    <lastmod>2019-04-03</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/36" />
@@ -645,6 +528,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/37</loc>
+    <lastmod>2019-04-10</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/37" />
@@ -654,6 +538,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/38</loc>
+    <lastmod>2019-04-17</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/38" />
@@ -663,6 +548,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/39</loc>
+    <lastmod>2019-04-24</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/39" />
@@ -672,6 +558,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/40</loc>
+    <lastmod>2019-05-01</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/40" />
@@ -681,6 +568,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/41</loc>
+    <lastmod>2019-05-08</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/41" />
@@ -690,6 +578,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/42</loc>
+    <lastmod>2019-05-15</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/42" />
@@ -699,6 +588,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/43</loc>
+    <lastmod>2019-05-22</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/43" />
@@ -708,6 +598,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/44</loc>
+    <lastmod>2019-05-29</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/44" />
@@ -717,6 +608,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/45</loc>
+    <lastmod>2019-06-05</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/45" />
@@ -726,6 +618,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/46</loc>
+    <lastmod>2019-06-12</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/46" />
@@ -735,6 +628,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/47</loc>
+    <lastmod>2019-06-19</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/47" />
@@ -744,6 +638,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/48</loc>
+    <lastmod>2019-06-26</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/48" />
@@ -753,6 +648,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/49</loc>
+    <lastmod>2019-07-03</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/49" />
@@ -762,6 +658,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/50</loc>
+    <lastmod>2019-07-10</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/50" />
@@ -771,6 +668,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/51</loc>
+    <lastmod>2019-07-17</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/51" />
@@ -780,6 +678,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/52</loc>
+    <lastmod>2019-07-24</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/52" />
@@ -789,6 +688,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/53</loc>
+    <lastmod>2019-07-31</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/53" />
@@ -798,6 +698,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/54</loc>
+    <lastmod>2019-08-07</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/54" />
@@ -807,6 +708,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/55</loc>
+    <lastmod>2019-08-14</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/55" />
@@ -816,6 +718,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/56</loc>
+    <lastmod>2019-08-21</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/56" />
@@ -825,6 +728,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/57</loc>
+    <lastmod>2019-08-28</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/57" />
@@ -834,6 +738,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/58</loc>
+    <lastmod>2019-09-04</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/58" />
@@ -843,6 +748,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/59</loc>
+    <lastmod>2019-09-11</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/59" />
@@ -852,6 +758,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/60</loc>
+    <lastmod>2019-09-18</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/60" />
@@ -861,6 +768,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/61</loc>
+    <lastmod>2019-09-25</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/61" />
@@ -870,6 +778,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/62</loc>
+    <lastmod>2019-10-02</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/62" />
@@ -879,6 +788,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/63</loc>
+    <lastmod>2019-10-09</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/63" />
@@ -888,6 +798,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/64</loc>
+    <lastmod>2019-10-16</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/64" />
@@ -897,6 +808,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/65</loc>
+    <lastmod>2019-10-23</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/65" />
@@ -906,6 +818,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/66</loc>
+    <lastmod>2019-10-30</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/66" />
@@ -915,6 +828,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/67</loc>
+    <lastmod>2019-11-06</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/67" />
@@ -924,6 +838,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/68</loc>
+    <lastmod>2019-11-13</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/68" />
@@ -933,6 +848,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/69</loc>
+    <lastmod>2019-11-20</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/69" />
@@ -942,6 +858,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/70</loc>
+    <lastmod>2019-11-27</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/70" />
@@ -951,6 +868,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/71</loc>
+    <lastmod>2019-12-04</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/71" />
@@ -960,6 +878,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/72</loc>
+    <lastmod>2019-12-11</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/72" />
@@ -969,6 +888,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/73</loc>
+    <lastmod>2019-12-18</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/73" />
@@ -978,6 +898,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/74</loc>
+    <lastmod>2019-12-25</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/74" />
@@ -987,6 +908,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/75</loc>
+    <lastmod>2020-01-01</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/75" />
@@ -996,6 +918,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/76</loc>
+    <lastmod>2020-01-08</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/76" />
@@ -1005,6 +928,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/77</loc>
+    <lastmod>2020-01-15</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/77" />
@@ -1014,6 +938,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/78</loc>
+    <lastmod>2020-01-22</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/78" />
@@ -1023,6 +948,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/79</loc>
+    <lastmod>2020-01-29</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/79" />
@@ -1032,6 +958,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/80</loc>
+    <lastmod>2020-02-05</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/80" />
@@ -1041,6 +968,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/81</loc>
+    <lastmod>2020-02-12</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/81" />
@@ -1050,6 +978,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/82</loc>
+    <lastmod>2020-02-19</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/82" />
@@ -1059,6 +988,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/83</loc>
+    <lastmod>2020-02-26</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/83" />
@@ -1068,6 +998,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/84</loc>
+    <lastmod>2020-03-04</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/84" />
@@ -1077,6 +1008,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/85</loc>
+    <lastmod>2020-03-11</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/85" />
@@ -1086,6 +1018,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/86</loc>
+    <lastmod>2020-03-18</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/86" />
@@ -1095,6 +1028,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/87</loc>
+    <lastmod>2020-03-25</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/87" />
@@ -1104,6 +1038,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/88</loc>
+    <lastmod>2020-04-01</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/88" />
@@ -1113,6 +1048,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/89</loc>
+    <lastmod>2020-04-08</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/89" />
@@ -1122,6 +1058,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/90</loc>
+    <lastmod>2020-04-15</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/90" />
@@ -1131,6 +1068,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/91</loc>
+    <lastmod>2020-04-22</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/91" />
@@ -1140,6 +1078,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/92</loc>
+    <lastmod>2020-04-29</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/92" />
@@ -1149,6 +1088,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/93</loc>
+    <lastmod>2020-05-06</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/93" />
@@ -1158,6 +1098,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/94</loc>
+    <lastmod>2020-05-13</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/94" />
@@ -1167,6 +1108,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/95</loc>
+    <lastmod>2020-05-20</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/95" />
@@ -1176,6 +1118,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/96</loc>
+    <lastmod>2020-05-27</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/96" />
@@ -1185,6 +1128,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/97</loc>
+    <lastmod>2020-06-03</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/97" />
@@ -1194,6 +1138,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/98</loc>
+    <lastmod>2020-06-10</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/98" />
@@ -1203,6 +1148,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/99</loc>
+    <lastmod>2020-06-17</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/99" />
@@ -1212,6 +1158,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/100</loc>
+    <lastmod>2020-06-24</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/100" />
@@ -1221,6 +1168,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/101</loc>
+    <lastmod>2020-07-01</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/101" />
@@ -1230,6 +1178,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/102</loc>
+    <lastmod>2020-07-08</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/102" />
@@ -1239,6 +1188,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/103</loc>
+    <lastmod>2020-07-15</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/103" />
@@ -1248,6 +1198,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/104</loc>
+    <lastmod>2020-07-22</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/104" />
@@ -1257,6 +1208,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/105</loc>
+    <lastmod>2020-07-29</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/105" />
@@ -1266,6 +1218,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/106</loc>
+    <lastmod>2020-08-05</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/106" />
@@ -1275,6 +1228,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/107</loc>
+    <lastmod>2020-08-12</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/107" />
@@ -1284,6 +1238,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/108</loc>
+    <lastmod>2020-08-19</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/108" />
@@ -1293,6 +1248,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/109</loc>
+    <lastmod>2020-08-26</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/109" />
@@ -1302,6 +1258,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/110</loc>
+    <lastmod>2020-09-02</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/110" />
@@ -1311,6 +1268,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/111</loc>
+    <lastmod>2020-09-09</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/111" />
@@ -1320,6 +1278,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/112</loc>
+    <lastmod>2020-09-16</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/112" />
@@ -1329,6 +1288,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/113</loc>
+    <lastmod>2020-09-23</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/113" />
@@ -1338,6 +1298,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/114</loc>
+    <lastmod>2020-09-30</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/114" />
@@ -1347,6 +1308,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/115</loc>
+    <lastmod>2020-10-07</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/115" />
@@ -1356,6 +1318,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/116</loc>
+    <lastmod>2020-10-14</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/116" />
@@ -1365,6 +1328,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/117</loc>
+    <lastmod>2020-10-21</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/117" />
@@ -1374,6 +1338,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/118</loc>
+    <lastmod>2020-10-28</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/118" />
@@ -1383,6 +1348,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/119</loc>
+    <lastmod>2020-11-04</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/119" />
@@ -1392,6 +1358,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/120</loc>
+    <lastmod>2020-11-11</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/120" />
@@ -1401,6 +1368,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/121</loc>
+    <lastmod>2020-11-18</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/121" />
@@ -1410,6 +1378,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/122</loc>
+    <lastmod>2020-11-25</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/122" />
@@ -1419,6 +1388,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/123</loc>
+    <lastmod>2020-12-02</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/123" />
@@ -1428,6 +1398,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/124</loc>
+    <lastmod>2020-12-09</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/124" />
@@ -1437,6 +1408,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/125</loc>
+    <lastmod>2020-12-16</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/125" />
@@ -1446,6 +1418,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/126</loc>
+    <lastmod>2020-12-23</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/126" />
@@ -1455,6 +1428,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/127</loc>
+    <lastmod>2020-12-30</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/127" />
@@ -1464,6 +1438,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/128</loc>
+    <lastmod>2021-01-06</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/128" />
@@ -1473,6 +1448,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/129</loc>
+    <lastmod>2021-01-13</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/129" />
@@ -1482,6 +1458,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/130</loc>
+    <lastmod>2021-01-20</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/130" />
@@ -1491,6 +1468,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/131</loc>
+    <lastmod>2021-01-27</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/131" />
@@ -1500,6 +1478,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/132</loc>
+    <lastmod>2021-02-03</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/132" />
@@ -1509,6 +1488,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/133</loc>
+    <lastmod>2021-02-10</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/133" />
@@ -1518,6 +1498,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/134</loc>
+    <lastmod>2021-02-17</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/134" />
@@ -1527,6 +1508,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/135</loc>
+    <lastmod>2021-02-24</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/135" />
@@ -1536,6 +1518,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/136</loc>
+    <lastmod>2021-03-03</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/136" />
@@ -1545,6 +1528,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/137</loc>
+    <lastmod>2021-03-10</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/137" />
@@ -1554,6 +1538,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/138</loc>
+    <lastmod>2021-03-17</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/138" />
@@ -1563,6 +1548,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/139</loc>
+    <lastmod>2021-03-24</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/139" />
@@ -1572,6 +1558,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/140</loc>
+    <lastmod>2021-03-31</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/140" />
@@ -1581,6 +1568,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/141</loc>
+    <lastmod>2021-04-07</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/141" />
@@ -1590,6 +1578,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/142</loc>
+    <lastmod>2021-04-14</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/142" />
@@ -1599,6 +1588,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/143</loc>
+    <lastmod>2021-04-21</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/143" />
@@ -1608,6 +1598,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/144</loc>
+    <lastmod>2021-04-28</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/144" />
@@ -1617,6 +1608,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/145</loc>
+    <lastmod>2021-05-05</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/145" />
@@ -1626,6 +1618,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/146</loc>
+    <lastmod>2021-05-12</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/146" />
@@ -1635,6 +1628,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/147</loc>
+    <lastmod>2021-05-19</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/147" />
@@ -1644,6 +1638,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/148</loc>
+    <lastmod>2021-05-26</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/148" />
@@ -1653,6 +1648,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/149</loc>
+    <lastmod>2021-06-02</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/149" />
@@ -1662,6 +1658,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/150</loc>
+    <lastmod>2021-06-09</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/150" />
@@ -1671,6 +1668,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/151</loc>
+    <lastmod>2021-06-16</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/151" />
@@ -1680,6 +1678,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/152</loc>
+    <lastmod>2021-06-23</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/152" />
@@ -1689,6 +1688,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/153</loc>
+    <lastmod>2021-06-30</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/153" />
@@ -1698,6 +1698,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/154</loc>
+    <lastmod>2021-07-07</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/154" />
@@ -1707,6 +1708,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/155</loc>
+    <lastmod>2021-07-14</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/155" />
@@ -1716,6 +1718,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/156</loc>
+    <lastmod>2021-07-21</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/156" />
@@ -1725,6 +1728,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/157</loc>
+    <lastmod>2021-07-28</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/157" />
@@ -1734,6 +1738,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/158</loc>
+    <lastmod>2021-08-04</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/158" />
@@ -1743,6 +1748,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/159</loc>
+    <lastmod>2021-08-11</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/159" />
@@ -1752,6 +1758,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/160</loc>
+    <lastmod>2021-08-18</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/160" />
@@ -1761,6 +1768,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/161</loc>
+    <lastmod>2021-08-25</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/161" />
@@ -1770,6 +1778,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/162</loc>
+    <lastmod>2021-09-01</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/162" />
@@ -1779,6 +1788,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/163</loc>
+    <lastmod>2021-09-08</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/163" />
@@ -1788,6 +1798,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/164</loc>
+    <lastmod>2021-09-15</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/164" />
@@ -1797,6 +1808,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/165</loc>
+    <lastmod>2021-09-22</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/165" />
@@ -1806,6 +1818,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/166</loc>
+    <lastmod>2021-09-29</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/166" />
@@ -1815,6 +1828,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/167</loc>
+    <lastmod>2021-10-06</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/167" />
@@ -1824,6 +1838,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/168</loc>
+    <lastmod>2021-10-13</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/168" />
@@ -1833,6 +1848,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/169</loc>
+    <lastmod>2021-10-20</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/169" />
@@ -1842,6 +1858,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/170</loc>
+    <lastmod>2021-10-27</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/170" />
@@ -1851,6 +1868,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/171</loc>
+    <lastmod>2021-11-03</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/171" />
@@ -1860,6 +1878,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/172</loc>
+    <lastmod>2021-11-10</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/172" />
@@ -1869,6 +1888,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/173</loc>
+    <lastmod>2021-11-17</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/173" />
@@ -1878,6 +1898,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/174</loc>
+    <lastmod>2021-11-24</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/174" />
@@ -1887,6 +1908,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/175</loc>
+    <lastmod>2021-12-01</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/175" />
@@ -1896,6 +1918,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/176</loc>
+    <lastmod>2021-12-08</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/176" />
@@ -1905,6 +1928,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/177</loc>
+    <lastmod>2021-12-15</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/177" />
@@ -1914,6 +1938,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/178</loc>
+    <lastmod>2021-12-22</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/178" />
@@ -1923,6 +1948,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/179</loc>
+    <lastmod>2021-12-29</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/179" />
@@ -1932,6 +1958,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/180</loc>
+    <lastmod>2022-01-05</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/180" />
@@ -1941,6 +1968,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/181</loc>
+    <lastmod>2022-01-12</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/181" />
@@ -1950,6 +1978,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/182</loc>
+    <lastmod>2022-01-19</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/182" />
@@ -1959,6 +1988,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/183</loc>
+    <lastmod>2022-01-26</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/183" />
@@ -1968,6 +1998,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/184</loc>
+    <lastmod>2022-02-02</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/184" />
@@ -1977,6 +2008,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/185</loc>
+    <lastmod>2022-02-09</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/185" />
@@ -1986,6 +2018,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/186</loc>
+    <lastmod>2022-02-16</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/186" />
@@ -1995,6 +2028,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/187</loc>
+    <lastmod>2022-02-23</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/187" />
@@ -2004,6 +2038,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/188</loc>
+    <lastmod>2022-03-02</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/188" />
@@ -2013,6 +2048,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/189</loc>
+    <lastmod>2022-03-09</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/189" />
@@ -2022,6 +2058,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/190</loc>
+    <lastmod>2022-03-16</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/190" />
@@ -2031,6 +2068,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/191</loc>
+    <lastmod>2022-03-23</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/191" />
@@ -2040,6 +2078,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/192</loc>
+    <lastmod>2022-03-30</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/192" />
@@ -2049,6 +2088,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/193</loc>
+    <lastmod>2022-04-06</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/193" />
@@ -2058,6 +2098,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/194</loc>
+    <lastmod>2022-04-13</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/194" />
@@ -2067,6 +2108,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/195</loc>
+    <lastmod>2022-04-20</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/195" />
@@ -2076,6 +2118,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/196</loc>
+    <lastmod>2022-04-27</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/196" />
@@ -2085,6 +2128,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/197</loc>
+    <lastmod>2022-05-04</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/197" />
@@ -2094,6 +2138,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/198</loc>
+    <lastmod>2022-05-11</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/198" />
@@ -2103,6 +2148,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/199</loc>
+    <lastmod>2022-05-18</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/199" />
@@ -2112,6 +2158,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/200</loc>
+    <lastmod>2022-05-25</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/200" />
@@ -2121,6 +2168,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/201</loc>
+    <lastmod>2022-06-01</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/201" />
@@ -2130,6 +2178,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/202</loc>
+    <lastmod>2022-06-08</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/202" />
@@ -2139,6 +2188,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/203</loc>
+    <lastmod>2022-06-15</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/203" />
@@ -2148,6 +2198,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/204</loc>
+    <lastmod>2022-06-22</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/204" />
@@ -2157,6 +2208,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/205</loc>
+    <lastmod>2022-06-29</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/205" />
@@ -2166,6 +2218,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/206</loc>
+    <lastmod>2022-07-06</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/206" />
@@ -2175,6 +2228,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/207</loc>
+    <lastmod>2022-07-13</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/207" />
@@ -2184,6 +2238,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/208</loc>
+    <lastmod>2022-07-20</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/208" />
@@ -2193,6 +2248,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/209</loc>
+    <lastmod>2022-07-27</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/209" />
@@ -2202,6 +2258,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/210</loc>
+    <lastmod>2022-08-03</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/210" />
@@ -2211,6 +2268,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/211</loc>
+    <lastmod>2022-08-10</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/211" />
@@ -2220,6 +2278,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/212</loc>
+    <lastmod>2022-08-17</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/212" />
@@ -2229,6 +2288,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/213</loc>
+    <lastmod>2022-08-24</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/213" />
@@ -2238,6 +2298,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/214</loc>
+    <lastmod>2022-08-31</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/214" />
@@ -2247,6 +2308,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/215</loc>
+    <lastmod>2022-09-07</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/215" />
@@ -2256,6 +2318,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/216</loc>
+    <lastmod>2022-09-14</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/216" />
@@ -2265,6 +2328,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/217</loc>
+    <lastmod>2022-09-21</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/217" />
@@ -2274,6 +2338,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/218</loc>
+    <lastmod>2022-09-28</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/218" />
@@ -2283,6 +2348,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/219</loc>
+    <lastmod>2022-10-05</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/219" />
@@ -2292,6 +2358,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/220</loc>
+    <lastmod>2022-10-12</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/220" />
@@ -2301,6 +2368,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/221</loc>
+    <lastmod>2022-10-19</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/221" />
@@ -2310,6 +2378,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/222</loc>
+    <lastmod>2022-10-26</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/222" />
@@ -2319,6 +2388,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/223</loc>
+    <lastmod>2022-11-02</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/223" />
@@ -2328,6 +2398,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/224</loc>
+    <lastmod>2022-11-09</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/224" />
@@ -2337,6 +2408,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/225</loc>
+    <lastmod>2022-11-16</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/225" />
@@ -2346,6 +2418,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/226</loc>
+    <lastmod>2022-11-23</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/226" />
@@ -2355,6 +2428,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/227</loc>
+    <lastmod>2022-11-30</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/227" />
@@ -2364,6 +2438,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/228</loc>
+    <lastmod>2022-12-07</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/228" />
@@ -2373,6 +2448,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/229</loc>
+    <lastmod>2022-12-14</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/229" />
@@ -2382,6 +2458,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/230</loc>
+    <lastmod>2022-12-21</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/230" />
@@ -2391,6 +2468,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/231</loc>
+    <lastmod>2022-12-28</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/231" />
@@ -2400,6 +2478,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/232</loc>
+    <lastmod>2023-01-04</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/232" />
@@ -2409,6 +2488,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/233</loc>
+    <lastmod>2023-01-11</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/233" />
@@ -2418,6 +2498,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/234</loc>
+    <lastmod>2023-01-18</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/234" />
@@ -2427,6 +2508,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/235</loc>
+    <lastmod>2023-01-25</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/235" />
@@ -2436,6 +2518,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/236</loc>
+    <lastmod>2023-02-01</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/236" />
@@ -2445,6 +2528,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/237</loc>
+    <lastmod>2023-02-08</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/237" />
@@ -2454,6 +2538,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/238</loc>
+    <lastmod>2023-02-15</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/238" />
@@ -2463,6 +2548,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/239</loc>
+    <lastmod>2023-02-22</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/239" />
@@ -2472,6 +2558,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/240</loc>
+    <lastmod>2023-03-01</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/240" />
@@ -2481,6 +2568,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/241</loc>
+    <lastmod>2023-03-08</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/241" />
@@ -2490,6 +2578,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/242</loc>
+    <lastmod>2023-03-15</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/242" />
@@ -2499,6 +2588,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/243</loc>
+    <lastmod>2023-03-22</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/243" />
@@ -2508,6 +2598,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/244</loc>
+    <lastmod>2023-03-29</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/244" />
@@ -2517,6 +2608,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/245</loc>
+    <lastmod>2023-04-05</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/245" />
@@ -2526,6 +2618,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/246</loc>
+    <lastmod>2023-04-12</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/246" />
@@ -2535,6 +2628,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/247</loc>
+    <lastmod>2023-04-19</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/247" />
@@ -2544,6 +2638,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/248</loc>
+    <lastmod>2023-04-26</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/248" />
@@ -2553,6 +2648,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/249</loc>
+    <lastmod>2023-05-03</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/249" />
@@ -2562,6 +2658,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/250</loc>
+    <lastmod>2023-05-10</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/250" />
@@ -2571,6 +2668,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/251</loc>
+    <lastmod>2023-05-17</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/251" />
@@ -2580,6 +2678,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/252</loc>
+    <lastmod>2023-05-24</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/252" />
@@ -2589,6 +2688,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/253</loc>
+    <lastmod>2023-05-31</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/253" />
@@ -2598,6 +2698,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/254</loc>
+    <lastmod>2023-06-07</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/254" />
@@ -2607,6 +2708,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/255</loc>
+    <lastmod>2023-06-14</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/255" />
@@ -2616,6 +2718,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/256</loc>
+    <lastmod>2023-06-21</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/256" />
@@ -2625,6 +2728,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/257</loc>
+    <lastmod>2023-06-28</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/257" />
@@ -2634,6 +2738,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/258</loc>
+    <lastmod>2023-07-05</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/258" />
@@ -2643,6 +2748,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/259</loc>
+    <lastmod>2023-07-12</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/259" />
@@ -2652,6 +2758,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/260</loc>
+    <lastmod>2023-07-19</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/260" />
@@ -2661,6 +2768,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/261</loc>
+    <lastmod>2023-07-26</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/261" />
@@ -2670,6 +2778,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/262</loc>
+    <lastmod>2023-08-02</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/262" />
@@ -2679,6 +2788,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/263</loc>
+    <lastmod>2023-08-09</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/263" />
@@ -2688,6 +2798,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/264</loc>
+    <lastmod>2023-08-16</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/264" />
@@ -2697,6 +2808,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/265</loc>
+    <lastmod>2023-08-23</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/265" />
@@ -2706,6 +2818,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/266</loc>
+    <lastmod>2023-08-30</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/266" />
@@ -2715,6 +2828,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/267</loc>
+    <lastmod>2023-09-06</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/267" />
@@ -2724,6 +2838,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/268</loc>
+    <lastmod>2023-09-13</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/268" />
@@ -2733,6 +2848,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/269</loc>
+    <lastmod>2023-09-20</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/269" />
@@ -2742,6 +2858,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/270</loc>
+    <lastmod>2023-09-27</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/270" />
@@ -2751,6 +2868,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/271</loc>
+    <lastmod>2023-10-04</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/271" />
@@ -2760,6 +2878,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/272</loc>
+    <lastmod>2023-10-11</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/272" />
@@ -2769,6 +2888,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/273</loc>
+    <lastmod>2023-10-18</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/273" />
@@ -2778,6 +2898,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/274</loc>
+    <lastmod>2023-10-25</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/274" />
@@ -2787,6 +2908,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/275</loc>
+    <lastmod>2023-11-01</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/275" />
@@ -2796,6 +2918,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/276</loc>
+    <lastmod>2023-11-08</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/276" />
@@ -2805,6 +2928,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/277</loc>
+    <lastmod>2023-11-15</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/277" />
@@ -2814,6 +2938,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/278</loc>
+    <lastmod>2023-11-22</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/278" />
@@ -2823,6 +2948,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/279</loc>
+    <lastmod>2023-11-29</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/279" />
@@ -2832,6 +2958,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/280</loc>
+    <lastmod>2023-12-06</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/280" />
@@ -2841,6 +2968,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/281</loc>
+    <lastmod>2023-12-13</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/281" />
@@ -2850,6 +2978,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/282</loc>
+    <lastmod>2023-12-20</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/282" />
@@ -2859,6 +2988,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/283</loc>
+    <lastmod>2023-12-27</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/283" />
@@ -2868,6 +2998,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/284</loc>
+    <lastmod>2024-01-03</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/284" />
@@ -2877,6 +3008,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/285</loc>
+    <lastmod>2024-01-10</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/285" />
@@ -2886,6 +3018,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/286</loc>
+    <lastmod>2024-01-17</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/286" />
@@ -2895,6 +3028,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/287</loc>
+    <lastmod>2024-01-24</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/287" />
@@ -2904,6 +3038,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/288</loc>
+    <lastmod>2024-01-31</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/288" />
@@ -2913,6 +3048,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/289</loc>
+    <lastmod>2024-02-07</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/289" />
@@ -2922,6 +3058,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/290</loc>
+    <lastmod>2024-02-14</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/290" />
@@ -2931,6 +3068,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/291</loc>
+    <lastmod>2024-02-21</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/291" />
@@ -2940,6 +3078,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/292</loc>
+    <lastmod>2024-02-28</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/292" />
@@ -2949,6 +3088,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/293</loc>
+    <lastmod>2024-03-06</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/293" />
@@ -2958,6 +3098,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/294</loc>
+    <lastmod>2024-03-13</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/294" />
@@ -2967,6 +3108,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/295</loc>
+    <lastmod>2024-03-20</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/295" />
@@ -2976,6 +3118,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/296</loc>
+    <lastmod>2024-03-27</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/296" />
@@ -2985,6 +3128,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/297</loc>
+    <lastmod>2024-04-03</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/297" />
@@ -2994,6 +3138,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/298</loc>
+    <lastmod>2024-04-10</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/298" />
@@ -3003,6 +3148,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/299</loc>
+    <lastmod>2024-04-17</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/299" />
@@ -3012,6 +3158,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/300</loc>
+    <lastmod>2024-04-24</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/300" />
@@ -3021,6 +3168,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/301</loc>
+    <lastmod>2024-05-01</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/301" />
@@ -3030,6 +3178,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/302</loc>
+    <lastmod>2024-05-08</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/302" />
@@ -3039,6 +3188,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/303</loc>
+    <lastmod>2024-05-15</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/303" />
@@ -3048,6 +3198,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/304</loc>
+    <lastmod>2024-05-22</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/304" />
@@ -3057,6 +3208,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/305</loc>
+    <lastmod>2024-05-29</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/305" />
@@ -3066,6 +3218,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/306</loc>
+    <lastmod>2024-06-05</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/306" />
@@ -3075,6 +3228,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/307</loc>
+    <lastmod>2024-06-12</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/307" />
@@ -3084,6 +3238,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/308</loc>
+    <lastmod>2024-06-19</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/308" />
@@ -3093,6 +3248,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/309</loc>
+    <lastmod>2024-06-26</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/309" />
@@ -3102,6 +3258,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/310</loc>
+    <lastmod>2024-07-03</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/310" />
@@ -3111,6 +3268,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/311</loc>
+    <lastmod>2024-07-10</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/311" />
@@ -3120,6 +3278,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/312</loc>
+    <lastmod>2024-07-17</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/312" />
@@ -3129,6 +3288,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/313</loc>
+    <lastmod>2024-07-24</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/313" />
@@ -3138,6 +3298,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/314</loc>
+    <lastmod>2024-07-31</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/314" />
@@ -3146,25 +3307,8 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/chapter/314" />
   </url>
   <url>
-    <loc>https://www.bluelockchapter.com/fr/chapter/314.1</loc>
-    <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/314.1" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/chapter/314.1" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/chapter/314.1" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/chapter/314.1" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/chapter/314.2</loc>
-    <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/314.2" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/chapter/314.2" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/chapter/314.2" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/chapter/314.2" />
-  </url>
-  <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/315</loc>
+    <lastmod>2024-08-07</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/315" />
@@ -3174,6 +3318,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/316</loc>
+    <lastmod>2024-08-14</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/316" />
@@ -3183,6 +3328,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/317</loc>
+    <lastmod>2024-08-21</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/317" />
@@ -3192,6 +3338,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/318</loc>
+    <lastmod>2024-08-28</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/318" />
@@ -3201,6 +3348,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/319</loc>
+    <lastmod>2024-09-04</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/319" />
@@ -3210,6 +3358,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/320</loc>
+    <lastmod>2024-09-11</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/320" />
@@ -3219,6 +3368,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/321</loc>
+    <lastmod>2024-09-18</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/321" />
@@ -3228,6 +3378,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/322</loc>
+    <lastmod>2024-09-25</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/322" />
@@ -3237,6 +3388,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/323</loc>
+    <lastmod>2024-10-02</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/323" />
@@ -3246,6 +3398,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/324</loc>
+    <lastmod>2024-10-09</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/324" />
@@ -3255,6 +3408,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/325</loc>
+    <lastmod>2024-10-16</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/325" />
@@ -3264,6 +3418,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/326</loc>
+    <lastmod>2024-10-23</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/326" />
@@ -3273,6 +3428,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/327</loc>
+    <lastmod>2024-10-30</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/327" />
@@ -3281,16 +3437,8 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/chapter/327" />
   </url>
   <url>
-    <loc>https://www.bluelockchapter.com/fr/chapter/327.2</loc>
-    <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/327.2" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/chapter/327.2" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/chapter/327.2" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/chapter/327.2" />
-  </url>
-  <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/328</loc>
+    <lastmod>2024-11-06</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/328" />
@@ -3300,6 +3448,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/329</loc>
+    <lastmod>2024-11-13</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/329" />
@@ -3309,6 +3458,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/330</loc>
+    <lastmod>2024-11-20</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/330" />
@@ -3318,6 +3468,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/331</loc>
+    <lastmod>2024-11-27</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/331" />
@@ -3327,6 +3478,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/332</loc>
+    <lastmod>2024-12-04</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/332" />
@@ -3336,6 +3488,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/333</loc>
+    <lastmod>2024-12-11</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/333" />
@@ -3345,6 +3498,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/334</loc>
+    <lastmod>2024-12-18</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/334" />
@@ -3354,6 +3508,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/335</loc>
+    <lastmod>2024-12-25</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/335" />
@@ -3363,6 +3518,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/336</loc>
+    <lastmod>2025-01-01</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/336" />
@@ -3372,6 +3528,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/337</loc>
+    <lastmod>2025-01-08</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/337" />
@@ -3381,6 +3538,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/338</loc>
+    <lastmod>2025-01-15</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/338" />
@@ -3390,6 +3548,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/339</loc>
+    <lastmod>2025-01-22</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/339" />
@@ -3399,6 +3558,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/340</loc>
+    <lastmod>2025-01-29</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/340" />
@@ -3407,16 +3567,8 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/chapter/340" />
   </url>
   <url>
-    <loc>https://www.bluelockchapter.com/fr/chapter/340.2</loc>
-    <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/340.2" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/chapter/340.2" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/chapter/340.2" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/chapter/340.2" />
-  </url>
-  <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/341</loc>
+    <lastmod>2025-02-05</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/341" />
@@ -3426,6 +3578,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/342</loc>
+    <lastmod>2025-02-12</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/342" />
@@ -3435,6 +3588,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/343</loc>
+    <lastmod>2025-02-19</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/343" />
@@ -3444,6 +3598,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/344</loc>
+    <lastmod>2025-02-26</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/344" />
@@ -3453,6 +3608,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/345</loc>
+    <lastmod>2025-03-05</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/345" />
@@ -3462,6 +3618,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/346</loc>
+    <lastmod>2025-03-12</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/346" />
@@ -3470,16 +3627,8 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/chapter/346" />
   </url>
   <url>
-    <loc>https://www.bluelockchapter.com/fr/chapter/346.2</loc>
-    <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/346.2" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/chapter/346.2" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/chapter/346.2" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/chapter/346.2" />
-  </url>
-  <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/347</loc>
+    <lastmod>2025-03-19</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/347" />
@@ -3489,6 +3638,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/348</loc>
+    <lastmod>2025-03-26</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/348" />
@@ -3498,6 +3648,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/349</loc>
+    <lastmod>2025-04-02</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/349" />
@@ -3507,6 +3658,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/350</loc>
+    <lastmod>2025-04-09</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/350" />
@@ -3516,6 +3668,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/351</loc>
+    <lastmod>2025-04-16</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/351" />
@@ -3525,6 +3678,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/352</loc>
+    <lastmod>2025-04-23</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/352" />
@@ -3534,6 +3688,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/353</loc>
+    <lastmod>2025-04-30</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/353" />
@@ -3543,6 +3698,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/354</loc>
+    <lastmod>2025-05-07</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/354" />
@@ -3552,6 +3708,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/355</loc>
+    <lastmod>2025-05-14</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/355" />
@@ -3561,6 +3718,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/356</loc>
+    <lastmod>2025-05-21</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/356" />
@@ -3570,6 +3728,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/357</loc>
+    <lastmod>2025-05-28</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/357" />
@@ -3579,6 +3738,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/358</loc>
+    <lastmod>2025-06-04</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/358" />
@@ -3588,6 +3748,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/359</loc>
+    <lastmod>2025-06-11</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/359" />
@@ -3597,6 +3758,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/360</loc>
+    <lastmod>2025-06-18</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/360" />
@@ -3606,6 +3768,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/361</loc>
+    <lastmod>2025-06-25</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/361" />
@@ -3615,6 +3778,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/362</loc>
+    <lastmod>2025-07-02</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/362" />
@@ -3624,6 +3788,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/363</loc>
+    <lastmod>2025-07-09</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/363" />
@@ -3633,6 +3798,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/364</loc>
+    <lastmod>2025-07-16</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/364" />
@@ -3642,6 +3808,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/364.2</loc>
+    <lastmod>2025-07-16</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/364.2" />
@@ -3651,6 +3818,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/365</loc>
+    <lastmod>2025-07-23</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/365" />
@@ -3660,29 +3828,12 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/fr/chapter/366</loc>
+    <lastmod>2025-07-30</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/366" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/chapter/366" />
     <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/chapter/366" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/chapter/366" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/chapter/367</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/367" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/chapter/367" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/chapter/367" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/chapter/367" />
-  </url>
-  <url>
-    <loc>https://www.bluelockchapter.com/fr/chapter/368</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/chapter/368" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.bluelockchapter.com/fr/chapter/368" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.bluelockchapter.com/pt/chapter/368" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bluelockchapter.com/chapter/368" />
   </url>
 </urlset>

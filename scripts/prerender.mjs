@@ -8,6 +8,7 @@ import {
   SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, PAGE_META,
   getChapterSEOData, getCharacterSEOData, getAdjacentChapters, getArcInfo,
   realChapterTitle, breadcrumbSchema, homeSchemas, getGuideSEOData,
+  HTML_LANG, OG_LOCALE, LANGS, buildAlternates,
 } from '../utils/seo-core.js';
 import { CHARACTERS_DATA } from '../data/characters.js';
 import { ARCS_DATA } from '../data/arcs.js';
@@ -40,19 +41,43 @@ const esc = (v) => String(v ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
   .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 const jsonLd = (obj) => JSON.stringify(obj).replace(/</g, '\\u003c');
-const chapterLabel = (c) => {
-  const t = realChapterTitle(c.number, c.title);
-  return `Chapter ${c.number}${t ? `: ${t}` : ''}`;
+// UI strings used in the crawlable body, per language.
+const UI = {
+  en: { chapter: 'Chapter', ch: 'Ch.', home: 'Home', allChapters: 'All Chapters', characters: 'Characters',
+    read: (n, p) => `Read Blue Lock Chapter ${n} in English online for free${p ? ` (${p} pages)` : ''}.`,
+    notYet: (n) => `The scans for Blue Lock Chapter ${n} are not available yet.`,
+    whatHappens: (n) => `What Happens in Blue Lock Chapter ${n}`, context: 'Context', keyStrikers: 'Key Strikers',
+    nearby: 'Nearby chapters', startReading: 'Start reading: Chapter 1', latest: (n) => `Latest: Chapter ${n}`,
+    latestList: 'Latest Blue Lock Chapters', allChars: 'All characters', h1Suffix: ' – Read Online in English' },
+  fr: { chapter: 'Chapitre', ch: 'Ch.', home: 'Accueil', allChapters: 'Tous les chapitres', characters: 'Personnages',
+    read: (n, p) => `Lire le scan Blue Lock chapitre ${n} VF en français, gratuitement${p ? ` (${p} pages)` : ''}.`,
+    notYet: (n) => `Le scan VF de Blue Lock chapitre ${n} n'est pas encore disponible.`,
+    whatHappens: (n) => `Que se passe-t-il dans Blue Lock chapitre ${n} ?`, context: 'Contexte', keyStrikers: 'Attaquants clés',
+    nearby: 'Chapitres proches', startReading: 'Commencer : Chapitre 1', latest: (n) => `Dernier scan : Chapitre ${n}`,
+    latestList: 'Derniers scans de Blue Lock', allChars: 'Tous les personnages', h1Suffix: ' VF – Scan en Ligne' },
+  pt: { chapter: 'Capítulo', ch: 'Cap.', home: 'Início', allChapters: 'Todos os Capítulos', characters: 'Personagens',
+    read: (n, p) => `Ler mangá Blue Lock capítulo ${n} em português (PT-BR) online grátis${p ? ` (${p} páginas)` : ''}.`,
+    notYet: (n) => `O capítulo ${n} de Blue Lock em português ainda não está disponível.`,
+    whatHappens: (n) => `O que acontece em Blue Lock capítulo ${n}`, context: 'Contexto', keyStrikers: 'Atacantes principais',
+    nearby: 'Capítulos próximos', startReading: 'Começar: Capítulo 1', latest: (n) => `Último: Capítulo ${n}`,
+    latestList: 'Últimos capítulos de Blue Lock', allChars: 'Todos os personagens', h1Suffix: ' – Ler em Português' },
 };
 
-function headTags({ title, description, canonical, noindex = false, ogType = 'website', image = DEFAULT_OG_IMAGE, schemas = [], extra = '', alternates = [] }) {
-  const altTags = alternates.map(a => `<link data-prerender rel="alternate" hreflang="${esc(a.hreflang)}" href="${esc(a.href)}" />`);
+const chapterLabel = (c, lang = 'en') => {
+  const t = realChapterTitle(c.number, c.title);
+  return `${UI[lang].chapter} ${c.number}${t ? `: ${t}` : ''}`;
+};
+
+function headTags({ title, description, canonical, noindex = false, ogType = 'website', image = DEFAULT_OG_IMAGE, schemas = [], extra = '', alternates = [], lang = 'en' }) {
+  const altTags = noindex ? [] : alternates.map(a => `<link data-prerender rel="alternate" hreflang="${esc(a.hreflang)}" href="${esc(a.href)}" />`);
   const tags = [
     `<title data-prerender>${esc(title)}</title>`,
     `<meta data-prerender name="description" content="${esc(description)}" />`,
     `<meta data-prerender name="robots" content="${noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'}" />`,
     canonical && !noindex ? `<link data-prerender rel="canonical" href="${esc(canonical)}" />` : '',
     ...altTags,
+    `<meta data-prerender property="og:locale" content="${OG_LOCALE[lang]}" />`,
+    ...LANGS.filter(l => l !== lang).map(l => `<meta data-prerender property="og:locale:alternate" content="${OG_LOCALE[l]}" />`),
     `<meta data-prerender property="og:type" content="${esc(ogType)}" />`,
     `<meta data-prerender property="og:title" content="${esc(title)}" />`,
     `<meta data-prerender property="og:description" content="${esc(description)}" />`,
@@ -69,8 +94,11 @@ function headTags({ title, description, canonical, noindex = false, ogType = 'we
   return tags.filter(Boolean).join('\n  ');
 }
 
-function render(head, body) {
-  return template.replace('<!--SEO-HEAD-->', head).replace('<!--SEO-BODY-->', body);
+function render(head, body, lang = 'en') {
+  return template
+    .replace(/<html lang="[^"]*"/, `<html lang="${HTML_LANG[lang]}"`)
+    .replace('<!--SEO-HEAD-->', head)
+    .replace('<!--SEO-BODY-->', body);
 }
 
 let written = 0;
@@ -115,16 +143,21 @@ const latestInt = Math.floor(latest[0]?.number ?? 0);
 for (const ch of chapters) {
   const { prev, next, nearby } = getAdjacentChapters(chapters, ch.number);
 
-  for (const lang of ['en', 'fr', 'pt']) {
-    const pCount = lang === 'fr' ? (ch.pageCountFr || (ch.number <= 366 ? 20 : 0))
-      : lang === 'pt' ? (ch.pageCountPt || (ch.number <= 366 ? 20 : 0))
-      : (ch.pageCount || 0);
+  // Real scan availability per language (no guessing: a missing FR/PT scan means noindex there).
+  const counts = { en: ch.pageCount || 0, fr: ch.pageCountFr || 0, pt: ch.pageCountPt || 0 };
+  const availableLangs = LANGS.filter(l => counts[l] > 0);
+
+  for (const lang of LANGS) {
+    const pCount = counts[lang];
+    const u = UI[lang];
 
     const seo = getChapterSEOData(ch.number, {
       title: ch.title,
       pageCount: pCount,
       note: notes[String(ch.number)],
-      lang
+      lang,
+      availableLangs,
+      releaseDate: ch.releaseDate,
     });
     const featured = seo.featuredCharacters.filter(c => characterSlugs.has(c.slug));
 
@@ -132,38 +165,31 @@ for (const ch of chapters) {
     const chapterUrl = `${routePrefix}/chapter/${ch.number}`;
     const mangaUrl = lang === 'en' ? '/manga' : `/${lang}/manga`;
 
-    const alternates = [
-      { hreflang: 'en', href: `${SITE_URL}/chapter/${ch.number}` },
-      { hreflang: 'fr', href: `${SITE_URL}/fr/chapter/${ch.number}` },
-      { hreflang: 'pt', href: `${SITE_URL}/pt/chapter/${ch.number}` },
-      { hreflang: 'x-default', href: `${SITE_URL}/chapter/${ch.number}` },
-    ];
-
     const body = wrap(`<article class="max-w-4xl mx-auto px-4 py-10">
-        <p class="text-xs font-bold uppercase text-blue-500 mb-2"><a href="/arcs/${seo.arcSlug}">${esc(seo.arcName)}</a></p>
-        <h1 class="text-3xl md:text-5xl font-heading font-bold mb-4">Blue Lock ${lang === 'fr' ? 'Chapitre' : lang === 'pt' ? 'Capítulo' : 'Chapter'} ${ch.number}${seo.hasRealTitle ? `: ${esc(seo.title)}` : ''}</h1>
-        ${seo.noindex ? `<p class="text-gray-400">The scans for Chapter ${ch.number} are not available yet.</p>` : `<p class="text-gray-400">Read Blue Lock Chapter ${ch.number} online. ${pCount || ''} pages.</p>`}
+        <p class="text-xs font-bold uppercase text-blue-500 mb-2"><a href="/arcs/${seo.arcSlug}" hreflang="en">${esc(seo.arcName)}</a></p>
+        <h1 class="text-3xl md:text-5xl font-heading font-bold mb-4">Blue Lock ${u.chapter} ${ch.number}${seo.hasRealTitle ? `: ${esc(seo.title)}` : ''}${u.h1Suffix}</h1>
+        <p class="text-gray-400">${seo.noindex ? u.notYet(ch.number) : u.read(ch.number, pCount)}</p>
         <nav class="flex flex-wrap gap-3 my-6 text-sm font-semibold">
-          ${prev ? `<a href="${routePrefix}/chapter/${prev.number}" class="text-blue-400">← ${lang === 'fr' ? 'Chapitre' : lang === 'pt' ? 'Capítulo' : 'Chapter'} ${prev.number}</a>` : ''}
-          <a href="${mangaUrl}" class="text-gray-300">${lang === 'fr' ? 'Tous les chapitres' : lang === 'pt' ? 'Todos os Capítulos' : 'All Chapters'}</a>
-          ${next ? `<a href="${routePrefix}/chapter/${next.number}" class="text-blue-400">${lang === 'fr' ? 'Chapitre' : lang === 'pt' ? 'Capítulo' : 'Chapter'} ${next.number} →</a>` : ''}
+          ${prev ? `<a href="${routePrefix}/chapter/${prev.number}" class="text-blue-400">← ${u.chapter} ${prev.number}</a>` : ''}
+          <a href="${mangaUrl}" class="text-gray-300">${u.allChapters}</a>
+          ${next ? `<a href="${routePrefix}/chapter/${next.number}" class="text-blue-400">${u.chapter} ${next.number} →</a>` : ''}
         </nav>
         <section class="border-t border-white/10 pt-6 text-gray-300 text-sm leading-relaxed">
-          <h2 class="text-2xl font-bold text-white mb-3">${seo.hasUniqueSummary ? `What Happens in Blue Lock Chapter ${ch.number}` : `Blue Lock Chapter ${ch.number}: Story Context`}</h2>
+          <h2 class="text-2xl font-bold text-white mb-3">${u.whatHappens(ch.number)}</h2>
           <p class="mb-4">${esc(seo.summary)}</p>
-          <p class="text-gray-400 mb-6"><strong>Context:</strong> ${esc(seo.arcDescription)}</p>
-          ${featured.length ? `<h3 class="text-sm font-bold uppercase text-gray-400 mb-3">Key Strikers</h3>
-          <ul class="flex flex-wrap gap-3 mb-6">${featured.map(c => `<li><a href="${routePrefix}/characters/${c.slug}">${esc(c.name)}</a> <span class="text-xs text-gray-500">${esc(c.role)}</span></li>`).join('')}</ul>` : ''}
-          <h3 class="text-sm font-bold uppercase text-gray-400 mb-3">Nearby chapters</h3>
-          <ul class="flex flex-wrap gap-2">${nearby.map(c => `<li><a href="${routePrefix}/chapter/${c.number}"${c.number === ch.number ? ' aria-current="page"' : ''}>Ch. ${c.number}</a></li>`).join('')}</ul>
+          <p class="text-gray-400 mb-6"><strong>${u.context}:</strong> ${esc(seo.arcDescription)}</p>
+          ${featured.length ? `<h3 class="text-sm font-bold uppercase text-gray-400 mb-3">${u.keyStrikers}</h3>
+          <ul class="flex flex-wrap gap-3 mb-6">${featured.map(c => `<li><a href="${routePrefix}/characters/${c.slug}">${esc(c.name)}</a></li>`).join('')}</ul>` : ''}
+          <h3 class="text-sm font-bold uppercase text-gray-400 mb-3">${u.nearby}</h3>
+          <ul class="flex flex-wrap gap-2">${nearby.map(c => `<li><a href="${routePrefix}/chapter/${c.number}"${c.number === ch.number ? ' aria-current="page"' : ''}>${u.ch} ${c.number}</a></li>`).join('')}</ul>
         </section>
       </article>`, lang);
 
     write(chapterUrl, render(headTags({
       title: seo.seoTitle, description: seo.seoDescription, canonical: seo.canonicalUrl,
       noindex: seo.noindex, ogType: 'article', schemas: seo.noindex ? [] : seo.schemas,
-      alternates,
-    }), body));
+      alternates: seo.alternateLinks, lang,
+    }), body, lang));
   }
 }
 
@@ -175,15 +201,10 @@ for (const c of CHARACTERS_DATA) {
     const routePrefix = lang === 'en' ? '' : `/${lang}`;
     const charUrl = `${routePrefix}/characters/${c.slug}`;
 
-    const alternates = [
-      { hreflang: 'en', href: `${SITE_URL}/characters/${c.slug}` },
-      { hreflang: 'fr', href: `${SITE_URL}/fr/characters/${c.slug}` },
-      { hreflang: 'pt', href: `${SITE_URL}/pt/characters/${c.slug}` },
-      { hreflang: 'x-default', href: `${SITE_URL}/characters/${c.slug}` },
-    ];
+    const alternates = buildAlternates(`/characters/${c.slug}`);
 
     const body = wrap(`<main class="max-w-4xl mx-auto px-4 py-10">
-        <a href="${routePrefix}/characters" class="text-blue-400 text-sm">← ${lang === 'fr' ? 'Personnages' : lang === 'pt' ? 'Personagens' : 'All characters'}</a>
+        <a href="${routePrefix}/characters" class="text-blue-400 text-sm">← ${UI[lang].allChars}</a>
         <h1 class="text-4xl md:text-5xl font-heading font-bold mt-4">${esc(c.name)}</h1>
         <p class="text-blue-400 text-sm font-bold mt-2">${esc(c.role)} • ${esc(c.grade)}</p>
         <img src="${esc(c.image)}" alt="${esc(c.name)} – Blue Lock" width="230" height="345" class="my-6 rounded-xl" loading="eager" />
@@ -202,8 +223,8 @@ for (const c of CHARACTERS_DATA) {
 
     write(charUrl, render(headTags({
       title: seo.seoTitle, description: seo.seoDescription, canonical: seo.canonicalUrl,
-      ogType: 'profile', image: seo.ogImage, schemas: seo.schemas, alternates,
-    }), body));
+      ogType: 'profile', image: seo.ogImage, schemas: seo.schemas, alternates, lang,
+    }), body, lang));
   }
 }
 
@@ -212,20 +233,15 @@ for (const lang of ['en', 'fr', 'pt']) {
   const route = lang === 'en' ? '/characters' : `/${lang}/characters`;
   const metaObj = PAGE_META[route] || PAGE_META['/characters'];
   const routePrefix = lang === 'en' ? '' : `/${lang}`;
-  const alternates = [
-    { hreflang: 'en', href: `${SITE_URL}/characters` },
-    { hreflang: 'fr', href: `${SITE_URL}/fr/characters` },
-    { hreflang: 'pt', href: `${SITE_URL}/pt/characters` },
-    { hreflang: 'x-default', href: `${SITE_URL}/characters` },
-  ];
+  const alternates = buildAlternates('/characters');
 
   write(route, render(headTags({
     ...metaObj, canonical: `${SITE_URL}${route}`,
     schemas: [
-      { '@context': 'https://schema.org', '@type': 'CollectionPage', name: metaObj.title, url: `${SITE_URL}${route}` },
-      breadcrumbSchema([{ name: 'Home', path: routePrefix || '/' }, { name: 'Characters', path: route }]),
+      { '@context': 'https://schema.org', '@type': 'CollectionPage', name: metaObj.title, url: `${SITE_URL}${route}`, inLanguage: HTML_LANG[lang] },
+      breadcrumbSchema([{ name: UI[lang].home, path: routePrefix || '/' }, { name: UI[lang].characters, path: route }]),
     ],
-    alternates,
+    alternates, lang,
   }), wrap(`<main class="max-w-5xl mx-auto px-4 py-10">
       <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4">${esc(metaObj.title)}</h1>
       <p class="text-gray-400 mb-8">${esc(metaObj.description)}</p>
@@ -233,41 +249,37 @@ for (const lang of ['en', 'fr', 'pt']) {
         <h2 class="text-2xl font-bold"><a href="${routePrefix}/characters/${c.slug}">${esc(c.name)}</a></h2>
         <p class="text-xs text-blue-400">${esc(c.role)} • ${esc(c.grade)}</p>
         <p class="text-gray-400 text-sm">${esc(c.description)}</p></li>`).join('')}</ul>
-    </main>`, lang)));
+    </main>`, lang), lang));
 }
 
 // ---------- 4. Chapter list (EN, FR, PT) ----------
-const groups = [];
-for (const c of asc) {
-  const arc = getArcInfo(c.number).arcName;
-  if (!groups.length || groups[groups.length - 1].arc !== arc) groups.push({ arc, items: [] });
-  groups[groups.length - 1].items.push(c);
-}
-
-for (const lang of ['en', 'fr', 'pt']) {
+for (const lang of LANGS) {
   const route = lang === 'en' ? '/manga' : `/${lang}/manga`;
   const metaObj = PAGE_META[route] || PAGE_META['/manga'];
   const routePrefix = lang === 'en' ? '' : `/${lang}`;
-  const alternates = [
-    { hreflang: 'en', href: `${SITE_URL}/manga` },
-    { hreflang: 'fr', href: `${SITE_URL}/fr/manga` },
-    { hreflang: 'pt', href: `${SITE_URL}/pt/manga` },
-    { hreflang: 'x-default', href: `${SITE_URL}/manga` },
-  ];
+  const alternates = buildAlternates('/manga');
+  const countKey = lang === 'fr' ? 'pageCountFr' : lang === 'pt' ? 'pageCountPt' : 'pageCount';
+  // Only list chapters that really have scans in this language.
+  const groups = [];
+  for (const c of asc.filter(x => (x[countKey] || 0) > 0)) {
+    const arc = getArcInfo(c.number, lang).arcName;
+    if (!groups.length || groups[groups.length - 1].arc !== arc) groups.push({ arc, items: [] });
+    groups[groups.length - 1].items.push(c);
+  }
 
   write(route, render(headTags({
     ...metaObj, canonical: `${SITE_URL}${route}`,
     schemas: [
-      { '@context': 'https://schema.org', '@type': 'CollectionPage', name: metaObj.title, url: `${SITE_URL}${route}` },
-      breadcrumbSchema([{ name: 'Home', path: routePrefix || '/' }, { name: 'All Chapters', path: route }]),
+      { '@context': 'https://schema.org', '@type': 'CollectionPage', name: metaObj.title, url: `${SITE_URL}${route}`, inLanguage: HTML_LANG[lang] },
+      breadcrumbSchema([{ name: UI[lang].home, path: routePrefix || '/' }, { name: UI[lang].allChapters, path: route }]),
     ],
-    alternates,
+    alternates, lang,
   }), wrap(`<main class="max-w-5xl mx-auto px-4 py-10">
       <h1 class="text-4xl md:text-6xl font-heading font-bold mb-4">${esc(metaObj.title)}</h1>
       <p class="text-gray-400 mb-8">${esc(metaObj.description)}</p>
-      ${groups.map(g => `<section class="mb-8"><h2 class="text-2xl font-bold mb-3">${esc(g.arc)} (Ch. ${g.items[0].number}–${g.items[g.items.length - 1].number})</h2>
-      <ul class="flex flex-wrap gap-2 text-sm">${g.items.map(c => `<li><a href="${routePrefix}/chapter/${c.number}">${esc(chapterLabel(c))}</a></li>`).join('')}</ul></section>`).join('\n      ')}
-    </main>`, lang)));
+      ${groups.map(g => `<section class="mb-8"><h2 class="text-2xl font-bold mb-3">${esc(g.arc)} (${UI[lang].ch} ${g.items[0].number}–${g.items[g.items.length - 1].number})</h2>
+      <ul class="flex flex-wrap gap-2 text-sm">${g.items.map(c => `<li><a href="${routePrefix}/chapter/${c.number}">${esc(chapterLabel(c, lang))}</a></li>`).join('')}</ul></section>`).join('\n      ')}
+    </main>`, lang), lang));
 }
 
 // ---------- 5. Home (EN, FR, PT) ----------
@@ -275,39 +287,32 @@ for (const lang of ['en', 'fr', 'pt']) {
   const route = lang === 'en' ? '/' : `/${lang}`;
   const metaObj = PAGE_META[route] || PAGE_META['/'];
   const routePrefix = lang === 'en' ? '' : `/${lang}`;
-  const alternates = [
-    { hreflang: 'en', href: `${SITE_URL}/` },
-    { hreflang: 'fr', href: `${SITE_URL}/fr` },
-    { hreflang: 'pt', href: `${SITE_URL}/pt` },
-    { hreflang: 'x-default', href: `${SITE_URL}/` },
-  ];
+  const alternates = buildAlternates('/');
+  const u = UI[lang];
+  const countKey = lang === 'fr' ? 'pageCountFr' : lang === 'pt' ? 'pageCountPt' : 'pageCount';
+  const latestHere = latest.filter(c => (c[countKey] || 0) > 0);
+  const h1 = lang === 'fr' ? 'Blue Lock Scan VF' : lang === 'pt' ? 'Blue Lock Mangá em Português' : 'Blue Lock Manga Online';
 
   write(route, render(headTags({
     ...metaObj, canonical: `${SITE_URL}${route}`, schemas: homeSchemas(),
     extra: '<link data-prerender rel="preload" as="image" href="/blue-lock.webp" fetchpriority="high" />',
-    alternates,
+    alternates, lang,
   }), wrap(`<main class="max-w-5xl mx-auto px-4 py-10">
-      <h1 class="text-5xl md:text-7xl font-heading font-extrabold mb-4">Blue Lock Manga</h1>
+      <h1 class="text-5xl md:text-7xl font-heading font-extrabold mb-4">${h1}</h1>
       <p class="text-gray-300 mb-4">${esc(metaObj.description)}</p>
       <p class="mb-8 flex flex-wrap gap-4 font-bold">
-        <a href="${routePrefix}/chapter/1">Start reading: Chapter 1</a>
-        ${latest[0] ? `<a href="${routePrefix}/chapter/${latest[0].number}">Latest: Chapter ${latest[0].number}</a>` : ''}
-        <a href="${routePrefix}/characters">Characters</a>
+        <a href="${routePrefix}/chapter/1">${u.startReading}</a>
+        ${latestHere[0] ? `<a href="${routePrefix}/chapter/${latestHere[0].number}">${u.latest(latestHere[0].number)}</a>` : ''}
+        <a href="${routePrefix}/characters">${u.characters}</a>
       </p>
-      <h2 class="text-2xl font-bold mb-3">Latest Blue Lock Chapters</h2>
-      <ul class="flex flex-wrap gap-2 mb-8">${latest.slice(0, 12).map(c => `<li><a href="${routePrefix}/chapter/${c.number}">${esc(chapterLabel(c))}</a></li>`).join('')}</ul>
-    </main>`, lang)));
+      <h2 class="text-2xl font-bold mb-3">${u.latestList}</h2>
+      <ul class="flex flex-wrap gap-2 mb-8">${latestHere.slice(0, 12).map(c => `<li><a href="${routePrefix}/chapter/${c.number}">${esc(chapterLabel(c, lang))}</a></li>`).join('')}</ul>
+    </main>`, lang), lang));
 }
 
-// Also write /en alias
+// /en is a duplicate of / : canonical to / and keep it out of hreflang.
 write('/en', render(headTags({
   ...PAGE_META['/'], canonical: `${SITE_URL}/`, schemas: homeSchemas(),
-  alternates: [
-    { hreflang: 'en', href: `${SITE_URL}/` },
-    { hreflang: 'fr', href: `${SITE_URL}/fr` },
-    { hreflang: 'pt', href: `${SITE_URL}/pt` },
-    { hreflang: 'x-default', href: `${SITE_URL}/` },
-  ],
 }), wrap(`<main class="max-w-5xl mx-auto px-4 py-10"><p>Redirecting to <a href="/">Blue Lock Manga</a>...</p></main>`)));
 
 // ---------- 6. About + legal (EN, FR, PT) ----------
@@ -322,18 +327,13 @@ const simplePages = {
 for (const [baseRoute, p] of Object.entries(simplePages)) {
   for (const lang of ['en', 'fr', 'pt']) {
     const route = lang === 'en' ? baseRoute : `/${lang}${baseRoute}`;
-    const metaObj = PAGE_META[route] || PAGE_META[baseRoute];
-    const alternates = [
-      { hreflang: 'en', href: `${SITE_URL}${baseRoute}` },
-      { hreflang: 'fr', href: `${SITE_URL}/fr${baseRoute}` },
-      { hreflang: 'pt', href: `${SITE_URL}/pt${baseRoute}` },
-      { hreflang: 'x-default', href: `${SITE_URL}${baseRoute}` },
-    ];
+    // The body of these pages is English-only, so FR/PT copies canonicalize to the
+    // English page (matching the React app) and carry no hreflang.
+    const metaObj = PAGE_META[baseRoute];
 
     write(route, render(headTags({
-      ...metaObj, canonical: `${SITE_URL}${route}`,
-      schemas: [breadcrumbSchema([{ name: 'Home', path: lang === 'en' ? '/' : `/${lang}` }, { name: p.h1, path: route }])],
-      alternates,
+      ...metaObj, canonical: `${SITE_URL}${baseRoute}`,
+      schemas: [breadcrumbSchema([{ name: 'Home', path: '/' }, { name: p.h1, path: baseRoute }])],
     }), wrap(`<main class="max-w-4xl mx-auto px-4 py-10">
         <h1 class="text-3xl md:text-5xl font-heading font-bold mb-6">${esc(p.h1)}</h1>
         <p class="text-gray-300">${esc(p.text)}</p>

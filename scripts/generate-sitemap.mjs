@@ -21,15 +21,32 @@ for (const ch of chapters) {
 }
 const sortedChapters = Array.from(chapterMap.values()).sort((a, b) => a.number - b.number);
 
-// Base paths available across languages
-const staticRoutes = [
+// Paths that exist (prerendered, self-canonical) in every language.
+const multilingualRoutes = [
   '/',
   '/manga',
   '/characters',
   ...CHARACTERS_DATA.map(c => `/characters/${c.slug}`),
+];
+// English-only paths: guides are not prerendered under /fr or /pt (those URLs 404), and the
+// FR/PT copies of legal pages canonicalize to English. They belong in sitemap.xml only.
+const englishOnlyRoutes = [
   ...Object.keys(GUIDES),
   '/about', '/privacy', '/terms', '/dmca', '/disclaimer'
 ];
+const staticRoutes = [...multilingualRoutes, ...englishOnlyRoutes];
+const LANGS = ['en', 'fr', 'pt'];
+const COUNT_KEY = { en: 'pageCount', fr: 'pageCountFr', pt: 'pageCountPt' };
+const chapterLangs = (ch) => LANGS.filter(l => (ch[COUNT_KEY[l]] || 0) > 0);
+const urlFor = (baseRoute, lang) => lang === 'en'
+  ? `${SITE_URL}${baseRoute}`
+  : `${SITE_URL}/${lang}${baseRoute === '/' ? '' : baseRoute}`;
+const altLinks = (baseRoute, langs) => {
+  if (langs.length < 2) return '';
+  const lines = langs.map(l => `    <xhtml:link rel="alternate" hreflang="${l}" href="${urlFor(baseRoute, l)}" />`);
+  lines.push(`    <xhtml:link rel="alternate" hreflang="x-default" href="${urlFor(baseRoute, langs.includes('en') ? 'en' : langs[0])}" />`);
+  return '\n' + lines.join('\n');
+};
 
 function getStaticPriorityAndFreq(baseRoute, lang) {
   if (baseRoute === '/') {
@@ -90,46 +107,25 @@ function getChapterPriorityAndFreq(chNum, lang) {
 }
 
 function buildUrlEntry(baseRoute, lang, lastmod) {
-  let loc = '';
-  if (lang === 'en') {
-    loc = `${SITE_URL}${baseRoute}`;
-  } else {
-    loc = `${SITE_URL}/${lang}${baseRoute === '/' ? '' : baseRoute}`;
-  }
-
-  const enUrl = `${SITE_URL}${baseRoute}`;
-  const frUrl = `${SITE_URL}/fr${baseRoute === '/' ? '' : baseRoute}`;
-  const ptUrl = `${SITE_URL}/pt${baseRoute === '/' ? '' : baseRoute}`;
-
+  const langs = englishOnlyRoutes.includes(baseRoute) ? ['en'] : LANGS;
   const { priority, changefreq } = getStaticPriorityAndFreq(baseRoute, lang);
 
   return `  <url>
-    <loc>${loc}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ''}
+    <loc>${urlFor(baseRoute, lang)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ''}
     <priority>${priority}</priority>
-    <changefreq>${changefreq}</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="${enUrl}" />
-    <xhtml:link rel="alternate" hreflang="fr" href="${frUrl}" />
-    <xhtml:link rel="alternate" hreflang="pt" href="${ptUrl}" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="${enUrl}" />
+    <changefreq>${changefreq}</changefreq>${altLinks(baseRoute, langs)}
   </url>`;
 }
 
-function buildChapterUrlEntry(chNum, lang) {
-  const enUrl = `${SITE_URL}/chapter/${chNum}`;
-  const frUrl = `${SITE_URL}/fr/chapter/${chNum}`;
-  const ptUrl = `${SITE_URL}/pt/chapter/${chNum}`;
-
-  const loc = lang === 'en' ? enUrl : lang === 'fr' ? frUrl : ptUrl;
-  const { priority, changefreq } = getChapterPriorityAndFreq(chNum, lang);
+function buildChapterUrlEntry(ch, lang) {
+  const baseRoute = `/chapter/${ch.number}`;
+  const { priority, changefreq } = getChapterPriorityAndFreq(ch.number, lang);
+  const lastmod = ch.releaseDate ? String(ch.releaseDate).slice(0, 10) : undefined;
 
   return `  <url>
-    <loc>${loc}</loc>
+    <loc>${urlFor(baseRoute, lang)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ''}
     <priority>${priority}</priority>
-    <changefreq>${changefreq}</changefreq>
-    <xhtml:link rel="alternate" hreflang="en" href="${enUrl}" />
-    <xhtml:link rel="alternate" hreflang="fr" href="${frUrl}" />
-    <xhtml:link rel="alternate" hreflang="pt" href="${ptUrl}" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="${enUrl}" />
+    <changefreq>${changefreq}</changefreq>${altLinks(baseRoute, chapterLangs(ch))}
   </url>`;
 }
 
@@ -148,8 +144,8 @@ function buildSitemapList(lang) {
   const entries = [];
   const seenLocs = new Set();
 
-  for (const r of staticRoutes) {
-    const loc = lang === 'en' ? `${SITE_URL}${r}` : `${SITE_URL}/${lang}${r === '/' ? '' : r}`;
+  for (const r of (lang === 'en' ? staticRoutes : multilingualRoutes)) {
+    const loc = urlFor(r, lang);
     if (!seenLocs.has(loc)) {
       seenLocs.add(loc);
       const lastmod = (r === '/' || r === '/manga') ? today : undefined;
@@ -157,12 +153,13 @@ function buildSitemapList(lang) {
     }
   }
 
-  // Include ALL chapters up to the latest one (368+)
+  // Only chapters that have scans in this language (the others are noindex placeholders).
   for (const ch of sortedChapters) {
-    const loc = lang === 'en' ? `${SITE_URL}/chapter/${ch.number}` : `${SITE_URL}/${lang}/chapter/${ch.number}`;
+    if (!chapterLangs(ch).includes(lang)) continue;
+    const loc = urlFor(`/chapter/${ch.number}`, lang);
     if (!seenLocs.has(loc)) {
       seenLocs.add(loc);
-      entries.push(buildChapterUrlEntry(ch.number, lang));
+      entries.push(buildChapterUrlEntry(ch, lang));
     }
   }
 

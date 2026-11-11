@@ -131,13 +131,31 @@ const ChapterReader: React.FC = () => {
     }));
   };
 
+  // Which languages really have scans for this chapter (FR/PT fall back to EN pages for
+  // readers, but those fallback pages must not be indexed as French/Portuguese content).
+  const availableLangs = useMemo<SupportedLang[]>(() => {
+    if (!chapter) return [];
+    const has = (arr?: string[], count?: number) => (arr?.length ?? count ?? 0) > 0;
+    const out: SupportedLang[] = [];
+    if (has(chapter.pages, chapter.pageCount)) out.push('en');
+    if (has(chapter.pagesFr, chapter.pageCountFr)) out.push('fr');
+    if (has(chapter.pagesPt, chapter.pageCountPt)) out.push('pt');
+    return out;
+  }, [chapter]);
+  const hasOwnLangPages = availableLangs.includes(lang);
+
   const seo = useMemo(() => {
     return getChapterSEOData(currentNum, {
       title: chapter?.title,
-      pageCount: pages.length,
-      lang
+      pageCount: hasOwnLangPages ? pages.length : 0,
+      lang,
+      availableLangs,
+      releaseDate: chapter?.releaseDate,
     });
-  }, [currentNum, chapter?.title, pages.length, lang]);
+  }, [currentNum, chapter?.title, chapter?.releaseDate, pages.length, lang, availableLangs, hasOwnLangPages]);
+
+  const chapterWord = lang === 'fr' ? 'Chapitre' : lang === 'pt' ? 'Capítulo' : 'Chapter';
+  const pageWord = lang === 'fr' ? 'Page' : lang === 'pt' ? 'Página' : 'Page';
 
   if (loading && !chapter) {
     return (
@@ -172,11 +190,12 @@ const ChapterReader: React.FC = () => {
       <SEOHead
         title={seo.seoTitle}
         description={seo.seoDescription}
-        image={DEFAULT_OG_IMAGE}
-        type="article"
-        schema={seo.schema}
-        canonical={seo.canonicalUrl}
-        noindex={pages.length === 0}
+        ogImage={DEFAULT_OG_IMAGE}
+        ogType="article"
+        schemas={seo.noindex ? [] : seo.schemas}
+        canonicalUrl={seo.canonicalUrl}
+        noindex={seo.noindex}
+        alternateLinks={seo.alternateLinks}
       />
 
       {/* Floating Reader Top Bar */}
@@ -194,10 +213,10 @@ const ChapterReader: React.FC = () => {
             <ChevronLeft size={20} />
           </Link>
           <div className="min-w-0">
-            <h1 className="font-heading font-bold text-sm sm:text-base leading-tight truncate text-white">
+            <p className="font-heading font-bold text-sm sm:text-base leading-tight truncate text-white">
               {lang === 'fr' ? `Chapitre ${chapter.number}` : lang === 'pt' ? `Capítulo ${chapter.number}` : `Chapter ${chapter.number}`}
               {seo.hasRealTitle && <span className="text-gray-400 font-normal hidden sm:inline">: {seo.title}</span>}
-            </h1>
+            </p>
             <p className="text-[11px] text-gray-400 truncate hidden sm:block">
               {pages.length > 0 ? `${pages.length} ${t.reader.page}s` : t.reader.availableSoon}
             </p>
@@ -304,7 +323,7 @@ const ChapterReader: React.FC = () => {
 
       {/* Reader Content */}
       <div className="flex-1 pt-16">
-        <h1 className="sr-only">Blue Lock Chapter {chapter.number}{seo.hasRealTitle ? `: ${seo.title}` : ''}</h1>
+        <h1 className="sr-only">Blue Lock {chapterWord} {chapter.number}{seo.hasRealTitle ? `: ${seo.title}` : ''}{lang === 'fr' ? ' VF' : lang === 'pt' ? ' em Português' : ' English'}</h1>
         {pages.length > 0 && (
           <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
             <Breadcrumbs items={[
@@ -377,7 +396,7 @@ const ChapterReader: React.FC = () => {
                 <img
                   key={`single-${currentPageIndex}-${retryKeys[currentPageIndex] || 0}`}
                   src={pages[currentPageIndex]}
-                  alt={`Blue Lock Chapter ${chapter.number} Page ${currentPageIndex + 1}`}
+                  alt={`Blue Lock ${chapterWord} ${chapter.number} – ${pageWord} ${currentPageIndex + 1}`}
                   width="800"
                   height="1200"
                   className="w-full h-auto block cursor-pointer"
@@ -421,7 +440,7 @@ const ChapterReader: React.FC = () => {
                   <img
                     key={`scroll-${idx}-${retryKeys[idx] || 0}`}
                     src={pageUrl}
-                    alt={`Blue Lock Chapter ${chapter.number} Page ${idx + 1}`}
+                    alt={`Blue Lock ${chapterWord} ${chapter.number} – ${pageWord} ${idx + 1}`}
                     width="800"
                     height="1200"
                     className="w-full h-auto block"
@@ -488,7 +507,11 @@ const ChapterReader: React.FC = () => {
               {seo.summary}
             </p>
             <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-              <strong>Context:</strong> {seo.arcDescription} <Link to={localizePath(`/arcs/${seo.arcSlug}`)} className="text-blue-400 hover:underline">Read the {seo.arcName} guide</Link>.
+              <strong>{lang === 'fr' ? 'Contexte :' : lang === 'pt' ? 'Contexto:' : 'Context:'}</strong> {seo.arcDescription}{' '}
+              {/* Arc guides only exist in English, so always link the English URL. */}
+              <Link to={`/arcs/${seo.arcSlug}`} hrefLang="en" className="text-blue-400 hover:underline">
+                {lang === 'fr' ? `Guide de l'arc (en anglais)` : lang === 'pt' ? 'Guia do arco (em inglês)' : `Read the ${seo.arcName} guide`}
+              </Link>.
             </p>
           </div>
 

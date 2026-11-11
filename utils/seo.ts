@@ -31,7 +31,7 @@ const notes = chapterNotes as Record<string, { title?: string; summary?: string 
 
 export function getChapterSEOData(
   chapterNumber: number,
-  opts: { title?: string; pageCount?: number; lang?: SupportedLang } = {}
+  opts: { title?: string; pageCount?: number; lang?: SupportedLang; availableLangs?: SupportedLang[]; releaseDate?: string } = {}
 ): ChapterSEOData {
   return core.getChapterSEOData(chapterNumber, { ...opts, note: notes[String(chapterNumber)] }) as ChapterSEOData;
 }
@@ -55,6 +55,11 @@ export function getAdjacentChapters<T extends { number: number }>(
 ): { prev: T | null; next: T | null; nearby: T[] } {
   return core.getAdjacentChapters(chapters, num) as { prev: T | null; next: T | null; nearby: T[] };
 }
+
+export const HTML_LANG: Record<SupportedLang, string> = core.HTML_LANG;
+export const OG_LOCALE: Record<SupportedLang, string> = core.OG_LOCALE;
+export const buildAlternates = (basePath: string, langs?: SupportedLang[]): { rel: string; hreflang: string; href: string }[] =>
+  core.buildAlternates(basePath, langs);
 
 export const homeSchemas = (): object[] => core.homeSchemas();
 export const abs = (path: string): string => core.abs(path);
