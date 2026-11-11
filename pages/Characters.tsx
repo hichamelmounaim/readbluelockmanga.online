@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SEOHead from '../components/SEOHead';
 import { CHARACTERS } from '../constants';
-import { PAGE_META, SITE_URL } from '../utils/seo';
+import { PAGE_META, SITE_URL, faqSchema } from '../utils/seo';
+import { CHARACTERS_FAQ } from '../data/characters-faq.js';
 import { useLanguage } from '../context/LanguageContext';
 import { ArrowRight, Zap } from 'lucide-react';
 
@@ -26,6 +27,7 @@ const Characters: React.FC = () => {
         description={pageMeta.description}
         canonicalUrl={lang === 'en' ? `${SITE_URL}/characters` : `${SITE_URL}/${lang}/characters`}
         alternateLinks={alternateLinks}
+        schemas={lang === 'en' ? [faqSchema(CHARACTERS_FAQ)] : undefined}
       />
 
       <div className="text-center mb-16">
@@ -95,6 +97,21 @@ const Characters: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {/* The FAQ is written in English, so it is only shown (with its schema) on the English page. */}
+      {lang === 'en' && (
+        <section className="mt-16">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-white mb-6">Blue Lock Characters FAQ</h2>
+          <div className="grid gap-6 md:grid-cols-2">
+            {CHARACTERS_FAQ.map((f) => (
+              <div key={f.q} className="bg-[#181818] p-6 rounded-xl border border-white/5">
+                <h3 className="text-base font-bold text-white mb-2">{f.q}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{f.a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 };

@@ -53,20 +53,20 @@ export const translations = {
       },
       "faq": {
         "q1": "Where to read Blue Lock manga online free?",
-        "a1": "You can read Blue Lock manga online free in high-definition scans right here on Bluelockm.com. All chapters from Chapter 1 to the newest weekly release are accessible immediately with fast loading times and no sign-up required.",
+        "a1": "You can read Blue Lock manga online free in high-definition scans right here on BlueLockChapter.com. All chapters from Chapter 1 to the newest weekly release are accessible immediately with fast loading times and no sign-up required.",
         "q2": "Is the Blue Lock manga finished or ongoing?",
         "a2": "No, the Blue Lock manga is currently ongoing. It is written by Muneyuki Kaneshiro and illustrated by Yusuke Nomura, serialized weekly in Kodansha's Weekly Shōnen Magazine with new chapters dropping every week.",
         "q3": "How many Blue Lock manga volumes and chapters are there?",
-        "a3": "As of 2026, Blue Lock has published over 30 volumes (tankōbon) and more than 367 chapters. The story continues deep into the high-stakes Neo Egoist League arc.",
+        "a3": "In Japan, 40 volumes (tankōbon) of Blue Lock had been released as of August 2026, with more than 360 chapters. After the Neo Egoist League (chapters 152–302), the story moved into the U-20 World Cup arc, which started at chapter 303.",
         "q4": "What are the differences between the Blue Lock manga and anime?",
         "a4": "The Blue Lock manga features Yusuke Nomura's explosive, high-detail double-page spreads, raw visceral aura lines, and intense psychological expressions that the anime adaptation often simplifies. Reading the manga gives you the complete unedited artistic vision.",
         "q5": "Where should I start reading Blue Lock?",
         "a5": "If you are new to the story, start with Chapter 1. The psychological build-up, character awakenings, and tactical evolution make starting from the very beginning an unforgettable ride.",
         "q6": "Why read Blue Lock manga on this site?",
-        "a6": "Bluelockm.com offers an ultra-fast, reader-focused experience with high-resolution scans, both English and French translations, bookmark saving, and immediate updates the minute new chapters arrive."
+        "a6": "BlueLockChapter.com offers an ultra-fast, reader-focused experience with high-resolution scans, both English and French translations, bookmark saving, and immediate updates the minute new chapters arrive."
       },
       "seo": {
-        "p1": "Welcome to Bluelockm.com, the premier destination for fans to Read Blue Lock Manga online. We provide high-quality scans of the latest chapters as soon as they are released in Japan. Join millions of fans worldwide in following the journey of Yoichi Isagi as he aims to become the world's greatest striker.",
+        "p1": "Welcome to BlueLockChapter.com, the premier destination for fans to Read Blue Lock Manga online. We provide high-quality scans of the latest chapters as soon as they are released in Japan. Join millions of fans worldwide in following the journey of Yoichi Isagi as he aims to become the world's greatest striker.",
         "h2": "What is the \"Blue Lock\"?",
         "p2": "The Blue Lock is a controversial training facility created by Jinpachi Ego. Following Japan's defeat in the 2018 World Cup, the Japanese Football Union initiated this project to cultivate a striker with a massive ego who can lead Japan to World Cup glory. Three hundred high school forwards are imprisoned in this facility, competing in a battle royale where only one will emerge as the chosen striker, while the careers of the losers will be ended forever.",
         "h3": "The Neo Egoist League",
@@ -274,20 +274,20 @@ export const translations = {
       },
       "faq": {
         "q1": "Où lire le manga Blue Lock en ligne gratuitement en HD ?",
-        "a1": "Vous pouvez lire les scans du manga Blue Lock en ligne gratuitement en haute définition directement sur Bluelockm.com. Tous les chapitres, du chapitre 1 aux toutes dernières sorties, sont accessibles sans inscription ni abonnement.",
+        "a1": "Vous pouvez lire les scans du manga Blue Lock en ligne gratuitement en haute définition directement sur BlueLockChapter.com. Tous les chapitres, du chapitre 1 aux toutes dernières sorties, sont accessibles sans inscription ni abonnement.",
         "q2": "Le manga Blue Lock est-il terminé ou en cours ?",
         "a2": "Non, le manga Blue Lock est actuellement en cours. Écrit par Muneyuki Kaneshiro et illustré par Yusuke Nomura, il est prépublié chaque semaine dans le Weekly Shōnen Magazine de Kodansha.",
         "q3": "Combien de tomes et de chapitres compte le manga Blue Lock ?",
-        "a3": "En 2026, Blue Lock compte plus de 30 volumes reliés et plus de 367 chapitres, continuant son arc palpitant de la Ligue N��o-Égoïste.",
+        "a3": "Au Japon, 40 volumes reliés de Blue Lock étaient sortis en août 2026, pour plus de 360 chapitres. Après la Néo Egoist League (chapitres 152 à 302), l'histoire est passée à l'arc de la Coupe du Monde U-20, qui commence au chapitre 303.",
         "q4": "Quelles sont les différences entre le manga et l'anime Blue Lock ?",
         "a4": "Le manga Blue Lock propose un trait artistique ultra détaillé et percutant signé Yusuke Nomura, que l'adaptation animée simplifie souvent. Les doubles pages, les auras et les expressions d'ego y sont bien plus spectaculaires.",
         "q5": "Par où dois-je commencer à lire Blue Lock ?",
         "a5": "Si vous découvrez l'œuvre, commencez par le Chapitre 1. L'évolution psychologique des attaquants et l'intensité des sélections se savourent dès le premier chapitre.",
         "q6": "Pourquoi lire le manga Blue Lock sur ce site ?",
-        "a6": "Bluelockm.com offre une expérience de lecture ultra-rapide, sans pubs intrusives, avec des scans HD propres, le choix entre l'anglais et le français, et les sorties les plus rapides."
+        "a6": "BlueLockChapter.com offre une expérience de lecture ultra-rapide, sans pubs intrusives, avec des scans HD propres, le choix entre l'anglais et le français, et les sorties les plus rapides."
       },
       "seo": {
-        "p1": "Bienvenue sur Bluelockm.com, la destination principale des fans pour lire le manga Blue Lock en ligne. Nous fournissons des scans de haute qualité des derniers chapitres dès leur sortie au Japon. Rejoignez des millions de fans à travers le monde en suivant le voyage de Yoichi Isagi qui cherche à devenir le plus grand attaquant du monde.",
+        "p1": "Bienvenue sur BlueLockChapter.com, la destination principale des fans pour lire le manga Blue Lock en ligne. Nous fournissons des scans de haute qualité des derniers chapitres dès leur sortie au Japon. Rejoignez des millions de fans à travers le monde en suivant le voyage de Yoichi Isagi qui cherche à devenir le plus grand attaquant du monde.",
         "h2": "Qu'est-ce que le \"Blue Lock\" ?",
         "p2": "Le Blue Lock est un centre de formation controversé créé par Jinpachi Ego. Suite à la défaite du Japon lors de la Coupe du Monde 2018, l'Union Japonaise de Football a lancé ce projet pour cultiver un attaquant doté d'un ego massif capable de mener le Japon à la gloire en Coupe du Monde. Trois cents attaquants de lycée sont emprisonnés dans ce centre, s'affrontant dans une bataille royale où un seul émergera comme l'attaquant élu, tandis que les carrières des perdants seront terminées à jamais.",
         "h3": "La Neo Egoist League",
@@ -495,20 +495,20 @@ export const translations = {
       },
       "faq": {
         "q1": "Onde ler o mangá Blue Lock online grátis em português?",
-        "a1": "Você pode ler o mangá Blue Lock online grátis em scans HD em português diretamente no Bluelockm.com/pt. Todos os capítulos, do Capítulo 1 até os lançamentos semanais mais recentes, estão disponíveis com carregamento ultra-rápido e sem necessidade de registro.",
+        "a1": "Você pode ler o mangá Blue Lock online grátis em scans HD em português diretamente no BlueLockChapter.com/pt. Todos os capítulos, do Capítulo 1 até os lançamentos semanais mais recentes, estão disponíveis com carregamento ultra-rápido e sem necessidade de registro.",
         "q2": "O mangá Blue Lock já está finalizado ou ainda está em andamento?",
         "a2": "Não, o mangá Blue Lock ainda está em andamento. Criado por Muneyuki Kaneshiro e ilustrado por Yusuke Nomura, ele é publicado semanalmente na Weekly Shōnen Magazine da Kodansha, com novos capítulos lançados a cada semana.",
         "q3": "Quantos volumes e capítulos tem o mangá Blue Lock?",
-        "a3": "Em 2026, Blue Lock já ultrapassou a marca de 30 volumes encadernados (tankōbon) e mais de 366 capítulos publicados, avançando intensamente no arco internacional da Liga Neo Egoísta (Neo Egoist League).",
+        "a3": "No Japão, 40 volumes encadernados (tankōbon) de Blue Lock tinham sido lançados até agosto de 2026, com mais de 360 capítulos. Depois da Neo Egoist League (capítulos 152 a 302), a história entrou no arco da Copa do Mundo Sub-20, que começa no capítulo 303.",
         "q4": "Quais são as diferenças entre o mangá e o anime de Blue Lock?",
         "a4": "O mangá de Blue Lock traz páginas duplas espetaculares desenhadas por Yusuke Nomura, com auras visuais arrebatadoras, detalhes anatômicos expressivos e um ritmo visceral que a animação muitas vezes simplifica. A leitura do mangá entrega a visão artística original e completa da obra.",
         "q5": "Por onde devo começar a ler Blue Lock?",
         "a5": "Se você é novato na obra, recomendamos iniciar a leitura desde o Capítulo 1. A introdução de Jinpachi Ego e as seleções de sobrevivência do Time Z constroem a base psicológica imperdível para entender a evolução de Yoichi Isagi.",
         "q6": "Por que ler o mangá Blue Lock neste site?",
-        "a6": "O Bluelockm.com oferece a melhor experiência de leitura na web: scans limpos em alta definição, carregamento instantâneo, modos de leitura verticais e horizontais, além de versões completas em Português, Inglês e Francês sem anúncios invasivos."
+        "a6": "O BlueLockChapter.com oferece a melhor experiência de leitura na web: scans limpos em alta definição, carregamento instantâneo, modos de leitura verticais e horizontais, além de versões completas em Português, Inglês e Francês sem anúncios invasivos."
       },
       "seo": {
-        "p1": "Bem-vindo ao Bluelockm.com/pt, o principal portal brasileiro e lusófono para ler o mangá Blue Lock online em português. Disponibilizamos scans em alta resolução dos capítulos mais recentes assim que são lançados no Japão. Junte-se a milhões de leitores pelo mundo e acompanhe a ascensão de Yoichi Isagi rumo ao topo do futebol mundial.",
+        "p1": "Bem-vindo ao BlueLockChapter.com/pt, o principal portal brasileiro e lusófono para ler o mangá Blue Lock online em português. Disponibilizamos scans em alta resolução dos capítulos mais recentes assim que são lançados no Japão. Junte-se a milhões de leitores pelo mundo e acompanhe a ascensão de Yoichi Isagi rumo ao topo do futebol mundial.",
         "h2": "O que é o projeto \"Blue Lock\"?",
         "p2": "O Blue Lock é um centro de treinamento experimental idealizado pelo excêntrico estrategista Jinpachi Ego. Após a eliminação do Japão na Copa do Mundo de 2018, a União Japonesa de Futebol contratou Ego para criar o maior atacante do planeta — um craque dotado de um ego absoluto capaz de marcar gols decisivos sob qualquer pressão. Trezentos atacantes colegiais foram trancafiados em um centro de confinamento de alta tecnologia onde apenas um sobreviverá profissionalmente, enquanto os demais terão suas carreiras no futebol japonês encerradas para sempre.",
         "h3": "A Liga Neo Egoísta (Neo Egoist League)",

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, Users, Star, Zap, Flame, Award } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
-import { PAGE_META, SITE_URL, homeSchemas } from '../utils/seo';
+import { PAGE_META, SITE_URL, homeSchemas, fillFaq } from '../utils/seo';
 import { useManga } from '../context/MangaContext';
 import { useLanguage } from '../context/LanguageContext';
 import { ARCS } from '../constants';
@@ -22,6 +22,16 @@ const Home: React.FC = () => {
   }, [chapters, lang]);
 
   const latestChapter = readableChapters[0];
+
+  // English home: the full FAQ from data/home-faq.js, shown on the page and sent as FAQPage schema.
+  // FR/PT keep their short translated FAQ (no schema, since HOME_FAQ is English only).
+  const latestNum = latestChapter ? Math.floor(latestChapter.number) : '';
+  const faqItems = React.useMemo(
+    () => (lang === 'en'
+      ? fillFaq(HOME_FAQ, latestNum)
+      : [1, 2, 3, 4].map(i => ({ q: (t.home.faq as any)[`q${i}`], a: (t.home.faq as any)[`a${i}`] }))),
+    [lang, latestNum, t],
+  );
   const [continueChapter, setContinueChapter] = React.useState<number | null>(null);
 
   React.useEffect(() => {
@@ -45,7 +55,7 @@ const Home: React.FC = () => {
         title={pageMeta.title}
         description={pageMeta.description}
         canonicalUrl={lang === 'en' ? `${SITE_URL}/` : `${SITE_URL}/${lang}`}
-        schemas={homeSchemas()}
+        schemas={homeSchemas(lang === 'en' ? faqItems : undefined)}
         alternateLinks={alternateLinks}
       />
 
@@ -334,22 +344,12 @@ const Home: React.FC = () => {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2">
-            <div className="bg-white dark:bg-[#181818] p-6 rounded-xl border border-gray-200 dark:border-white/5 shadow-sm">
-              <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">{t.home.faq.q1}</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{t.home.faq.a1}</p>
-            </div>
-            <div className="bg-white dark:bg-[#181818] p-6 rounded-xl border border-gray-200 dark:border-white/5 shadow-sm">
-              <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">{t.home.faq.q2}</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{t.home.faq.a2}</p>
-            </div>
-            <div className="bg-white dark:bg-[#181818] p-6 rounded-xl border border-gray-200 dark:border-white/5 shadow-sm">
-              <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">{t.home.faq.q3}</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{t.home.faq.a3}</p>
-            </div>
-            <div className="bg-white dark:bg-[#181818] p-6 rounded-xl border border-gray-200 dark:border-white/5 shadow-sm">
-              <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">{t.home.faq.q4}</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{t.home.faq.a4}</p>
-            </div>
+            {faqItems.map((f) => (
+              <div key={f.q} className="bg-white dark:bg-[#181818] p-6 rounded-xl border border-gray-200 dark:border-white/5 shadow-sm">
+                <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">{f.q}</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{f.a}</p>
+              </div>
+            ))}
           </div>
         </section>
 

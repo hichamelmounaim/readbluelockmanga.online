@@ -59,6 +59,80 @@ const SERIES = {
   url: `${SITE_URL}/`,
 };
 
+/** Full ComicSeries entity for the series (home page and chapter list). */
+export function comicSeriesSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ComicSeries',
+    name: 'Blue Lock',
+    alternateName: ['ブルーロック', 'Buruu Rokku'],
+    description: "Three hundred high school forwards are locked inside Jinpachi Ego's Blue Lock facility, where only one egoist striker will emerge to lead Japan to the World Cup.",
+    url: `${SITE_URL}/`,
+    image: DEFAULT_OG_IMAGE,
+    author: [
+      { '@type': 'Person', name: 'Muneyuki Kaneshiro' },
+      { '@type': 'Person', name: 'Yusuke Nomura' },
+    ],
+    publisher: { '@type': 'Organization', name: 'Kodansha', url: 'https://www.kodansha.co.jp' },
+    genre: ['Sports', 'Psychological', 'Shounen', 'Soccer'],
+    startDate: '2018-08-01',
+  };
+}
+
+/** FAQPage schema. Only use it when the same questions are visible on the page. */
+export function faqSchema(list) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: list.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  };
+}
+
+/** Replace "{latest}" in FAQ answers with the latest chapter number. */
+export const fillFaq = (list, latest) => list.map(f => ({ q: f.q, a: String(f.a).replace(/\{latest\}/g, String(latest)) }));
+
+// Chapter ranges per arc (end: null = ongoing). Must match getArcInfoEn below.
+const ARC_RANGES = {
+  'first-selection': [1, 38],
+  'second-selection': [39, 87],
+  'third-selection-u20': [88, 151],
+  'neo-egoist-league': [152, 302],
+  'u20-world-cup': [303, null],
+};
+
+/**
+ * A short paragraph of facts that is different on every chapter page:
+ * where the chapter sits in its arc, whether it is a half chapter, and its page count.
+ */
+export function chapterFacts(num, lang = 'en', pageCount = 0) {
+  const arc = getArcInfo(num, lang);
+  const [start, end] = ARC_RANGES[arc.arcSlug] || [1, null];
+  const whole = Math.floor(num);
+  const isHalf = whole !== num;
+  const pos = whole - start + 1;
+  const total = end ? end - start + 1 : null;
+  const out = [];
+
+  if (lang === 'fr') {
+    const nth = pos === 1 ? '1er' : `${pos}e`;
+    if (isHalf) out.push(`Le chapitre ${num} est un chapitre bonus publié entre les chapitres ${whole} et ${whole + 1}, dans la partie « ${arc.arcName} ».`);
+    else if (total) out.push(`Le chapitre ${num} est le ${nth} des ${total} chapitres de la partie « ${arc.arcName} » (chapitres ${start} à ${end}).`);
+    else out.push(`Le chapitre ${num} est le ${nth} chapitre de la partie « ${arc.arcName} », commencée au chapitre ${start} et toujours en cours.`);
+    if (pageCount > 0) out.push(`Ce scan VF compte ${pageCount} pages.`);
+  } else if (lang === 'pt') {
+    if (isHalf) out.push(`O capítulo ${num} é um capítulo extra publicado entre os capítulos ${whole} e ${whole + 1}, dentro de "${arc.arcName}".`);
+    else if (total) out.push(`O capítulo ${num} é o ${pos}º dos ${total} capítulos de "${arc.arcName}" (capítulos ${start} a ${end}).`);
+    else out.push(`O capítulo ${num} é o ${pos}º capítulo de "${arc.arcName}", que começou no capítulo ${start} e continua em andamento.`);
+    if (pageCount > 0) out.push(`Esta versão em português tem ${pageCount} páginas.`);
+  } else {
+    if (isHalf) out.push(`Chapter ${num} is a bonus half chapter released between chapters ${whole} and ${whole + 1}, part of the ${arc.arcName}.`);
+    else if (total) out.push(`Chapter ${num} is chapter ${pos} of ${total} in the ${arc.arcName} (chapters ${start}–${end}).`);
+    else out.push(`Chapter ${num} is chapter ${pos} of the ${arc.arcName}, which started at chapter ${start} and is still ongoing.`);
+    if (pageCount > 0) out.push(`This English version has ${pageCount} pages.`);
+  }
+  return out.join(' ');
+}
+
 // Language codes used across <html lang>, og:locale and hreflang.
 export const LANGS = ['en', 'fr', 'pt'];
 export const HTML_LANG = { en: 'en', fr: 'fr', pt: 'pt-BR' };
@@ -388,6 +462,7 @@ export function getChapterSEOData(chapterNumber, opts = {}) {
     hasRealTitle: Boolean(title),
     summary,
     hasUniqueSummary: Boolean(note.summary),
+    facts: chapterFacts(num, lang, hasPages ? (opts.pageCount || 0) : 0),
     ...arc,
     seoTitle,
     seoDescription,
@@ -599,30 +674,33 @@ export const PAGE_META = {
   },
 };
 
-export function homeSchemas() {
-  return [
+/** Home page schemas. Pass the FAQ only when it is shown on the page. */
+export function homeSchemas(faq) {
+  const list = [
     {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       name: SITE_NAME,
       url: `${SITE_URL}/`,
     },
+    comicSeriesSchema(),
+  ];
+  if (faq?.length) list.push(faqSchema(faq));
+  return list;
+}
+
+/** Chapter list page: a CollectionPage about the series, plus the series itself. */
+export function mangaListSchemas(lang, route, title) {
+  return [
     {
       '@context': 'https://schema.org',
-      '@type': 'ComicSeries',
-      name: 'Blue Lock',
-      alternateName: ['ブルーロック', 'Buruu Rokku'],
-      description: "Three hundred high school forwards are locked inside Jinpachi Ego's Blue Lock facility, where only one egoist striker will emerge to lead Japan to the World Cup.",
-      url: `${SITE_URL}/`,
-      image: DEFAULT_OG_IMAGE,
-      author: [
-        { '@type': 'Person', name: 'Muneyuki Kaneshiro' },
-        { '@type': 'Person', name: 'Yusuke Nomura' },
-      ],
-      publisher: { '@type': 'Organization', name: 'Kodansha', url: 'https://www.kodansha.co.jp' },
-      genre: ['Sports', 'Psychological', 'Shounen', 'Soccer'],
-      startDate: '2018-08-01',
+      '@type': 'CollectionPage',
+      name: title,
+      url: `${SITE_URL}${route}`,
+      inLanguage: HTML_LANG[lang],
+      about: SERIES,
     },
+    comicSeriesSchema(),
   ];
 }
 

@@ -14,6 +14,7 @@ export interface ChapterSEOData {
   hasRealTitle: boolean;
   summary: string;
   hasUniqueSummary: boolean;
+  facts: string;
   arcName: string;
   arcSlug: string;
   arcDescription: string;
@@ -61,7 +62,12 @@ export const OG_LOCALE: Record<SupportedLang, string> = core.OG_LOCALE;
 export const buildAlternates = (basePath: string, langs?: SupportedLang[]): { rel: string; hreflang: string; href: string }[] =>
   core.buildAlternates(basePath, langs);
 
-export const homeSchemas = (): object[] => core.homeSchemas();
+export type FaqItem = { q: string; a: string };
+export const homeSchemas = (faq?: FaqItem[]): object[] => core.homeSchemas(faq);
+export const faqSchema = (list: FaqItem[]): object => core.faqSchema(list);
+export const fillFaq = (list: FaqItem[], latest: number | string): FaqItem[] => core.fillFaq(list, latest);
+export const mangaListSchemas = (lang: SupportedLang, route: string, title: string): object[] =>
+  core.mangaListSchemas(lang, route, title);
 export const abs = (path: string): string => core.abs(path);
 export const realChapterTitle = (num: number, title?: string): string | null => core.realChapterTitle(num, title);
 export const getGuideSEOData = (path: string, guide: object): { seoTitle: string; seoDescription: string; canonicalUrl: string; schemas: object[] } =>

@@ -9,6 +9,7 @@ import {
   getChapterSEOData, getCharacterSEOData, getAdjacentChapters, getArcInfo,
   realChapterTitle, breadcrumbSchema, homeSchemas, getGuideSEOData,
   HTML_LANG, OG_LOCALE, LANGS, buildAlternates,
+  faqSchema, fillFaq, mangaListSchemas,
 } from '../utils/seo-core.js';
 import { CHARACTERS_DATA } from '../data/characters.js';
 import { ARCS_DATA } from '../data/arcs.js';
@@ -63,6 +64,13 @@ const UI = {
     latestList: 'Últimos capítulos de Blue Lock', allChars: 'Todos os personagens', h1Suffix: ' – Ler em Português' },
 };
 
+// Visible FAQ block (the FAQPage schema must match what is on the page).
+const faqHtml = (list, heading = 'Frequently Asked Questions') => `<section class="mt-10">
+      <h2 class="text-2xl font-bold mb-4">${esc(heading)}</h2>
+      ${list.map(f => `<h3 class="font-bold text-white mt-4 mb-1">${esc(f.q)}</h3>
+      <p class="text-gray-400 text-sm">${esc(f.a)}</p>`).join('\n      ')}
+    </section>`;
+
 const chapterLabel = (c, lang = 'en') => {
   const t = realChapterTitle(c.number, c.title);
   return `${UI[lang].chapter} ${c.number}${t ? `: ${t}` : ''}`;
@@ -72,6 +80,7 @@ function headTags({ title, description, canonical, noindex = false, ogType = 'we
   const altTags = noindex ? [] : alternates.map(a => `<link data-prerender rel="alternate" hreflang="${esc(a.hreflang)}" href="${esc(a.href)}" />`);
   const tags = [
     `<title data-prerender>${esc(title)}</title>`,
+    `<meta data-prerender property="og:site_name" content="${esc(SITE_NAME)}" />`,
     `<meta data-prerender name="description" content="${esc(description)}" />`,
     `<meta data-prerender name="robots" content="${noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'}" />`,
     canonical && !noindex ? `<link data-prerender rel="canonical" href="${esc(canonical)}" />` : '',
@@ -177,6 +186,7 @@ for (const ch of chapters) {
         <section class="border-t border-white/10 pt-6 text-gray-300 text-sm leading-relaxed">
           <h2 class="text-2xl font-bold text-white mb-3">${u.whatHappens(ch.number)}</h2>
           <p class="mb-4">${esc(seo.summary)}</p>
+          <p class="mb-4">${esc(seo.facts)}</p>
           <p class="text-gray-400 mb-6"><strong>${u.context}:</strong> ${esc(seo.arcDescription)}</p>
           ${featured.length ? `<h3 class="text-sm font-bold uppercase text-gray-400 mb-3">${u.keyStrikers}</h3>
           <ul class="flex flex-wrap gap-3 mb-6">${featured.map(c => `<li><a href="${routePrefix}/characters/${c.slug}">${esc(c.name)}</a></li>`).join('')}</ul>` : ''}
@@ -234,12 +244,15 @@ for (const lang of ['en', 'fr', 'pt']) {
   const metaObj = PAGE_META[route] || PAGE_META['/characters'];
   const routePrefix = lang === 'en' ? '' : `/${lang}`;
   const alternates = buildAlternates('/characters');
+  // The character FAQ is written in English, so it only goes on the English page.
+  const faq = lang === 'en' ? CHARACTERS_FAQ : [];
 
   write(route, render(headTags({
     ...metaObj, canonical: `${SITE_URL}${route}`,
     schemas: [
       { '@context': 'https://schema.org', '@type': 'CollectionPage', name: metaObj.title, url: `${SITE_URL}${route}`, inLanguage: HTML_LANG[lang] },
       breadcrumbSchema([{ name: UI[lang].home, path: routePrefix || '/' }, { name: UI[lang].characters, path: route }]),
+      ...(faq.length ? [faqSchema(faq)] : []),
     ],
     alternates, lang,
   }), wrap(`<main class="max-w-5xl mx-auto px-4 py-10">
@@ -249,6 +262,7 @@ for (const lang of ['en', 'fr', 'pt']) {
         <h2 class="text-2xl font-bold"><a href="${routePrefix}/characters/${c.slug}">${esc(c.name)}</a></h2>
         <p class="text-xs text-blue-400">${esc(c.role)} • ${esc(c.grade)}</p>
         <p class="text-gray-400 text-sm">${esc(c.description)}</p></li>`).join('')}</ul>
+      ${faq.length ? faqHtml(faq, 'Blue Lock Characters FAQ') : ''}
     </main>`, lang), lang));
 }
 
@@ -270,7 +284,7 @@ for (const lang of LANGS) {
   write(route, render(headTags({
     ...metaObj, canonical: `${SITE_URL}${route}`,
     schemas: [
-      { '@context': 'https://schema.org', '@type': 'CollectionPage', name: metaObj.title, url: `${SITE_URL}${route}`, inLanguage: HTML_LANG[lang] },
+      ...mangaListSchemas(lang, route, metaObj.title),
       breadcrumbSchema([{ name: UI[lang].home, path: routePrefix || '/' }, { name: UI[lang].allChapters, path: route }]),
     ],
     alternates, lang,
@@ -292,9 +306,11 @@ for (const lang of ['en', 'fr', 'pt']) {
   const countKey = lang === 'fr' ? 'pageCountFr' : lang === 'pt' ? 'pageCountPt' : 'pageCount';
   const latestHere = latest.filter(c => (c[countKey] || 0) > 0);
   const h1 = lang === 'fr' ? 'Blue Lock Scan VF' : lang === 'pt' ? 'Blue Lock Mangá em Português' : 'Blue Lock Manga Online';
+  // The home FAQ is written in English, so it (and its schema) only goes on the English home page.
+  const faq = lang === 'en' ? fillFaq(HOME_FAQ, latestInt) : [];
 
   write(route, render(headTags({
-    ...metaObj, canonical: `${SITE_URL}${route}`, schemas: homeSchemas(),
+    ...metaObj, canonical: `${SITE_URL}${route}`, schemas: homeSchemas(faq),
     extra: '<link data-prerender rel="preload" as="image" href="/blue-lock.webp" fetchpriority="high" />',
     alternates, lang,
   }), wrap(`<main class="max-w-5xl mx-auto px-4 py-10">
@@ -307,6 +323,7 @@ for (const lang of ['en', 'fr', 'pt']) {
       </p>
       <h2 class="text-2xl font-bold mb-3">${u.latestList}</h2>
       <ul class="flex flex-wrap gap-2 mb-8">${latestHere.slice(0, 12).map(c => `<li><a href="${routePrefix}/chapter/${c.number}">${esc(chapterLabel(c, lang))}</a></li>`).join('')}</ul>
+      ${faq.length ? faqHtml(faq) : ''}
     </main>`, lang), lang));
 }
 

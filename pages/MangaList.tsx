@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Filter, BookOpen, ArrowRight, Grid, List, Check } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
-import { PAGE_META, SITE_URL } from '../utils/seo';
+import { PAGE_META, SITE_URL, mangaListSchemas } from '../utils/seo';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { useManga } from '../context/MangaContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -67,7 +67,7 @@ const MangaList: React.FC = () => {
         title={pageMeta.title}
         description={pageMeta.description}
         canonicalUrl={lang === 'en' ? `${SITE_URL}/manga` : `${SITE_URL}/${lang}/manga`}
-        schemas={[{ "@context": "https://schema.org", "@type": "CollectionPage", "name": pageMeta.title, "url": `${SITE_URL}${metaPath}` }]}
+        schemas={mangaListSchemas(lang, metaPath, pageMeta.title)}
         alternateLinks={alternateLinks}
       />
 

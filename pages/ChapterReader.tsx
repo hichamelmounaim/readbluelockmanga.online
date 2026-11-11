@@ -503,8 +503,11 @@ const ChapterReader: React.FC = () => {
                 ? `O que acontece em Blue Lock Capítulo ${chapter.number}`
                 : `What Happens in Blue Lock Chapter ${chapter.number}`}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-6">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-4">
               {seo.summary}
+            </p>
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-6">
+              {seo.facts}
             </p>
             <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
               <strong>{lang === 'fr' ? 'Contexte :' : lang === 'pt' ? 'Contexto:' : 'Context:'}</strong> {seo.arcDescription}{' '}
