@@ -27,7 +27,7 @@ const mangaData = JSON.parse(rawData);
 
 // Strip the "Chapter N – " prefix the scraper adds; fall back to "Chapter N".
 // Known titles the scrape is missing.
-const TITLE_OVERRIDES = { 1: 'The End & The Beginning' };
+const TITLE_OVERRIDES = { 1: 'The End & The Beginning', 378: 'The Final Boss' };
 const cleanChapterTitle = (num, raw) => {
   if (TITLE_OVERRIDES[num]) return TITLE_OVERRIDES[num];
   const t = String(raw || '').trim().replace(/^(ch\.?|chapter)\s*[\d.]+\s*[–—:\-]\s*/i, '').trim();
