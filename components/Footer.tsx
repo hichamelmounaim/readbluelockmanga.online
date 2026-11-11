@@ -13,13 +13,13 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
           <div className="max-w-md">
             <h3 className="text-xl font-heading font-extrabold text-gray-900 dark:text-white mb-6 tracking-tight">
-              BLUE <span className="text-blue-500">LOCK MANGA</span>
+              HAIKYU<span className="text-orange-500">!! MANGA</span>
             </h3>
             <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-6">
               {t.hero.subtitle}
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              Fan Project. Not affiliated with Muneyuki Kaneshiro & Yusuke Nomura or Kodansha.
+              Fan Project. Not affiliated with Haruichi Furudate or Shueisha.
             </p>
           </div>
 
@@ -27,32 +27,32 @@ const Footer: React.FC = () => {
             <div>
               <h4 className="font-bold text-gray-900 dark:text-white mb-4 text-sm uppercase tracking-wider">{t.nav.explore}</h4>
               <ul className="space-y-3 text-sm text-gray-700 dark:text-gray-300">
-                <li><Link to={localizePath('/manga')} className="hover:text-blue-500 transition-colors">{t.nav.allChapters}</Link></li>
-                <li><Link to={localizePath('/chapter/1')} className="hover:text-blue-500 transition-colors">{t.hero.exploreMore}</Link></li>
-                <li><Link to={localizePath('/characters')} className="hover:text-blue-500 transition-colors">{t.nav.characters}</Link></li>
-                <li><Link to={localizePath('/arcs')} className="hover:text-blue-500 transition-colors">Story Arcs</Link></li>
-                <li><Link to={localizePath('/teams')} className="hover:text-blue-500 transition-colors">Teams</Link></li>
-                <li><Link to={localizePath('/anime')} className="hover:text-blue-500 transition-colors">Anime Guide</Link></li>
-                <li><Link to={localizePath('/about')} className="hover:text-blue-500 transition-colors">{t.footer.aboutUs}</Link></li>
+                <li><Link to={localizePath('/manga')} className="hover:text-orange-500 transition-colors">{t.nav.allChapters}</Link></li>
+                <li><Link to={localizePath('/chapter/1')} className="hover:text-orange-500 transition-colors">{t.hero.exploreMore}</Link></li>
+                <li><Link to={localizePath('/characters')} className="hover:text-orange-500 transition-colors">{t.nav.characters}</Link></li>
+                <li><Link to={localizePath('/arcs')} className="hover:text-orange-500 transition-colors">Story Arcs</Link></li>
+                <li><Link to={localizePath('/teams')} className="hover:text-orange-500 transition-colors">Teams</Link></li>
+                <li><Link to={localizePath('/anime')} className="hover:text-orange-500 transition-colors">Anime Guide</Link></li>
+                <li><Link to={localizePath('/about')} className="hover:text-orange-500 transition-colors">{t.footer.aboutUs}</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-bold text-gray-900 dark:text-white mb-4 text-sm uppercase tracking-wider">{t.nav.characters}</h4>
               <ul className="space-y-3 text-sm text-gray-700 dark:text-gray-300">
-                <li><Link to={localizePath('/characters/yoichi-isagi')} className="hover:text-blue-500 transition-colors">Yoichi Isagi</Link></li>
-                <li><Link to={localizePath('/characters/meguru-bachira')} className="hover:text-blue-500 transition-colors">Meguru Bachira</Link></li>
-                <li><Link to={localizePath('/characters/rin-itoshi')} className="hover:text-blue-500 transition-colors">Rin Itoshi</Link></li>
-                <li><Link to={localizePath('/characters/seishiro-nagi')} className="hover:text-blue-500 transition-colors">Seishiro Nagi</Link></li>
-                <li><Link to={localizePath('/characters/michael-kaiser')} className="hover:text-blue-500 transition-colors">Michael Kaiser</Link></li>
+                <li><Link to={localizePath('/characters/shoyo-hinata')} className="hover:text-orange-500 transition-colors">Shoyo Hinata</Link></li>
+                <li><Link to={localizePath('/characters/tobio-kageyama')} className="hover:text-orange-500 transition-colors">Tobio Kageyama</Link></li>
+                <li><Link to={localizePath('/characters/kei-tsukishima')} className="hover:text-orange-500 transition-colors">Kei Tsukishima</Link></li>
+                <li><Link to={localizePath('/characters/yu-nishinoya')} className="hover:text-orange-500 transition-colors">Yu Nishinoya</Link></li>
+                <li><Link to={localizePath('/characters/toru-oikawa')} className="hover:text-orange-500 transition-colors">Toru Oikawa</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-bold text-gray-900 dark:text-white mb-4 text-sm uppercase tracking-wider">{t.footer.legal}</h4>
               <ul className="space-y-3 text-sm text-gray-700 dark:text-gray-300">
-                <li><Link to={localizePath('/privacy')} className="hover:text-blue-500 transition-colors">{t.footer.privacy}</Link></li>
-                <li><Link to={localizePath('/terms')} className="hover:text-blue-500 transition-colors">{t.footer.terms}</Link></li>
-                <li><Link to={localizePath('/dmca')} className="hover:text-blue-500 transition-colors">{t.footer.dmca}</Link></li>
-                <li><Link to={localizePath('/disclaimer')} className="hover:text-blue-500 transition-colors">{t.footer.disclaimer}</Link></li>
+                <li><Link to={localizePath('/privacy')} className="hover:text-orange-500 transition-colors">{t.footer.privacy}</Link></li>
+                <li><Link to={localizePath('/terms')} className="hover:text-orange-500 transition-colors">{t.footer.terms}</Link></li>
+                <li><Link to={localizePath('/dmca')} className="hover:text-orange-500 transition-colors">{t.footer.dmca}</Link></li>
+                <li><Link to={localizePath('/disclaimer')} className="hover:text-orange-500 transition-colors">{t.footer.disclaimer}</Link></li>
               </ul>
             </div>
           </div>
@@ -60,7 +60,7 @@ const Footer: React.FC = () => {
 
         <div className="border-t border-gray-200 dark:border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-gray-500 dark:text-gray-400 text-center md:text-left">
-            &copy; {currentYear} Blue Lock Manga. All rights reserved.
+            &copy; {currentYear} Haikyu!! Manga. All rights reserved.
           </p>
           <div className="flex gap-6 text-xs text-gray-500 dark:text-gray-400 font-medium">
             <span>Made for fans by fans</span>

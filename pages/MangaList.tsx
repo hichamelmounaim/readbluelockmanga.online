@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Filter, BookOpen, ArrowRight, Grid, List, Check } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
-import { PAGE_META, SITE_URL } from '../utils/seo';
+import { PAGE_META, SITE_URL, mangaListSchemas, buildAlternates } from '../utils/seo';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { useManga } from '../context/MangaContext';
 import { useLanguage } from '../context/LanguageContext';
 
-const STORAGE_KEY = 'bluelock_read_chapters';
+const STORAGE_KEY = 'haikyuu_read_chapters';
 
 const MangaList: React.FC = () => {
   const { chapters } = useManga();
-  const { lang, t, localizePath } = useLanguage();
+  const { t, localizePath } = useLanguage();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
@@ -42,15 +42,8 @@ const MangaList: React.FC = () => {
     localStorage.setItem('manga_view_mode', mode);
   };
 
-  const metaPath = lang === 'en' ? '/manga' : `/${lang}/manga`;
-  const pageMeta = PAGE_META[metaPath] || PAGE_META['/manga'];
-
-  const alternateLinks = [
-    { rel: 'alternate', hreflang: 'en', href: `${SITE_URL}/manga` },
-    { rel: 'alternate', hreflang: 'fr', href: `${SITE_URL}/fr/manga` },
-    { rel: 'alternate', hreflang: 'pt', href: `${SITE_URL}/pt/manga` },
-    { rel: 'alternate', hreflang: 'x-default', href: `${SITE_URL}/manga` },
-  ];
+  const pageMeta = PAGE_META['/manga'];
+  const alternateLinks = buildAlternates('/manga');
 
   const filteredChapters = React.useMemo(() => {
     return chapters.filter(ch =>
@@ -66,8 +59,8 @@ const MangaList: React.FC = () => {
       <SEOHead
         title={pageMeta.title}
         description={pageMeta.description}
-        canonicalUrl={lang === 'en' ? `${SITE_URL}/manga` : `${SITE_URL}/${lang}/manga`}
-        schemas={[{ "@context": "https://schema.org", "@type": "CollectionPage", "name": pageMeta.title, "url": `${SITE_URL}${metaPath}` }]}
+        canonicalUrl={`${SITE_URL}/manga`}
+        schemas={mangaListSchemas('/manga', pageMeta.title)}
         alternateLinks={alternateLinks}
       />
 
@@ -80,13 +73,13 @@ const MangaList: React.FC = () => {
 
       {/* Hero Header */}
       <div className="relative bg-[#111] border-b border-white/5 py-16 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-blue-500/5 blur-3xl rounded-full scale-150 opacity-20 translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute inset-0 bg-orange-500/5 blur-3xl rounded-full scale-150 opacity-20 translate-x-1/2 -translate-y-1/2"></div>
         <div className="max-w-7xl mx-auto relative z-10 text-center">
-          <span className="text-blue-500 font-bold tracking-widest uppercase text-xs mb-3 block">
+          <span className="text-orange-500 font-bold tracking-widest uppercase text-xs mb-3 block">
             {t.mangaList.completeCollection} ({chapters.length})
           </span>
           <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6">
-            BLUE <span className="text-blue-500">LOCK MANGA</span> {t.nav.allChapters}
+            HAIKYU!! <span className="text-orange-500">MANGA</span> {t.nav.allChapters}
           </h1>
           <p className="text-gray-400 max-w-2xl mx-auto text-base">
             {t.hero.subtitle}
@@ -109,37 +102,40 @@ const MangaList: React.FC = () => {
                 aria-label={t.mangaList.searchPlaceholder || "Search chapters"}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/40 text-gray-900 dark:text-white placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                className="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/10 rounded-xl text-sm focus:outline-none focus:border-orange-500 transition-colors"
               />
             </div>
 
-            {/* Sort & View Options */}
-            <div className="flex items-center gap-3 w-full md:w-auto justify-end">
+            {/* Controls */}
+            <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+              {/* Sort Toggle */}
               <button
-                onClick={() => setSortOrder(o => o === 'desc' ? 'asc' : 'desc')}
-                aria-label={`Sort chapters, currently ${sortOrder === 'desc' ? t.mangaList.newest : t.mangaList.oldest}`}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/40 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
+                onClick={() => setSortOrder(prev => prev === 'desc' ? 'asc' : 'desc')}
+                className="flex items-center gap-2 px-4 py-2.5 bg-gray-50 dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/10 rounded-xl text-xs font-semibold hover:border-orange-500/50 transition-colors"
               >
-                <Filter size={16} />
-                <span>{sortOrder === 'desc' ? t.mangaList.newest : t.mangaList.oldest}</span>
+                <Filter size={14} className="text-orange-500" />
+                <span>{sortOrder === 'desc' ? t.mangaList.newestFirst : t.mangaList.oldestFirst}</span>
               </button>
 
-              <div className="flex items-center rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/40 p-1">
+              {/* View Mode Toggle */}
+              <div className="flex items-center bg-gray-50 dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/10 rounded-xl p-1">
                 <button
                   onClick={() => handleViewMode('grid')}
-                  className={`p-1.5 rounded-lg transition-colors ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
-                  title="Grid View"
-                  aria-label="Grid View"
+                  className={`p-1.5 rounded-lg transition-colors ${
+                    viewMode === 'grid' ? 'bg-white dark:bg-white/10 text-orange-500 shadow-sm' : 'text-gray-400 hover:text-white'
+                  }`}
+                  aria-label="Grid view"
                 >
-                  <Grid size={18} />
+                  <Grid size={16} />
                 </button>
                 <button
                   onClick={() => handleViewMode('list')}
-                  className={`p-1.5 rounded-lg transition-colors ${viewMode === 'list' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
-                  title="List View"
-                  aria-label="List View"
+                  className={`p-1.5 rounded-lg transition-colors ${
+                    viewMode === 'list' ? 'bg-white dark:bg-white/10 text-orange-500 shadow-sm' : 'text-gray-400 hover:text-white'
+                  }`}
+                  aria-label="List view"
                 >
-                  <List size={18} />
+                  <List size={16} />
                 </button>
               </div>
             </div>
@@ -152,7 +148,7 @@ const MangaList: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {filteredChapters.map((ch) => {
               const isRead = readChapters.has(ch.number);
-              const pCount = lang === 'fr' ? (ch.pageCountFr || 20) : lang === 'pt' ? (ch.pageCountPt || 20) : (ch.pageCount || 20);
+              const pCount = ch.pageCount || 20;
               return (
                 <Link
                   key={ch.id}
@@ -160,12 +156,12 @@ const MangaList: React.FC = () => {
                   className={`group relative flex flex-col justify-between p-5 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
                     isRead
                       ? 'bg-gray-100/60 dark:bg-white/[0.02] border-gray-200 dark:border-white/5 opacity-75'
-                      : 'bg-white dark:bg-[#141414] border-gray-200 dark:border-white/5 hover:border-blue-500/50'
+                      : 'bg-white dark:bg-[#141414] border-gray-200 dark:border-white/5 hover:border-orange-500/50'
                   }`}
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs font-bold text-blue-500 uppercase tracking-wider">
+                      <span className="text-xs font-bold text-orange-500 uppercase tracking-wider">
                         {t.home.chapter} {ch.number}
                       </span>
                       <button
@@ -180,7 +176,7 @@ const MangaList: React.FC = () => {
                       </button>
                     </div>
 
-                    <h3 className="font-heading font-bold text-base text-gray-900 dark:text-white group-hover:text-blue-400 transition-colors line-clamp-1 mb-2">
+                    <h3 className="font-heading font-bold text-base text-gray-900 dark:text-white group-hover:text-orange-400 transition-colors line-clamp-1 mb-2">
                       {ch.title}
                     </h3>
                     <p className="text-xs text-gray-400 line-clamp-1">
@@ -188,7 +184,7 @@ const MangaList: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-gray-100 dark:border-white/5 flex items-center justify-between text-xs text-gray-500 group-hover:text-blue-400 transition-colors">
+                  <div className="mt-4 pt-3 border-t border-gray-100 dark:border-white/5 flex items-center justify-between text-xs text-gray-500 group-hover:text-orange-400 transition-colors">
                     <span>{t.home.readNow}</span>
                     <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -201,7 +197,7 @@ const MangaList: React.FC = () => {
           <div className="bg-white dark:bg-[#141414] rounded-2xl border border-gray-200 dark:border-white/5 divide-y divide-gray-100 dark:divide-white/5 overflow-hidden">
             {filteredChapters.map((ch) => {
               const isRead = readChapters.has(ch.number);
-              const pCount = lang === 'fr' ? (ch.pageCountFr || 20) : lang === 'pt' ? (ch.pageCountPt || 20) : (ch.pageCount || 20);
+              const pCount = ch.pageCount || 20;
               return (
                 <div
                   key={ch.id}
@@ -213,7 +209,7 @@ const MangaList: React.FC = () => {
                     to={localizePath(`/chapter/${ch.number}`)}
                     className="flex-1 flex items-center gap-4 min-w-0"
                   >
-                    <span className="text-sm font-bold text-blue-500 min-w-[70px]">
+                    <span className="text-sm font-bold text-orange-500 min-w-[70px]">
                       {t.home.chapter} {ch.number}
                     </span>
                     <span className="text-sm font-medium text-gray-900 dark:text-white truncate">
@@ -237,7 +233,7 @@ const MangaList: React.FC = () => {
                     </button>
                     <Link
                       to={localizePath(`/chapter/${ch.number}`)}
-                      className="px-3 py-1 bg-blue-600/10 text-blue-400 hover:bg-blue-600 hover:text-white rounded-lg text-xs font-bold transition-colors"
+                      className="px-3 py-1 bg-orange-600/10 text-orange-400 hover:bg-orange-600 hover:text-white rounded-lg text-xs font-bold transition-colors"
                     >
                       {t.home.readNow}
                     </Link>

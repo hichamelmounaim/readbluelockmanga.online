@@ -12,7 +12,7 @@ const ChapterReader: React.FC = () => {
   const { chapterId } = useParams<{ chapterId: string }>();
   const navigate = useNavigate();
   const { chapters, getChapterWithPages } = useManga();
-  const { lang, t, setLang, localizePath } = useLanguage();
+  const { t, localizePath } = useLanguage();
 
   const [chapter, setChapter] = useState<Chapter | null>(null);
   const [loading, setLoading] = useState(true);
@@ -29,7 +29,7 @@ const ChapterReader: React.FC = () => {
 
   useEffect(() => {
     if (currentNum > 0) {
-      localStorage.setItem('bluelock_last_chapter', String(currentNum));
+      localStorage.setItem('haikyuu_last_chapter', String(currentNum));
     }
   }, [currentNum]);
 
@@ -81,13 +81,11 @@ const ChapterReader: React.FC = () => {
   prevChapterRef.current = prevChapter;
   nextChapterRef.current = nextChapter;
 
-  // Select pages based on active language
+  // Select pages
   const pages = useMemo(() => {
     if (!chapter) return [];
-    if (lang === 'fr' && chapter.pagesFr && chapter.pagesFr.length > 0) return chapter.pagesFr;
-    if (lang === 'pt' && chapter.pagesPt && chapter.pagesPt.length > 0) return chapter.pagesPt;
     return chapter.pages || [];
-  }, [chapter, lang]);
+  }, [chapter]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -131,36 +129,22 @@ const ChapterReader: React.FC = () => {
     }));
   };
 
-  // Which languages really have scans for this chapter (FR/PT fall back to EN pages for
-  // readers, but those fallback pages must not be indexed as French/Portuguese content).
-  const availableLangs = useMemo<SupportedLang[]>(() => {
-    if (!chapter) return [];
-    const has = (arr?: string[], count?: number) => (arr?.length ?? count ?? 0) > 0;
-    const out: SupportedLang[] = [];
-    if (has(chapter.pages, chapter.pageCount)) out.push('en');
-    if (has(chapter.pagesFr, chapter.pageCountFr)) out.push('fr');
-    if (has(chapter.pagesPt, chapter.pageCountPt)) out.push('pt');
-    return out;
-  }, [chapter]);
-  const hasOwnLangPages = availableLangs.includes(lang);
-
   const seo = useMemo(() => {
     return getChapterSEOData(currentNum, {
       title: chapter?.title,
-      pageCount: hasOwnLangPages ? pages.length : 0,
-      lang,
-      availableLangs,
+      pageCount: pages.length,
+      lang: 'en',
       releaseDate: chapter?.releaseDate,
     });
-  }, [currentNum, chapter?.title, chapter?.releaseDate, pages.length, lang, availableLangs, hasOwnLangPages]);
+  }, [currentNum, chapter?.title, chapter?.releaseDate, pages.length]);
 
-  const chapterWord = lang === 'fr' ? 'Chapitre' : lang === 'pt' ? 'Capítulo' : 'Chapter';
-  const pageWord = lang === 'fr' ? 'Page' : lang === 'pt' ? 'Página' : 'Page';
+  const chapterWord = 'Chapter';
+  const pageWord = 'Page';
 
   if (loading && !chapter) {
     return (
       <div className="min-h-screen bg-[#0d0d0d] flex flex-col items-center justify-center p-4">
-        <div className="w-12 h-12 border-3 border-blue-500/20 border-t-blue-500 rounded-full animate-spin mb-4" />
+        <div className="w-12 h-12 border-3 border-orange-500/20 border-t-orange-500 rounded-full animate-spin mb-4" />
         <p className="text-gray-400 text-sm font-semibold tracking-wider uppercase animate-pulse">
           {t.reader.loading}
         </p>
@@ -172,21 +156,15 @@ const ChapterReader: React.FC = () => {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-[#121212] flex flex-col items-center justify-center p-4">
         <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Chapter not found</h2>
-        <Link to={localizePath('/manga')} className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <Link to={localizePath('/manga')} className="px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700">
           {t.reader.backToChapters}
         </Link>
       </div>
     );
   }
 
-  const langList: { code: SupportedLang; label: string; flag: string }[] = [
-    { code: 'en', label: 'EN', flag: '🇺🇸' },
-    { code: 'fr', label: 'FR', flag: '🇫🇷' },
-    { code: 'pt', label: 'PT', flag: '🇧🇷' },
-  ];
-
   return (
-    <div className="min-h-screen bg-white dark:bg-[#121212] text-gray-900 dark:text-gray-100 flex flex-col selection:bg-blue-600 selection:text-white transition-colors duration-200">
+    <div className="min-h-screen bg-white dark:bg-[#121212] text-gray-900 dark:text-gray-100 flex flex-col selection:bg-orange-600 selection:text-white transition-colors duration-200">
       <SEOHead
         title={seo.seoTitle}
         description={seo.seoDescription}
@@ -214,32 +192,13 @@ const ChapterReader: React.FC = () => {
           </Link>
           <div className="min-w-0">
             <p className="font-heading font-bold text-sm sm:text-base leading-tight truncate text-white">
-              {lang === 'fr' ? `Chapitre ${chapter.number}` : lang === 'pt' ? `Capítulo ${chapter.number}` : `Chapter ${chapter.number}`}
+              Chapter {chapter.number}
               {seo.hasRealTitle && <span className="text-gray-400 font-normal hidden sm:inline">: {seo.title}</span>}
             </p>
             <p className="text-[11px] text-gray-400 truncate hidden sm:block">
               {pages.length > 0 ? `${pages.length} ${t.reader.page}s` : t.reader.availableSoon}
             </p>
           </div>
-        </div>
-
-        {/* Center: Language Switcher in Reader */}
-        <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-lg p-0.5">
-          {langList.map((l) => (
-            <button
-              key={l.code}
-              onClick={() => setLang(l.code)}
-              className={`px-2 py-1 text-[11px] font-bold rounded flex items-center gap-1 transition-all ${
-                lang === l.code
-                  ? 'bg-blue-600 text-white shadow-sm'
-                  : 'text-gray-400 hover:text-white hover:bg-white/5'
-              }`}
-              title={`Switch to ${l.label}`}
-            >
-              <span>{l.flag}</span>
-              <span className="uppercase">{l.code}</span>
-            </button>
-          ))}
         </div>
 
         <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
@@ -249,11 +208,11 @@ const ChapterReader: React.FC = () => {
               value={chapter.number}
               onChange={(e) => handleNav(parseFloat(e.target.value))}
               aria-label="Select chapter"
-              className="bg-white/10 border border-white/10 text-white text-xs font-bold rounded-lg px-2.5 py-1.5 pr-7 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+              className="bg-white/10 border border-white/10 text-white text-xs font-bold rounded-lg px-2.5 py-1.5 pr-7 appearance-none focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer"
             >
               {chapters.map((c) => (
                 <option key={c.number} value={c.number} className="bg-[#1a1a1a] text-white">
-                  {lang === 'fr' ? `Ch. ${c.number}` : lang === 'pt' ? `Cap. ${c.number}` : `Ch. ${c.number}`}
+                  Ch. {c.number}
                 </option>
               ))}
             </select>
@@ -323,7 +282,7 @@ const ChapterReader: React.FC = () => {
 
       {/* Reader Content */}
       <div className="flex-1 pt-16">
-        <h1 className="sr-only">Blue Lock {chapterWord} {chapter.number}{seo.hasRealTitle ? `: ${seo.title}` : ''}{lang === 'fr' ? ' VF' : lang === 'pt' ? ' em Português' : ' English'}</h1>
+        <h1 className="sr-only">Haikyu!! Chapter {chapter.number}{seo.hasRealTitle ? `: ${seo.title}` : ''} English</h1>
         {pages.length > 0 && (
           <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
             <Breadcrumbs items={[
@@ -396,7 +355,7 @@ const ChapterReader: React.FC = () => {
                 <img
                   key={`single-${currentPageIndex}-${retryKeys[currentPageIndex] || 0}`}
                   src={pages[currentPageIndex]}
-                  alt={`Blue Lock ${chapterWord} ${chapter.number} – ${pageWord} ${currentPageIndex + 1}`}
+                  alt={`Haikyu!! ${chapterWord} ${chapter.number} – ${pageWord} ${currentPageIndex + 1}`}
                   width="800"
                   height="1200"
                   className="w-full h-auto block cursor-pointer"
@@ -440,7 +399,7 @@ const ChapterReader: React.FC = () => {
                   <img
                     key={`scroll-${idx}-${retryKeys[idx] || 0}`}
                     src={pageUrl}
-                    alt={`Blue Lock ${chapterWord} ${chapter.number} – ${pageWord} ${idx + 1}`}
+                    alt={`Haikyu!! ${chapterWord} ${chapter.number} – ${pageWord} ${idx + 1}`}
                     width="800"
                     height="1200"
                     className="w-full h-auto block"
@@ -470,8 +429,8 @@ const ChapterReader: React.FC = () => {
       <div className="bg-[#151515] border-t border-white/5 py-6 px-4">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="text-xs font-bold uppercase tracking-wider text-gray-400 flex items-center gap-1.5">
-            <Layers size={14} className="text-blue-500" />
-            {lang === 'fr' ? 'Chapitres proches :' : lang === 'pt' ? 'Capítulos Próximos:' : 'Browse Nearby Chapters:'}
+            <Layers size={14} className="text-orange-500" />
+            Browse Nearby Chapters:
           </span>
           <div className="flex flex-wrap items-center gap-2">
             {surroundingChapters.map(c => (
@@ -479,10 +438,10 @@ const ChapterReader: React.FC = () => {
                 key={c.number}
                 to={localizePath(`/chapter/${c.number}`)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                  c.number === currentNum ? 'bg-blue-600 text-white shadow-md' : 'bg-white/5 text-gray-300 hover:bg-white/10'
+                  c.number === currentNum ? 'bg-orange-600 text-white shadow-md' : 'bg-white/5 text-gray-300 hover:bg-white/10'
                 }`}
               >
-                {lang === 'fr' ? `Ch. ${c.number}` : lang === 'pt' ? `Cap. ${c.number}` : `Ch. ${c.number}`}
+                Ch. {c.number}
               </Link>
             ))}
           </div>
@@ -493,24 +452,22 @@ const ChapterReader: React.FC = () => {
       <div className="bg-white dark:bg-[#181818] border-t border-b border-gray-200 dark:border-white/5 py-12 px-4 relative z-10">
         <div className="max-w-4xl mx-auto space-y-10">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-blue-500 mb-2">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-orange-500 mb-2">
               <span>{seo.arcName}</span>
             </div>
             <h2 className="text-2xl md:text-3xl font-heading font-bold text-gray-900 dark:text-white mb-4">
-              {lang === 'fr'
-                ? `Que se passe-t-il dans Blue Lock Chapitre ${chapter.number}`
-                : lang === 'pt'
-                ? `O que acontece em Blue Lock Capítulo ${chapter.number}`
-                : `What Happens in Blue Lock Chapter ${chapter.number}`}
+              What Happens in Haikyu!! Chapter {chapter.number}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-6">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-4">
               {seo.summary}
             </p>
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-6">
+              {seo.facts}
+            </p>
             <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-              <strong>{lang === 'fr' ? 'Contexte :' : lang === 'pt' ? 'Contexto:' : 'Context:'}</strong> {seo.arcDescription}{' '}
-              {/* Arc guides only exist in English, so always link the English URL. */}
-              <Link to={`/arcs/${seo.arcSlug}`} hrefLang="en" className="text-blue-400 hover:underline">
-                {lang === 'fr' ? `Guide de l'arc (en anglais)` : lang === 'pt' ? 'Guia do arco (em inglês)' : `Read the ${seo.arcName} guide`}
+              <strong>Context:</strong> {seo.arcDescription}{' '}
+              <Link to={`/arcs/${seo.arcSlug}`} className="text-orange-400 hover:underline">
+                Read the {seo.arcName} guide
               </Link>.
             </p>
           </div>
@@ -518,7 +475,7 @@ const ChapterReader: React.FC = () => {
           {/* Internal Linking Mesh: Key Characters Featured in this Arc */}
           <div>
             <h3 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-3 flex items-center gap-2">
-              <Users size={16} className="text-blue-500" />
+              <Users size={16} className="text-orange-500" />
               {t.home.charactersPreviewTitle}:
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -526,15 +483,15 @@ const ChapterReader: React.FC = () => {
                 <Link
                   key={char.slug}
                   to={localizePath(`/characters/${char.slug}`)}
-                  className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/5 hover:border-blue-500/40 hover:bg-blue-600/5 transition-all group"
+                  className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/5 hover:border-orange-500/40 hover:bg-orange-600/5 transition-all group"
                 >
                   <div>
-                    <span className="font-bold text-gray-900 dark:text-white text-sm block group-hover:text-blue-400 transition-colors">
+                    <span className="font-bold text-gray-900 dark:text-white text-sm block group-hover:text-orange-400 transition-colors">
                       {char.name}
                     </span>
                     <span className="text-xs text-gray-500 dark:text-gray-400">{char.role}</span>
                   </div>
-                  <ArrowRight size={14} className="text-gray-400 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all" />
+                  <ArrowRight size={14} className="text-gray-400 group-hover:text-orange-400 group-hover:translate-x-0.5 transition-all" />
                 </Link>
               ))}
             </div>
@@ -558,11 +515,11 @@ const ChapterReader: React.FC = () => {
             {prevChapter ? (
               <Link
                 to={localizePath(`/chapter/${prevChapter.number}`)}
-                className="group rounded-xl bg-gray-50 dark:bg-[#181818] border border-gray-200 dark:border-white/5 p-5 text-left hover:border-blue-500/50 transition-all hover:shadow-lg"
+                className="group rounded-xl bg-gray-50 dark:bg-[#181818] border border-gray-200 dark:border-white/5 p-5 text-left hover:border-orange-500/50 transition-all hover:shadow-lg"
               >
                 <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">{t.reader.prev}</span>
-                <span className="font-bold text-gray-900 dark:text-white text-base group-hover:text-blue-500 transition-colors">
-                  {lang === 'fr' ? `Chapitre ${prevChapter.number}` : lang === 'pt' ? `Capítulo ${prevChapter.number}` : `Chapter ${prevChapter.number}`}
+                <span className="font-bold text-gray-900 dark:text-white text-base group-hover:text-orange-500 transition-colors">
+                  Chapter {prevChapter.number}
                 </span>
               </Link>
             ) : <div />}
@@ -570,11 +527,11 @@ const ChapterReader: React.FC = () => {
             {nextChapter ? (
               <Link
                 to={localizePath(`/chapter/${nextChapter.number}`)}
-                className="group rounded-xl bg-blue-600/10 dark:bg-blue-900/20 border border-blue-500/30 p-5 text-right hover:border-blue-500 transition-all hover:shadow-lg"
+                className="group rounded-xl bg-orange-600/10 dark:bg-orange-900/20 border border-orange-500/30 p-5 text-right hover:border-orange-500 transition-all hover:shadow-lg"
               >
-                <span className="text-xs font-bold text-blue-500 uppercase tracking-wider block mb-1">{t.reader.readNext}</span>
-                <span className="font-bold text-blue-600 dark:text-blue-400 text-base group-hover:underline">
-                  {lang === 'fr' ? `Chapitre ${nextChapter.number}` : lang === 'pt' ? `Capítulo ${nextChapter.number}` : `Chapter ${nextChapter.number}`}
+                <span className="text-xs font-bold text-orange-500 uppercase tracking-wider block mb-1">{t.reader.readNext}</span>
+                <span className="font-bold text-orange-600 dark:text-orange-400 text-base group-hover:underline">
+                  Chapter {nextChapter.number}
                 </span>
               </Link>
             ) : <div />}

@@ -2,35 +2,30 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SEOHead from '../components/SEOHead';
 import { CHARACTERS } from '../constants';
-import { PAGE_META, SITE_URL } from '../utils/seo';
+import { PAGE_META, SITE_URL, faqSchema, buildAlternates } from '../utils/seo';
+import { CHARACTERS_FAQ } from '../data/characters-faq.js';
 import { useLanguage } from '../context/LanguageContext';
 import { ArrowRight, Zap } from 'lucide-react';
 
 const Characters: React.FC = () => {
-  const { lang, t, localizePath } = useLanguage();
+  const { t, localizePath } = useLanguage();
 
-  const metaPath = lang === 'en' ? '/characters' : `/${lang}/characters`;
-  const pageMeta = PAGE_META[metaPath] || PAGE_META['/characters'];
-
-  const alternateLinks = [
-    { rel: 'alternate', hreflang: 'en', href: `${SITE_URL}/characters` },
-    { rel: 'alternate', hreflang: 'fr', href: `${SITE_URL}/fr/characters` },
-    { rel: 'alternate', hreflang: 'pt', href: `${SITE_URL}/pt/characters` },
-    { rel: 'alternate', hreflang: 'x-default', href: `${SITE_URL}/characters` },
-  ];
+  const pageMeta = PAGE_META['/characters'];
+  const alternateLinks = buildAlternates('/characters');
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <SEOHead
         title={pageMeta.title}
         description={pageMeta.description}
-        canonicalUrl={lang === 'en' ? `${SITE_URL}/characters` : `${SITE_URL}/${lang}/characters`}
+        canonicalUrl={`${SITE_URL}/characters`}
         alternateLinks={alternateLinks}
+        schemas={[faqSchema(CHARACTERS_FAQ)]}
       />
 
       <div className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">
-          Blue Lock <span className="text-blue-500">{t.nav.characters}</span>
+          Haikyu!! <span className="text-orange-500">{t.nav.characters}</span>
         </h1>
         <p className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
           {t.home.charactersPreviewSubtitle}
@@ -47,7 +42,7 @@ const Characters: React.FC = () => {
             <div className="aspect-[4/3] w-full overflow-hidden bg-gray-900 relative">
               <img
                 src={char.image}
-                alt={`${char.name} - Blue Lock Character Profile`}
+                alt={`${char.name} - Haikyu!! Character Profile`}
                 width="400"
                 height="300"
                 className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
@@ -95,6 +90,19 @@ const Characters: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {/* Haikyu!! Characters FAQ */}
+      <section className="mt-16">
+        <h2 className="text-2xl md:text-3xl font-heading font-bold text-white mb-6">Haikyu!! Characters FAQ</h2>
+        <div className="grid gap-6 md:grid-cols-2">
+          {CHARACTERS_FAQ.map((f) => (
+            <div key={f.q} className="bg-[#181818] p-6 rounded-xl border border-white/5">
+              <h3 className="text-base font-bold text-white mb-2">{f.q}</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">{f.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };

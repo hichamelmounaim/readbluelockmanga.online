@@ -2,9 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const projectRoot = path.resolve(__dirname, '..');
-const scrapedFilePath = path.join(projectRoot, 'scraped_nlrjm4-blue-lock.json');
-const newChaptersPath = path.join(__dirname, 'scraped_new_chapters.json');
-const ptChaptersPath = path.join(__dirname, 'pt-chapters.mjs');
+const scrapedFilePath = path.join(projectRoot, 'scraped_haikyuu.json');
 const publicDir = path.join(projectRoot, 'public');
 const dataDir = path.join(publicDir, 'data');
 const chaptersDir = path.join(dataDir, 'chapters');
@@ -13,127 +11,57 @@ if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
 if (!fs.existsSync(chaptersDir)) fs.mkdirSync(chaptersDir, { recursive: true });
 
 console.log('Reading base scraped data from:', scrapedFilePath);
+if (!fs.existsSync(scrapedFilePath)) {
+  console.log('scraped_haikyuu.json not found, verifying existing public data...');
+  if (fs.existsSync(path.join(dataDir, 'chapters.json'))) {
+    console.log('[OK] Existing public/data/chapters.json already present.');
+    process.exit(0);
+  } else {
+    console.error('Neither scraped_haikyuu.json nor chapters.json found! Run scripts/scrape_haikyuu.cjs first.');
+    process.exit(1);
+  }
+}
+
 const rawData = fs.readFileSync(scrapedFilePath, 'utf8');
 const mangaData = JSON.parse(rawData);
 
-const newChaptersData = fs.existsSync(newChaptersPath)
-  ? JSON.parse(fs.readFileSync(newChaptersPath, 'utf8'))
-  : {};
-
-// Load Portuguese chapters from pt-chapters.mjs
-let ptData = {};
-try {
-  if (fs.existsSync(ptChaptersPath)) {
-    const ptFile = fs.readFileSync(ptChaptersPath, 'utf8');
-    const jsonMatch = ptFile.match(/export\s+default\s+({[\s\S]+});/);
-    if (jsonMatch) {
-      ptData = eval('(' + jsonMatch[1] + ')');
-    }
-  }
-} catch (e) {
-  console.warn('Warning: Could not parse pt-chapters.mjs:', e.message);
-}
-
-// French scans page count mapping
-const qFr = {343:19, 344:19, 345:21, 346:16, 347:17, 348:20, 349:18, 350:22, 351:20, 352:20, 353:20, 354:19, 355:18, 356:20, 357:19, 358:19, 359:19, 360:18, 361:19, 362:18, 363:20, 364:9};
-
-function getPagesFr(num) {
-  if (num === 365) return Array.from({length: 20}, (_, a) => `https://anime-sama.to/s2/scans/Blue%20Lock%20%20/366/${a+1}.jpg`);
-  if (num === 366) return Array.from({length: 17}, (_, a) => `https://anime-sama.to/s2/scans/Blue%20Lock%20%20/367/${a+1}.jpg`);
-  if (num === 364.2) return Array.from({length: 11}, (_, a) => `https://anime-sama.to/s2/scans/Blue%20Lock%20%20/365/${a+1}.jpg`);
-  if (num > 366 || num % 1 !== 0) return [];
-  const count = qFr[num] || 20;
-  return Array.from({length: count}, (_, t) => `https://anime-sama.to/s2/scans/Blue%20Lock%20%20/${num}/${t+1}.jpg`);
-}
-
-function getMangafreakFolderName(num) {
-  if (num === 364.2) return 'blue_lock_364b';
-  if (num === 346.2) return 'blue_lock_346b';
-  if (num === 340.2) return 'blue_lock_340b';
-  if (num === 327.2) return 'blue_lock_327b';
-  if (num === 314.1 || num === 314.2) return 'blue_lock_314b';
-  return `blue_lock_${num}`;
-}
-
-function getEnglishPages(num, baseUrls = []) {
-  if (num === 367 || num === 368) return [];
-  // Use newest chapters from scraped_new_chapters.json if available
-  if (newChaptersData[String(num)]) {
-    return newChaptersData[String(num)];
-  }
-  // If baseUrls point to dead host s11-95168.t34798ndc.com, replace with MangaFreak working URLs
-  const folder = getMangafreakFolderName(num);
-  const count = (baseUrls && baseUrls.length > 0)
-    ? baseUrls.length
-    : (num === 1 ? 75 : num === 2 ? 73 : 20);
-
-  return Array.from({ length: count }, (_, i) =>
-    `https://images.mangafreak.me/mangas/blue_lock/${folder}/${folder}_${i + 1}.jpg`
-  );
-}
-
-const SERIES_START = new Date("2018-08-01T00:00:00Z").getTime();
-const MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
+// Strip the "Chapter N – " prefix the scraper adds; fall back to "Chapter N".
+// Known titles the scrape is missing.
+const TITLE_OVERRIDES = { 1: 'The End & The Beginning' };
+const cleanChapterTitle = (num, raw) => {
+  if (TITLE_OVERRIDES[num]) return TITLE_OVERRIDES[num];
+  const t = String(raw || '').trim().replace(/^(ch\.?|chapter)\s*[\d.]+\s*[–—:\-]\s*/i, '').trim();
+  return t && !/^(ch\.?|chapter)\s*[\d.]+$/i.test(t) ? t : `Chapter ${num}`;
+};
 
 // Base chapters map by number
 const chaptersMap = new Map();
 
 for (const ch of mangaData.chapters) {
   const num = ch.chapter_number;
+  // Skip placeholder chapters with no scans (e.g. a non-existent "Chapter 403").
+  if (!(ch.image_urls || []).length) continue;
   chaptersMap.set(num, {
     number: num,
-    title: ch.chapter_title && ch.chapter_title.trim() ? ch.chapter_title.trim() : `Chapter ${num}`,
-    image_urls: getEnglishPages(num, ch.image_urls)
+    title: cleanChapterTitle(num, ch.chapter_title),
+    image_urls: ch.image_urls || []
   });
 }
 
-// Add/overwrite with new chapters from 355 to 366
-for (const [chNumStr, pageUrls] of Object.entries(newChaptersData)) {
-  const num = parseFloat(chNumStr);
-  chaptersMap.set(num, {
-    number: num,
-    title: `Chapter ${num}`,
-    image_urls: pageUrls || []
-  });
-}
-
-// Add upcoming chapters 367 and 368
-if (!chaptersMap.has(367)) {
-  chaptersMap.set(367, {
-    number: 367,
-    title: "Chapter 367",
-    image_urls: []
-  });
-}
-if (!chaptersMap.has(368)) {
-  chaptersMap.set(368, {
-    number: 368,
-    title: "Chapter 368",
-    image_urls: []
-  });
-}
-
-// Sort descending
+// Sort descending (latest chapter first)
 const sortedChapters = Array.from(chaptersMap.values()).sort((a, b) => b.number - a.number);
 const chapterIndex = [];
 
 for (const ch of sortedChapters) {
   const chNum = ch.number;
-  const releaseDate = new Date(SERIES_START + (Math.max(1, Math.floor(chNum)) - 1) * MS_PER_WEEK).toISOString();
   const cleanTitle = ch.title || `Chapter ${chNum}`;
-
   const pagesEn = ch.image_urls || [];
-  const pagesFr = getPagesFr(chNum);
-  const pagesPt = ptData[String(chNum)] || ptData[chNum] || [];
 
   const summaryItem = {
     id: String(chNum),
     number: chNum,
     title: cleanTitle,
-    releaseDate,
-    pageCount: pagesEn.length,
-    pageCountFr: pagesFr.length,
-    pageCountPt: pagesPt.length
+    pageCount: pagesEn.length
   };
   chapterIndex.push(summaryItem);
 
@@ -141,10 +69,7 @@ for (const ch of sortedChapters) {
     id: String(chNum),
     number: chNum,
     title: cleanTitle,
-    releaseDate,
-    pages: pagesEn,
-    pagesFr,
-    pagesPt
+    pages: pagesEn
   };
 
   fs.writeFileSync(
@@ -154,33 +79,34 @@ for (const ch of sortedChapters) {
   );
 }
 
-// Write chapters index
+// Write chapters index to public/data/chapters.json (for runtime fetch) and data/chapters.json (for bundler import)
 fs.writeFileSync(
   path.join(dataDir, 'chapters.json'),
   JSON.stringify(chapterIndex),
   'utf8'
 );
 
-// Clean up Manga Meta
-const cleanSynopsis = (mangaData.synopsis || '')
-  .replace(/&#039;/g, "'")
-  .replace(/&quot;/g, '"')
-  .replace(/&amp;/g, '&')
-  .replace(/&lt;/g, '<')
-  .replace(/&gt;/g, '>');
+const srcDataDir = path.join(projectRoot, 'data');
+if (!fs.existsSync(srcDataDir)) fs.mkdirSync(srcDataDir, { recursive: true });
+fs.writeFileSync(
+  path.join(srcDataDir, 'chapters.json'),
+  JSON.stringify(chapterIndex),
+  'utf8'
+);
 
+// Clean up Manga Meta
 const mangaMeta = {
-  title: "Blue Lock",
-  japaneseTitle: "ブルーロック",
-  romajiTitle: "Buruu Rokku",
-  authors: ["Muneyuki Kaneshiro (Story)", "Yusuke Nomura (Art)"],
-  magazine: "Weekly Shonen Magazine",
-  publisher: "Kodansha",
-  status: "Ongoing Weekly",
-  genres: ["Sports", "Drama", "Psychological", "Action", "Shounen"],
-  synopsis: cleanSynopsis,
+  title: "Haikyu!!",
+  japaneseTitle: "ハイキュー!!",
+  romajiTitle: "Haikyū!!",
+  authors: ["Haruichi Furudate (Story & Art)"],
+  magazine: "Weekly Shōnen Jump",
+  publisher: "Shueisha",
+  status: "Completed (402 Chapters)",
+  genres: ["Sports", "Comedy", "Drama", "School", "Shounen", "Volleyball"],
+  synopsis: mangaData.synopsis || "Shoyo Hinata, inspired by the 'Little Giant', joins his junior high volleyball club. Partnering with genius setter Tobio Kageyama, they revive the fallen powerhouse Karasuno High School.",
   totalChapters: chapterIndex.length,
-  latestChapter: chapterIndex[0]?.number || 368
+  latestChapter: chapterIndex[0]?.number || 402
 };
 
 fs.writeFileSync(
@@ -189,5 +115,5 @@ fs.writeFileSync(
   'utf8'
 );
 
-console.log(`[OK] Successfully merged & chunked ${chapterIndex.length} chapters (Latest: Ch. ${chapterIndex[0]?.number}) into ${chaptersDir}`);
+console.log(`[OK] Successfully merged & chunked ${chapterIndex.length} chapters into ${chaptersDir}`);
 console.log(`[OK] Generated ${path.join(dataDir, 'chapters.json')} (${(fs.statSync(path.join(dataDir, 'chapters.json')).size / 1024).toFixed(1)} KB)`);

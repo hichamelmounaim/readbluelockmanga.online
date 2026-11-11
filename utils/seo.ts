@@ -14,6 +14,7 @@ export interface ChapterSEOData {
   hasRealTitle: boolean;
   summary: string;
   hasUniqueSummary: boolean;
+  facts: string;
   arcName: string;
   arcSlug: string;
   arcDescription: string;
@@ -31,16 +32,15 @@ const notes = chapterNotes as Record<string, { title?: string; summary?: string 
 
 export function getChapterSEOData(
   chapterNumber: number,
-  opts: { title?: string; pageCount?: number; lang?: SupportedLang; availableLangs?: SupportedLang[]; releaseDate?: string } = {}
+  opts: { title?: string; pageCount?: number; lang?: SupportedLang; releaseDate?: string } = {}
 ): ChapterSEOData {
   return core.getChapterSEOData(chapterNumber, { ...opts, note: notes[String(chapterNumber)] }) as ChapterSEOData;
 }
 
 export function getCharacterSEOData(
-  character: { name: string; slug: string; image: string; description: string; weapon: string },
-  lang?: SupportedLang
+  character: { name: string; slug: string; image: string; description: string; weapon?: string; shortName?: string; role?: string; grade?: string; abilities?: string; firstAppearance?: string; faq?: { q: string; a: string }[] }
 ) {
-  return core.getCharacterSEOData(character, lang) as {
+  return core.getCharacterSEOData(character) as {
     seoTitle: string;
     seoDescription: string;
     canonicalUrl: string;
@@ -58,10 +58,15 @@ export function getAdjacentChapters<T extends { number: number }>(
 
 export const HTML_LANG: Record<SupportedLang, string> = core.HTML_LANG;
 export const OG_LOCALE: Record<SupportedLang, string> = core.OG_LOCALE;
-export const buildAlternates = (basePath: string, langs?: SupportedLang[]): { rel: string; hreflang: string; href: string }[] =>
-  core.buildAlternates(basePath, langs);
+export const buildAlternates = (basePath: string): { rel: string; hreflang: string; href: string }[] =>
+  core.buildAlternates(basePath);
 
-export const homeSchemas = (): object[] => core.homeSchemas();
+export type FaqItem = { q: string; a: string };
+export const homeSchemas = (faq?: FaqItem[]): object[] => core.homeSchemas(faq);
+export const faqSchema = (list: FaqItem[]): object => core.faqSchema(list);
+export const fillFaq = (list: FaqItem[], latest: number | string): FaqItem[] => core.fillFaq(list, latest);
+export const mangaListSchemas = (route: string, title: string): object[] =>
+  core.mangaListSchemas(route, title);
 export const abs = (path: string): string => core.abs(path);
 export const realChapterTitle = (num: number, title?: string): string | null => core.realChapterTitle(num, title);
 export const getGuideSEOData = (path: string, guide: object): { seoTitle: string; seoDescription: string; canonicalUrl: string; schemas: object[] } =>

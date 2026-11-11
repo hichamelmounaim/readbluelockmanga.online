@@ -1,46 +1,35 @@
-// Homepage FAQ: one answer per high-volume question from the keyword research.
-// Shown on the homepage (pages/Home.tsx) and in the prerendered HTML (scripts/prerender.mjs).
-// "{latest}" is replaced with the latest chapter that has pages.
-// Facts checked on 2026-11-03. Update the volume count and the season 3 answer when news changes.
+// Homepage FAQ for Haikyu!!
 export const HOME_FAQ = [
   {
-    q: 'What is Blue Lock about?',
-    a: "Blue Lock is a soccer manga. After Japan's early exit from the 2018 World Cup, the Japan Football Union hires coach Jinpachi Ego, who locks 300 high-school strikers inside a facility called Blue Lock. Only one of them will become Japan's ace striker, and anyone who is eliminated can never play for the national team again.",
+    q: 'What is Haikyu!! about?',
+    a: "Haikyu!! is a volleyball manga created by Haruichi Furudate. It follows Shoyo Hinata, a short but remarkably athletic boy who falls in love with volleyball after seeing Karasuno High's 'Little Giant' on TV. Upon joining Karasuno High School, Hinata is shocked to find his fierce middle school rival, genius setter Tobio Kageyama, has also joined. Together, they create an extraordinary quick attack that revives Karasuno's fallen powerhouse reputation.",
   },
   {
-    q: 'Who wrote Blue Lock?',
-    a: 'Blue Lock is written by Muneyuki Kaneshiro and illustrated by Yusuke Nomura. It is published by Kodansha in Weekly Shōnen Magazine.',
+    q: 'Who wrote and illustrated Haikyu!!?',
+    a: 'Haikyu!! is written and illustrated by Haruichi Furudate. It was serialized in Shueisha\'s Weekly Shōnen Jump from February 2012 to July 2020.',
   },
   {
-    q: 'When did the Blue Lock manga come out?',
-    a: 'The first chapter of Blue Lock ran in Weekly Shōnen Magazine on August 1, 2018, and volume 1 was released in Japan on November 16, 2018.',
+    q: 'Is the Haikyu!! manga finished or ongoing?',
+    a: 'The Haikyu!! manga is officially complete. It concluded with Chapter 402 in July 2020, followed by special celebratory one-shot chapters. All 402 chapters across 45 volumes are available to read online.',
   },
   {
-    q: 'Is the Blue Lock manga finished?',
-    a: 'No. Blue Lock is still ongoing, with new chapters every week. After the Neo Egoist League (chapters 152–302), the story moved into the U-20 World Cup arc, which started at chapter 303.',
+    q: 'How many volumes and chapters of Haikyu!! are there?',
+    a: 'Haikyu!! consists of exactly 45 tankōbon volumes containing 402 regular chapters, plus bonus and special one-shot chapters (such as Chapter 402.5). You can read every chapter from 1 to {latest} on this site in high definition.',
   },
   {
-    q: 'How many volumes and chapters of Blue Lock are there?',
-    a: 'In Japan, 40 volumes of Blue Lock had been released as of August 2026, and new volumes keep coming. On this site you can read every chapter from 1 to {latest}, including the half chapters.',
+    q: 'Who are the main characters of Haikyu!!?',
+    a: 'The primary protagonists are Shoyo Hinata (Middle Blocker/Opposite Hitter) and Tobio Kageyama (Setter) of Karasuno High. Other central characters include Kei Tsukishima, Yu Nishinoya, Daichi Sawamura, Koshi Sugawara, Asahi Azumane, Toru Oikawa (Aoba Johsai), Kenma Kozume and Tetsuro Kuroo (Nekoma), Kotaro Bokuto (Fukurodani), and Wakatoshi Ushijima (Shiratorizawa).',
   },
   {
-    q: 'Who is the main character in Blue Lock?',
-    a: 'The main character of Blue Lock is Yoichi Isagi, a striker who wins through spatial awareness and reading the field. His biggest rivals include Rin Itoshi, Seishiro Nagi, Meguru Bachira and Michael Kaiser.',
+    q: 'Where does the Haikyu!! anime leave off in the manga?',
+    a: "Season 4 of the Haikyu!! anime (Haikyu!! To The Top) ends at Chapter 292 of the manga, following Karasuno's monumental victory over Inarizaki High. The movie 'Haikyu!! The Dumpster Battle' adapts chapters 293 through 325 (the match against Nekoma). If you want to continue after Season 4, start reading at Chapter 293, or after the movie at Chapter 326.",
   },
   {
-    q: 'Is Blue Lock a BL?',
-    a: 'No. Blue Lock is not a BL (boys\' love) series, even though the name sounds like it. It is a shōnen sports manga about soccer and ego; "Blue Lock" is the name of the training facility.',
+    q: 'What makes Haikyu!! one of the greatest sports manga of all time?',
+    a: 'Unlike series with supernatural superpowers, Haikyu!! grounds every play in realistic volleyball physics, tactical positioning, and deep psychological realism. Furudate develops rival teams with equal depth and emotional nuance, making every match a masterclass in tension, growth, and team chemistry.',
   },
   {
-    q: 'What is Blue Lock rated?',
-    a: 'Kodansha USA rates the Blue Lock manga 16+ for teens and older.',
-  },
-  {
-    q: 'Is there a Blue Lock anime, and when is season 3 coming out?',
-    a: "Yes. Studio Eight Bit's anime has two seasons: season 1 (24 episodes, October 2022 to March 2023) and season 2, vs. U-20 Japan (14 episodes, October to December 2024), plus the film Blue Lock: Episode Nagi. Season 3, titled Neo Egoist League, is in production, but no release date had been announced as of November 2026.",
-  },
-  {
-    q: 'Where can I watch Blue Lock?',
-    a: 'Outside Japan, both seasons of the Blue Lock anime stream on Crunchyroll, with subtitles and an English dub.',
+    q: 'Where can I read Haikyu!! manga online for free in high quality?',
+    a: 'You can read all chapters of Haikyu!! online for free right here. Enjoy fast-loading high-resolution scans, seamless mobile reading, no sign-up required, and full coverage of the entire series.',
   },
 ];

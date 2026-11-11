@@ -1,44 +1,52 @@
-// Story arcs. Shared by the React app and the build scripts.
+// Haikyu!! Story arcs. Shared by the React app and the build scripts.
 export const ARCS_DATA = [
   {
-    id: "first-selection",
-    title: "First Selection Arc",
-    description: "300 youth strikers are divided into 25 five-man teams across five stratums, competing in a round-robin tournament where only the top teams survive.",
+    id: "karasuno-formation",
+    title: "Karasuno High Team Formation Arc",
+    description: "Shoyo Hinata and Tobio Kageyama arrive at Karasuno High as former rivals and are forced to work together. Combining Hinata's speed and Kageyama's toss, they develop the legendary 'Freak-Quick' and revive Karasuno alongside captain Daichi, Nishinoya, and Asahi.",
     chapterStart: 1,
-    chapterEnd: 38,
-    image: "/blue-lock.webp"
+    chapterEnd: 35,
+    image: "/haikyuu-banner.jpg"
   },
   {
-    id: "second-selection",
-    title: "Second Selection Arc",
-    description: "Strikers form small squads of three and duel through high-stakes matches, stealing defeated opponents to assemble five-man teams to reach the next stage.",
-    chapterStart: 39,
-    chapterEnd: 87,
-    image: "/blue-lock.webp"
+    id: "interhigh",
+    title: "Interhigh Preliminary Arc",
+    description: "Karasuno enters the Miyagi Interhigh tournament. After breaking through Date Tech's famous 'Iron Wall', they face Toru Oikawa's powerhouse Aoba Johsai in an emotional, nail-biting showdown.",
+    chapterStart: 36,
+    chapterEnd: 71,
+    image: "/haikyuu-banner.jpg"
   },
   {
-    id: "third-selection-u20",
-    title: "Third Selection & Japan U-20 Match",
-    description: "Blue Lock's top 11 face off against Sae Itoshi and the official Japan U-20 National Team with the survival of the entire Blue Lock program on the line.",
-    chapterStart: 88,
-    chapterEnd: 151,
-    image: "/blue-lock.webp"
+    id: "tokyo-training-camp",
+    title: "Tokyo Expedition & Training Camp Arc",
+    description: "Invited to train alongside Tokyo heavyweights Nekoma, Fukurodani, Shinzen, and Ubugawa, the Karasuno players reinvent themselves. Hinata and Kageyama evolve their quick attack, while Tsukishima learns read-blocking from Kuroo and Bokuto.",
+    chapterStart: 72,
+    chapterEnd: 96,
+    image: "/haikyuu-banner.jpg"
   },
   {
-    id: "neo-egoist-league",
-    title: "Neo Egoist League Arc",
-    description: "The surviving strikers join European youth powerhouses (Bastard München, Manshine City, Ubers, Paris X Gen, Barcha) to battle in a televised league with real club contract bids. The top 23 earn a place in the U-20 World Cup squad.",
-    chapterStart: 152,
-    chapterEnd: 302,
-    image: "/blue-lock.webp"
+    id: "spring-high-preliminary",
+    title: "Spring High Preliminary Arc (Miyagi)",
+    description: "The brutal battle for Miyagi's sole representative spot at the Spring Nationals. Karasuno wins a historic rematch against Aoba Johsai and takes down the undisputed champions, Wakatoshi Ushijima and Shiratorizawa Academy, in a thrilling 5-set final.",
+    chapterStart: 97,
+    chapterEnd: 206,
+    image: "/haikyuu-banner.jpg"
   },
   {
-    id: "u20-world-cup",
-    title: "U-20 World Cup Arc",
-    description: "Phase three of the project: Blue Lock Japan takes on the best young national teams in the world at the FIFA U-20 World Cup. Ongoing.",
-    chapterStart: 303,
-    chapterEnd: null, // ongoing: filled in from the latest chapter (constants.ts)
-    ongoing: true,
-    image: "/blue-lock.webp"
+    id: "tokyo-nationals",
+    title: "Spring High National Tournament Arc",
+    description: "At the Tokyo Metropolitan Gymnasium, Karasuno battles the best teams in Japan: Tsubakihara, the runner-up powerhouse Inarizaki (the Miya Twins), the legendary long-awaited 'Dumpster Battle' against rival Nekoma, and Kamomedai's Korai Hoshiumi.",
+    chapterStart: 207,
+    chapterEnd: 369,
+    image: "/haikyuu-banner.jpg"
+  },
+  {
+    id: "final-arc",
+    title: "Final Arc / V.League & Beyond",
+    description: "Following a timeskip, Hinata returns from beach volleyball training in Brazil to join the MSBY Black Jackals (with Bokuto, Atsumu Miya, and Sakusa) to duel Kageyama and Ushijima's Schweiden Adlers in an epic Division 1 clash, culminating in the Tokyo Olympic Games.",
+    chapterStart: 370,
+    chapterEnd: 402,
+    ongoing: false,
+    image: "/haikyuu-banner.jpg"
   }
 ];

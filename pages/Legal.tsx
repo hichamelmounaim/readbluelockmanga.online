@@ -1,25 +1,24 @@
 import React from 'react';
+import { Shield, FileText, AlertCircle, Scale, Mail } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { PAGE_META, SITE_URL } from '../utils/seo';
 
-type LegalType = 'privacy' | 'dmca' | 'disclaimer' | 'terms';
-
 interface LegalProps {
-  type: LegalType;
+  type: 'privacy' | 'dmca' | 'disclaimer' | 'terms';
 }
 
 const Legal: React.FC<LegalProps> = ({ type }) => {
-  const getContent = () => {
+  const getLegalContent = () => {
     switch (type) {
       case 'privacy':
         return {
           title: "Privacy Policy",
-          description: "Learn how we handle data and protect user privacy on Blue Lock Manga.",
+          description: "Learn how we handle data and protect user privacy on Haikyu!! Manga.",
           content: (
             <>
               <p className="mb-4">
-                At <strong>Blue Lock Manga</strong> (accessible from <a href="https://www.bluelockchapter.com/" className="text-blue-500 hover:underline">bluelockchapter.com</a>), the privacy of our visitors is of paramount importance. This Privacy Policy outlines the types of information recorded and how we utilize it to provide a fast, secure, and seamless manga reading environment.
+                At <strong>Haikyu!! Manga</strong> (accessible from <a href="https://www.haikyuu.org/" className="text-orange-500 hover:underline">haikyuu.org</a>), the privacy of our visitors is of paramount importance. This Privacy Policy outlines the types of information recorded and how we utilize it to provide a fast, secure, and seamless manga reading environment.
               </p>
 
               <h2 className="text-xl font-bold mt-6 mb-3 text-white">1. Automated Server Log Files</h2>
@@ -29,17 +28,17 @@ const Legal: React.FC<LegalProps> = ({ type }) => {
 
               <h2 className="text-xl font-bold mt-6 mb-3 text-white">2. Local Storage & Reader Preferences</h2>
               <p className="mb-4">
-                Our platform uses local storage and lightweight cookies strictly to store reader settings (such as reading mode: vertical continuous scroll vs. single page view, last read chapter, and display themes). These preferences remain on your device, ensuring a personalized experience across reading sessions without requiring account registration.
+                Our platform uses local storage strictly to store reader settings (such as reading mode: vertical continuous scroll vs. single page view, last read chapter, and display themes). These preferences remain on your device, ensuring a personalized experience across reading sessions without requiring account registration.
               </p>
 
               <h2 className="text-xl font-bold mt-6 mb-3 text-white">3. Third-Party Analytics & Partners</h2>
               <p className="mb-4">
-                We may use privacy-compliant web analytics tools (such as Google Analytics / Tag Manager) to understand audience trends, optimize page delivery speeds, and identify technical bottlenecks. Visitors can manage or disable cookie tracking at any time through standard browser preferences.
+                We may use privacy-compliant web analytics tools to understand audience trends, optimize page delivery speeds, and identify technical bottlenecks. Visitors can manage or disable cookie tracking at any time through standard browser preferences.
               </p>
 
               <h2 className="text-xl font-bold mt-6 mb-3 text-white">4. GDPR & CCPA Data Rights</h2>
               <p className="mb-4">
-                In compliance with the General Data Protection Regulation (GDPR) and California Consumer Privacy Act (CCPA), all visitors have the right to request clarification regarding processed data, request deletion, or object to tracking. For any privacy requests, reach out directly to our compliance team at <a href="mailto:support@bluelockchapter.com" className="text-blue-500 hover:underline">support@bluelockchapter.com</a>.
+                In compliance with the General Data Protection Regulation (GDPR) and California Consumer Privacy Act (CCPA), all visitors have the right to request clarification regarding processed data, request deletion, or object to tracking. For any privacy requests, reach out directly to our compliance team at <a href="mailto:support@haikyuu.org" className="text-orange-500 hover:underline">support@haikyuu.org</a>.
               </p>
             </>
           )
@@ -51,13 +50,14 @@ const Legal: React.FC<LegalProps> = ({ type }) => {
           content: (
             <>
               <p className="mb-4">
-                <strong>Blue Lock Manga</strong> respects the intellectual property rights of creators, authors, and copyright holders. In accordance with the Digital Millennium Copyright Act of 1998 (17 U.S.C. § 512) and international intellectual property treaties, we maintain an expedited procedure to respond to verified notices of alleged infringement.
+                <strong>Haikyu!! Manga</strong> respects the intellectual property rights of creators, authors, and copyright holders. In accordance with the Digital Millennium Copyright Act of 1998 (17 U.S.C. § 512) and international intellectual property treaties, we maintain an expedited procedure to respond to verified notices of alleged infringement.
               </p>
 
               <h2 className="text-xl font-bold mt-6 mb-3 text-white">Submitting a DMCA Takedown Notice</h2>
               <p className="mb-4">
                 If you are a copyright owner or an authorized agent acting on their behalf, and believe that material indexed or referenced on this site infringes upon your copyright, please provide a written notice containing:
               </p>
+
               <ul className="list-disc pl-6 mb-4 space-y-2 text-gray-300">
                 <li>A physical or electronic signature of a person authorized to act on behalf of the owner of the exclusive right that is allegedly infringed.</li>
                 <li>Clear identification of the copyrighted work claimed to have been infringed, including registration details where applicable.</li>
@@ -71,8 +71,8 @@ const Legal: React.FC<LegalProps> = ({ type }) => {
                 <p className="text-sm text-gray-300 mb-2">
                   Please direct all formal DMCA notices to our designated agent via email:
                 </p>
-                <a href="mailto:support@bluelockchapter.com" className="text-blue-400 font-bold hover:underline">
-                  support@bluelockchapter.com
+                <a href="mailto:support@haikyuu.org" className="text-orange-400 font-bold hover:underline">
+                  support@haikyuu.org
                 </a>
               </div>
 
@@ -85,12 +85,12 @@ const Legal: React.FC<LegalProps> = ({ type }) => {
       case 'disclaimer':
         return {
           title: "Legal Disclaimer & Fair Use Disclosure",
-          description: "Official legal declarations, fair use disclosures, and copyright notices for Blue Lock Manga.",
+          description: "Official legal declarations, fair use disclosures, and copyright notices for Haikyu!! Manga.",
           content: (
             <>
               <h2 className="text-xl font-bold mt-6 mb-3 text-white">1. Unofficial Fan Project</h2>
               <p className="mb-4">
-                <strong>bluelockchapter.com</strong> is an independent, non-commercial digital hub created by passionate fans. This platform is <strong>not endorsed by, directly affiliated with, sponsored by, or partnered with Muneyuki Kaneshiro, Yusuke Nomura, Kodansha Ltd., Pika Édition, or VIZ Media</strong>.
+                <strong>haikyuu.org</strong> is an independent, non-commercial digital hub created by passionate fans. This platform is <strong>not endorsed by, directly affiliated with, sponsored by, or partnered with Haruichi Furudate, Shueisha Inc., or VIZ Media</strong>.
               </p>
 
               <h2 className="text-xl font-bold mt-6 mb-3 text-white">2. Fair Use & Cultural Discussion</h2>
@@ -100,7 +100,7 @@ const Legal: React.FC<LegalProps> = ({ type }) => {
 
               <h2 className="text-xl font-bold mt-6 mb-3 text-white">3. Support the Official Serialization</h2>
               <p className="mb-4">
-                We strongly encourage all readers to support the official serialization by purchasing licensed physical manga volumes, digital releases on authorized platforms (such as Kodansha Comics and K-Manga), and official merchandise released in your local territory.
+                We strongly encourage all readers to support the official serialization by purchasing licensed physical manga volumes, digital releases on authorized platforms (such as MANGA Plus and VIZ Media), and official merchandise released in your local territory.
               </p>
             </>
           )
@@ -108,11 +108,11 @@ const Legal: React.FC<LegalProps> = ({ type }) => {
       case 'terms':
         return {
           title: "Terms and Conditions of Use",
-          description: "Terms of service, user agreements, and conduct guidelines for Blue Lock Manga.",
+          description: "Terms of service, user agreements, and conduct guidelines for Haikyu!! Manga.",
           content: (
             <>
               <p className="mb-4">
-                By accessing and utilizing <strong>bluelockchapter.com</strong>, you acknowledge that you have read, understood, and agreed to be bound by these Terms and Conditions. If you do not agree with any part of these terms, please discontinue use of the site immediately.
+                By accessing and utilizing <strong>haikyuu.org</strong>, you acknowledge that you have read, understood, and agreed to be bound by these Terms and Conditions. If you do not agree with any part of these terms, please discontinue use of the site immediately.
               </p>
 
               <h2 className="text-xl font-bold mt-6 mb-3 text-white">1. Permitted Personal Use</h2>
@@ -135,12 +135,21 @@ const Legal: React.FC<LegalProps> = ({ type }) => {
     }
   };
 
-  const { title, description, content } = getContent();
+  const { title, description, content } = getLegalContent();
+
+  const getIcon = () => {
+    switch (type) {
+      case 'privacy': return <Shield size={28} className="text-orange-500" />;
+      case 'dmca': return <FileText size={28} className="text-orange-500" />;
+      case 'disclaimer': return <AlertCircle size={28} className="text-orange-500" />;
+      case 'terms': return <Scale size={28} className="text-orange-500" />;
+    }
+  };
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 min-h-screen">
       <SEOHead
-        title={PAGE_META[`/${type}`]?.title || `${title} – Blue Lock Manga`}
+        title={PAGE_META[`/${type}`]?.title || `${title} – Haikyu!! Manga`}
         description={PAGE_META[`/${type}`]?.description || description}
         canonicalUrl={`${SITE_URL}/${type}`}
       />
@@ -150,11 +159,21 @@ const Legal: React.FC<LegalProps> = ({ type }) => {
         { label: title }
       ]} />
 
-      <h1 className="text-3xl md:text-5xl font-heading font-bold my-8 text-white border-b border-gray-200 dark:border-white/10 pb-4">
-        {title}
-      </h1>
+      <div className="flex items-center gap-4 my-8 pb-6 border-b border-white/5">
+        <div className="p-3 bg-white/5 rounded-xl border border-white/5">
+          {getIcon()}
+        </div>
+        <div>
+          <h1 className="text-3xl md:text-5xl font-heading font-extrabold text-white">
+            {title}
+          </h1>
+          <p className="text-gray-400 text-sm mt-1">
+            Last Updated: November 2026
+          </p>
+        </div>
+      </div>
 
-      <div className="prose dark:prose-invert max-w-none text-gray-300 leading-relaxed space-y-4">
+      <div className="prose prose-invert max-w-none text-gray-300 leading-relaxed">
         {content}
       </div>
     </div>

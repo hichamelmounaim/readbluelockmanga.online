@@ -1,22 +1,22 @@
 {
-  "title": "Blue Lock",
-  "japaneseTitle": "ブルーロック",
-  "romajiTitle": "Buruu Rokku",
+  "title": "Haikyu!!",
+  "japaneseTitle": "ハイキュー!!",
+  "romajiTitle": "Haikyū!!",
   "authors": [
-    "Muneyuki Kaneshiro (Story)",
-    "Yusuke Nomura (Art)"
+    "Haruichi Furudate (Story & Art)"
   ],
-  "magazine": "Weekly Shonen Magazine",
-  "publisher": "Kodansha",
-  "status": "Ongoing Weekly",
+  "magazine": "Weekly Shōnen Jump",
+  "publisher": "Shueisha",
+  "status": "Completed (402 Chapters)",
   "genres": [
     "Sports",
+    "Comedy",
     "Drama",
-    "Psychological",
-    "Action",
-    "Shounen"
+    "School",
+    "Shounen",
+    "Volleyball"
   ],
-  "synopsis": "After a disastrous defeat at the 2018 World Cup, Japan's team struggles to regroup.\nBut what's missing? An absolute Ace Striker, who can guide them to the win.\nThe Japan Football Union is hell-bent on creating a striker who hungers for goals and thirsts for victory, and who can be the decisive instrument in turning around a losing match and to do so, they've gathered 300 of Japan's best and brightest youth players.\nWho will emerge to lead the team and will they be able to out-muscle and out-ego everyone who stands in their way?",
-  "totalChapters": 374,
-  "latestChapter": 368
+  "synopsis": "Shōyō Hinata, inspired by the 'Little Giant' of Karasuno High, joins his junior high volleyball club. After suffering a crushing defeat against Tobio Kageyama, known as the 'King of the Court', Hinata vows to surpass him in high school. But upon entering Karasuno High, he discovers that Kageyama is now his teammate! Combining Hinata's insane athletic jumping with Kageyama's pinpoint sets, the unlikely duo forms an explosive quick attack that propels the fallen powerhouse Karasuno back towards the national stage.",
+  "totalChapters": 403,
+  "latestChapter": 402.5
 }

@@ -20,14 +20,14 @@ const About: React.FC = () => {
       ]} />
 
       <div className="my-8">
-        <span className="text-blue-500 text-xs font-bold uppercase tracking-widest block mb-2">
+        <span className="text-orange-500 text-xs font-bold uppercase tracking-widest block mb-2">
           Independent Fan Project
         </span>
         <h1 className="text-4xl md:text-6xl font-heading font-extrabold text-white mb-4">
-          About Blue Lock Manga
+          About Haikyu!! Manga
         </h1>
         <p className="text-lg text-gray-300 font-light leading-relaxed">
-          Crafted by dedicated manga purists to celebrate the tactical brilliance, psychological intensity, and groundbreaking visual art of Muneyuki Kaneshiro and Yusuke Nomura's global sensation.
+          Crafted by dedicated manga purists to celebrate the tactical brilliance, emotional depth, and breathtaking kinetic artwork of Haruichi Furudate's timeless volleyball masterpiece.
         </p>
       </div>
 
@@ -35,21 +35,21 @@ const About: React.FC = () => {
         {/* Mission Statement */}
         <div className="bg-[#181818] rounded-2xl p-8 border border-white/5 shadow-sm">
           <h2 className="text-2xl font-heading font-bold text-white mb-4 flex items-center gap-2">
-            <Award className="text-blue-500" />
+            <Award className="text-orange-500" />
             Our Guiding Mission
           </h2>
           <p className="mb-4">
             Manga reading in the digital age should be fluid, visually pristine, and distraction-free. We believe that global fans deserve an uncompromising environment where high-resolution scans, instant page loading, and responsive mobile controls let the story and artwork take center stage.
           </p>
           <p>
-            From the initial trial in Chapter 1 through the high-stakes clashes of the Neo Egoist League, our archive is meticulously organized with full chapter indexing, character profiles, and arc breakdowns to ensure readers never miss a single panel.
+            From the initial meeting of Hinata and Kageyama in Chapter 1 through the legendary 'Dumpster Battle' and the V.League finale, our archive is meticulously organized with all 402 chapters, character profiles, and arc breakdowns to ensure readers never miss a single play.
           </p>
         </div>
 
         {/* Feature Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-[#181818] p-6 rounded-xl border border-white/5">
-            <div className="w-10 h-10 rounded-lg bg-blue-600/10 text-blue-400 flex items-center justify-center mb-4">
+            <div className="w-10 h-10 rounded-lg bg-orange-600/10 text-orange-400 flex items-center justify-center mb-4">
               <Zap size={20} />
             </div>
             <h3 className="text-lg font-bold text-white mb-2">Lightweight & Ultra-Fast</h3>
@@ -59,7 +59,7 @@ const About: React.FC = () => {
           </div>
 
           <div className="bg-[#181818] p-6 rounded-xl border border-white/5">
-            <div className="w-10 h-10 rounded-lg bg-blue-600/10 text-blue-400 flex items-center justify-center mb-4">
+            <div className="w-10 h-10 rounded-lg bg-orange-600/10 text-orange-400 flex items-center justify-center mb-4">
               <BookOpen size={20} />
             </div>
             <h3 className="text-lg font-bold text-white mb-2">Dual Reading Engine</h3>
@@ -69,39 +69,39 @@ const About: React.FC = () => {
           </div>
 
           <div className="bg-[#181818] p-6 rounded-xl border border-white/5">
-            <div className="w-10 h-10 rounded-lg bg-blue-600/10 text-blue-400 flex items-center justify-center mb-4">
+            <div className="w-10 h-10 rounded-lg bg-orange-600/10 text-orange-400 flex items-center justify-center mb-4">
               <ShieldCheck size={20} />
             </div>
             <h3 className="text-lg font-bold text-white mb-2">High-Definition Visuals</h3>
             <p className="text-sm text-gray-400 leading-relaxed">
-              We preserve Yusuke Nomura's intricate line work, dynamic cross-hatching, and dark aura effects with crystal-clear image quality.
+              We preserve Haruichi Furudate's dynamic panel perspectives, kinetic motion blur, and dramatic jump spreads with crystal-clear image quality.
             </p>
           </div>
 
           <div className="bg-[#181818] p-6 rounded-xl border border-white/5">
-            <div className="w-10 h-10 rounded-lg bg-blue-600/10 text-blue-400 flex items-center justify-center mb-4">
+            <div className="w-10 h-10 rounded-lg bg-orange-600/10 text-orange-400 flex items-center justify-center mb-4">
               <Globe size={20} />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Weekly Synchronization</h3>
+            <h3 className="text-lg font-bold text-white mb-2">Complete 402 Chapter Archive</h3>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Our digital library synchronizes with the weekly Japanese serialization in Kodansha's Weekly Shonen Magazine as soon as scans are finalized.
+              Our digital library houses the entire 45-volume, 402-chapter story, complete with bonus chapters and specials.
             </p>
           </div>
         </div>
 
         {/* Support the Official Creators */}
-        <div className="bg-gradient-to-r from-blue-950/40 via-[#181818] to-[#181818] p-8 rounded-2xl border border-blue-500/20">
+        <div className="bg-gradient-to-r from-orange-950/40 via-[#181818] to-[#181818] p-8 rounded-2xl border border-orange-500/20">
           <h2 className="text-xl font-heading font-bold text-white mb-3 flex items-center gap-2">
             <Heart size={20} className="text-red-500 fill-red-500" />
             Support the Official Authors & Serialization
           </h2>
           <p className="text-sm text-gray-300 leading-relaxed mb-4">
-            This website is an independent tribute operated solely by passionate fans for promotional and educational discussion. We strongly encourage all readers to support author Muneyuki Kaneshiro, artist Yusuke Nomura, and publisher Kodansha by purchasing official manga volumes, digital editions on licensed platforms (such as K-Manga), and authorized merchandise.
+            This website is an independent tribute operated solely by passionate fans for promotional and educational discussion. We strongly encourage all readers to support author and artist Haruichi Furudate and publisher Shueisha by purchasing official manga volumes, digital editions on licensed platforms (such as MANGA Plus and VIZ Media), and authorized merchandise.
           </p>
           <div className="flex gap-4">
             <Link
               to="/manga"
-              className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-all"
+              className="px-6 py-2.5 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-xl text-sm transition-all"
             >
               Browse Full Chapter Archive
             </Link>

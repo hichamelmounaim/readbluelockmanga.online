@@ -6,7 +6,7 @@ import SEOHead from '../components/SEOHead';
 // returns HTTP 404 for it via dist/404.html (see scripts/prerender.mjs + nginx.conf).
 const NotFound: React.FC = () => (
   <div className="max-w-3xl mx-auto px-4 py-24 text-center">
-    <SEOHead title="Page Not Found – Blue Lock Manga" description="The page you are looking for does not exist." noindex />
+    <SEOHead title="Page Not Found – Haikyu!! Manga" description="The page you are looking for does not exist." noindex />
     <p className="text-blue-500 font-bold tracking-widest text-sm mb-2">404</p>
     <h1 className="text-3xl md:text-5xl font-heading font-bold text-white mb-4">Page not found</h1>
     <p className="text-gray-400 mb-8">This page doesn't exist or was moved.</p>

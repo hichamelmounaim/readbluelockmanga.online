@@ -1,4 +1,4 @@
-export type SupportedLang = 'en' | 'fr' | 'pt';
+export type SupportedLang = 'en';
 
 export interface Chapter {
   id: string;
@@ -6,11 +6,7 @@ export interface Chapter {
   title: string;
   releaseDate: string;
   pages?: string[];
-  pagesFr?: string[];
-  pagesPt?: string[];
   pageCount?: number;
-  pageCountFr?: number;
-  pageCountPt?: number;
 }
 
 export interface Character {
@@ -27,7 +23,7 @@ export interface Character {
   longDescription: string;
   keyChapters?: { number: number; label: string }[];
   relatedSlugs?: string[];
-  /** Name fans search with, e.g. "Nagi" for "nagi blue lock" */
+  /** Name fans search with, e.g. "Hinata" */
   shortName?: string;
   age?: string;
   birthday?: string;

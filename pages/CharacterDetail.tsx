@@ -4,7 +4,7 @@ import { ArrowLeft, BookOpen, Sparkles, Sword, Trophy, Users, ArrowRight, CheckC
 import SEOHead from '../components/SEOHead';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { CHARACTERS } from '../constants';
-import { getCharacterSEOData, SITE_URL } from '../utils/seo';
+import { getCharacterSEOData, SITE_URL, buildAlternates } from '../utils/seo';
 import { useLanguage } from '../context/LanguageContext';
 
 const CharacterDetail: React.FC = () => {
@@ -15,7 +15,7 @@ const CharacterDetail: React.FC = () => {
   if (!character) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-20 text-center dark:text-white">
-        <SEOHead title="Character Not Found – Blue Lock Manga" description="This Blue Lock character profile does not exist." noindex />
+        <SEOHead title="Character Not Found – Haikyu!! Manga" description="This Haikyu!! character profile does not exist." noindex />
         <h1 className="text-3xl font-heading font-bold mb-4">Character Not Found</h1>
         <p className="text-gray-400 mb-8">The character you are looking for does not exist in our database.</p>
         <Link to={localizePath('/characters')} className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition-all">
@@ -30,14 +30,8 @@ const CharacterDetail: React.FC = () => {
     .map(slug => CHARACTERS.find(c => c.slug === slug))
     .filter(Boolean) as typeof CHARACTERS;
 
-  const seo = getCharacterSEOData(character, lang);
-
-  const alternateLinks = [
-    { rel: 'alternate', hreflang: 'en', href: `${SITE_URL}/characters/${character.slug}` },
-    { rel: 'alternate', hreflang: 'fr', href: `${SITE_URL}/fr/characters/${character.slug}` },
-    { rel: 'alternate', hreflang: 'pt', href: `${SITE_URL}/pt/characters/${character.slug}` },
-    { rel: 'alternate', hreflang: 'x-default', href: `${SITE_URL}/characters/${character.slug}` },
-  ];
+  const seo = getCharacterSEOData(character);
+  const alternateLinks = buildAlternates(`/characters/${character.slug}`);
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -70,7 +64,7 @@ const CharacterDetail: React.FC = () => {
             <div className="aspect-[3/4] relative rounded-xl overflow-hidden bg-gray-900 shadow-lg border border-white/10 max-w-sm mx-auto lg:max-w-none">
               <img
                 src={character.image}
-                alt={`${character.name} - Blue Lock Character Profile`}
+                alt={`${character.name} - Haikyu!! Character Profile`}
                 width="400"
                 height="533"
                 loading="eager"
@@ -159,7 +153,7 @@ const CharacterDetail: React.FC = () => {
       {relatedCharacters.length > 0 && (
         <div>
           <h2 className="text-2xl font-heading font-bold text-white mb-6 flex items-center gap-2">
-            <Users size={22} className="text-blue-500" /> Strikers Connected with {character.name}
+            <Users size={22} className="text-blue-500" /> Teammates &amp; Rivals of {character.name}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             {relatedCharacters.map(rel => (

@@ -2,6 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://www.bluelockchapter.com/sitemap.xml
-Sitemap: https://www.bluelockchapter.com/sitemap_fr.xml
-Sitemap: https://www.bluelockchapter.com/sitemap_pt.xml
+Sitemap: https://www.haikyuu.org/sitemap.xml

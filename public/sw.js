@@ -1,5 +1,5 @@
-// Blue Lock Manga Service Worker
-const CACHE_NAME = 'bluelock-cache-v1';
+// Haikyu!! Manga Service Worker
+const CACHE_NAME = 'haikyuu-cache-v1';
 const PRECACHE_URLS = [
   '/',
   '/manifest.webmanifest',

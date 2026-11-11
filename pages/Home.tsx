@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, Users, Star, Zap, Flame, Award } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
-import { PAGE_META, SITE_URL, homeSchemas } from '../utils/seo';
+import { PAGE_META, SITE_URL, homeSchemas, fillFaq, buildAlternates } from '../utils/seo';
 import { useManga } from '../context/MangaContext';
 import { useLanguage } from '../context/LanguageContext';
 import { ARCS } from '../constants';
@@ -10,42 +10,32 @@ import { HOME_FAQ } from '../data/home-faq.js';
 
 const Home: React.FC = () => {
   const { chapters } = useManga();
-  const { lang, t, localizePath } = useLanguage();
+  const { t, localizePath } = useLanguage();
 
-  // Readable chapters filtered by language
   const readableChapters = React.useMemo(() => {
-    return chapters.filter(c => {
-      if (lang === 'fr') return (c.pageCountFr ?? 0) > 0 || c.number <= 366;
-      if (lang === 'pt') return (c.pageCountPt ?? 0) > 0 || c.number <= 366;
-      return (c.pageCount ?? 0) > 0;
-    });
-  }, [chapters, lang]);
+    return chapters.filter(c => (c.pageCount ?? 0) > 0);
+  }, [chapters]);
 
   const latestChapter = readableChapters[0];
+  const latestNum = latestChapter ? Math.floor(latestChapter.number) : '';
+  const faqItems = React.useMemo(() => fillFaq(HOME_FAQ, latestNum), [latestNum]);
   const [continueChapter, setContinueChapter] = React.useState<number | null>(null);
 
   React.useEffect(() => {
-    const saved = localStorage.getItem('bluelock_last_chapter');
+    const saved = localStorage.getItem('haikyuu_last_chapter');
     if (saved) setContinueChapter(parseInt(saved, 10));
   }, []);
 
-  const metaPath = lang === 'en' ? '/' : `/${lang}`;
-  const pageMeta = PAGE_META[metaPath] || PAGE_META['/'];
-
-  const alternateLinks = [
-    { rel: 'alternate', hreflang: 'en', href: `${SITE_URL}/` },
-    { rel: 'alternate', hreflang: 'fr', href: `${SITE_URL}/fr` },
-    { rel: 'alternate', hreflang: 'pt', href: `${SITE_URL}/pt` },
-    { rel: 'alternate', hreflang: 'x-default', href: `${SITE_URL}/` },
-  ];
+  const pageMeta = PAGE_META['/'];
+  const alternateLinks = buildAlternates('/');
 
   return (
     <>
       <SEOHead
         title={pageMeta.title}
         description={pageMeta.description}
-        canonicalUrl={lang === 'en' ? `${SITE_URL}/` : `${SITE_URL}/${lang}`}
-        schemas={homeSchemas()}
+        canonicalUrl={`${SITE_URL}/`}
+        schemas={homeSchemas(faqItems)}
         alternateLinks={alternateLinks}
       />
 
@@ -53,10 +43,10 @@ const Home: React.FC = () => {
       <section className="relative w-full min-h-[85vh] flex items-center justify-center overflow-hidden bg-[#121212] py-20">
         <div className="absolute inset-0 z-0 opacity-25 select-none pointer-events-none">
           <picture>
-            <source media="(max-width: 768px)" srcSet="/blue-lock-mobile.webp" type="image/webp" />
+            <source media="(max-width: 768px)" srcSet="/haikyuu-cover.jpg" type="image/jpeg" />
             <img
-              src="/blue-lock.webp"
-              alt="Blue Lock Manga - Yoichi Isagi and players competing in the Blue Lock Project"
+              src="/haikyuu-banner.jpg"
+              alt="Haikyu!! Manga - Shoyo Hinata, Tobio Kageyama and Karasuno High School Volleyball Team"
               width="1920"
               height="1080"
               fetchPriority="high"
@@ -72,7 +62,7 @@ const Home: React.FC = () => {
 
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-600/10 border border-blue-500/30 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
             <Flame size={14} className="text-blue-500" />
-            #1 Sports Thriller Manga Worldwide
+            #1 Sports Volleyball Manga Worldwide
           </div>
 
           <h1 className="text-5xl md:text-8xl font-heading font-extrabold text-white mb-4 drop-shadow-2xl tracking-tighter text-center">
@@ -115,8 +105,8 @@ const Home: React.FC = () => {
 
                 <div>
                   <span className="text-gray-400 text-xs uppercase tracking-wider block font-medium mb-1">{t.home.author}</span>
-                  <span className="text-white font-bold text-sm truncate block" title="Muneyuki Kaneshiro & Yusuke Nomura">
-                    M. Kaneshiro / Y. Nomura
+                  <span className="text-white font-bold text-sm truncate block" title="Haruichi Furudate">
+                    Haruichi Furudate
                   </span>
                 </div>
 
@@ -195,7 +185,7 @@ const Home: React.FC = () => {
                   {t.home.latestReleases}
                 </h2>
                 <p className="text-xs text-gray-600 dark:text-gray-400">
-                  {lang === 'fr' ? 'Scans VF en haute définition' : lang === 'pt' ? 'Scans em português em alta definição' : 'Updated automatically with verified English scans'}
+                  Updated automatically with verified English scans
                 </p>
               </div>
             </div>
@@ -217,11 +207,7 @@ const Home: React.FC = () => {
                       {t.home.chapter} {ch.number}
                     </span>
                     <span className="text-[11px] text-gray-500 dark:text-gray-400">
-                      {lang === 'fr'
-                        ? `${ch.pageCountFr || 20} Pages`
-                        : lang === 'pt'
-                        ? `${ch.pageCountPt || 20} Pages`
-                        : `${ch.pageCount || 20} Pages`}
+                      {ch.pageCount || 20} Pages
                     </span>
                   </div>
                   <h3 className="text-base font-bold text-gray-900 dark:text-white leading-snug group-hover:text-blue-400 transition-colors line-clamp-1">
@@ -281,7 +267,7 @@ const Home: React.FC = () => {
                 Major Story Arcs &amp; Progression
               </h2>
               <p className="text-xs text-gray-600 dark:text-gray-400">
-                Explore the chronological timeline of the Blue Lock project
+                Explore the chronological timeline of Haikyu!! story arcs
               </p>
             </div>
           </div>
@@ -334,22 +320,12 @@ const Home: React.FC = () => {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2">
-            <div className="bg-white dark:bg-[#181818] p-6 rounded-xl border border-gray-200 dark:border-white/5 shadow-sm">
-              <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">{t.home.faq.q1}</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{t.home.faq.a1}</p>
-            </div>
-            <div className="bg-white dark:bg-[#181818] p-6 rounded-xl border border-gray-200 dark:border-white/5 shadow-sm">
-              <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">{t.home.faq.q2}</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{t.home.faq.a2}</p>
-            </div>
-            <div className="bg-white dark:bg-[#181818] p-6 rounded-xl border border-gray-200 dark:border-white/5 shadow-sm">
-              <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">{t.home.faq.q3}</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{t.home.faq.a3}</p>
-            </div>
-            <div className="bg-white dark:bg-[#181818] p-6 rounded-xl border border-gray-200 dark:border-white/5 shadow-sm">
-              <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">{t.home.faq.q4}</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{t.home.faq.a4}</p>
-            </div>
+            {faqItems.map((f) => (
+              <div key={f.q} className="bg-white dark:bg-[#181818] p-6 rounded-xl border border-gray-200 dark:border-white/5 shadow-sm">
+                <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">{f.q}</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{f.a}</p>
+              </div>
+            ))}
           </div>
         </section>
 
