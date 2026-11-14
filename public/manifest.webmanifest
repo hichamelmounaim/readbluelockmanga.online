@@ -1,7 +1,7 @@
 {
   "name": "Haikyu!! Manga Online",
   "short_name": "Haikyu!!",
-  "description": "Read Haikyu!! Manga online in high quality. All 402 chapters, character profiles, and story guides in English, French, and Portuguese.",
+  "description": "Read Haikyu!! Manga online in high quality. All 402 chapters, character profiles, and story guides in English.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

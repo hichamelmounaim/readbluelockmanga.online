@@ -1,2 +1,6 @@
+# Redirect non-www to www domain
+https://haikyuu.org/* https://www.haikyuu.org/:splat 301!
+http://haikyuu.org/* https://www.haikyuu.org/:splat 301!
+
 # No SPA catch-all on purpose: every route is prerendered to <route>/index.html,
 # and unknown URLs are served dist/404.html with a real 404 status.

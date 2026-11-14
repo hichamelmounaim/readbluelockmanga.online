@@ -18,6 +18,7 @@ pnpm-debug.log*
 # IDEs/Editors
 .vscode/
 .idea/
+.claude/
 *.suo
 *.ntvsca
 *.njsproj

@@ -18,7 +18,7 @@ const Legal: React.FC<LegalProps> = ({ type }) => {
           content: (
             <>
               <p className="mb-4">
-                At <strong>Haikyu!! Manga</strong> (accessible from <a href="https://www.haikyuu.org/" className="text-orange-500 hover:underline">haikyuu.org</a>), the privacy of our visitors is of paramount importance. This Privacy Policy outlines the types of information recorded and how we utilize it to provide a fast, secure, and seamless manga reading environment.
+                At <strong>Haikyu!! Manga</strong> (accessible from <a href="https://www.haikyuu.org/" className="text-orange-500 hover:underline">www.haikyuu.org</a>), the privacy of our visitors is of paramount importance. This Privacy Policy outlines the types of information recorded and how we utilize it to provide a fast, secure, and seamless manga reading environment.
               </p>
 
               <h2 className="text-xl font-bold mt-6 mb-3 text-white">1. Automated Server Log Files</h2>
@@ -90,7 +90,7 @@ const Legal: React.FC<LegalProps> = ({ type }) => {
             <>
               <h2 className="text-xl font-bold mt-6 mb-3 text-white">1. Unofficial Fan Project</h2>
               <p className="mb-4">
-                <strong>haikyuu.org</strong> is an independent, non-commercial digital hub created by passionate fans. This platform is <strong>not endorsed by, directly affiliated with, sponsored by, or partnered with Haruichi Furudate, Shueisha Inc., or VIZ Media</strong>.
+                <strong>www.haikyuu.org</strong> is an independent, non-commercial digital hub created by passionate fans. This platform is <strong>not endorsed by, directly affiliated with, sponsored by, or partnered with Haruichi Furudate, Shueisha Inc., or VIZ Media</strong>.
               </p>
 
               <h2 className="text-xl font-bold mt-6 mb-3 text-white">2. Fair Use & Cultural Discussion</h2>
@@ -112,7 +112,7 @@ const Legal: React.FC<LegalProps> = ({ type }) => {
           content: (
             <>
               <p className="mb-4">
-                By accessing and utilizing <strong>haikyuu.org</strong>, you acknowledge that you have read, understood, and agreed to be bound by these Terms and Conditions. If you do not agree with any part of these terms, please discontinue use of the site immediately.
+                By accessing and utilizing <strong>www.haikyuu.org</strong>, you acknowledge that you have read, understood, and agreed to be bound by these Terms and Conditions. If you do not agree with any part of these terms, please discontinue use of the site immediately.
               </p>
 
               <h2 className="text-xl font-bold mt-6 mb-3 text-white">1. Permitted Personal Use</h2>
