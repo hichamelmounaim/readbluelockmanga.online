@@ -1,7 +1,6 @@
 // Blue Lock Manga Service Worker
-const CACHE_NAME = 'bluelock-cache-v1';
+const CACHE_NAME = 'bluelock-cache-v2';
 const PRECACHE_URLS = [
-  '/',
   '/manifest.webmanifest',
   '/favicon.png',
   '/icon-192.png',
@@ -30,15 +29,22 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Only handle GET requests
   if (event.request.method !== 'GET') return;
 
   const url = new URL(event.request.url);
-
-  // Avoid intercepting third-party analytics or external CDNs in SW
   if (url.origin !== self.location.origin) return;
 
-  // Stale-while-revalidate for local static assets, Network-first for pages
+  // Network-first for HTML page navigations so deploys never serve stale HTML pointing to old JS/CSS
+  if (event.request.mode === 'navigate' || event.request.headers.get('accept')?.includes('text/html')) {
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => networkResponse)
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
+  // Stale-while-revalidate for static assets & images
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       const fetchPromise = fetch(event.request)
@@ -46,7 +52,6 @@ self.addEventListener('fetch', (event) => {
           if (networkResponse && networkResponse.status === 200) {
             const responseToCache = networkResponse.clone();
             caches.open(CACHE_NAME).then((cache) => {
-              // Cache hashed assets and images
               if (url.pathname.startsWith('/assets/') || url.pathname.match(/\.(png|jpg|webp|svg|css|js)$/)) {
                 cache.put(event.request, responseToCache);
               }
@@ -54,13 +59,7 @@ self.addEventListener('fetch', (event) => {
           }
           return networkResponse;
         })
-        .catch(() => {
-          // If offline and request is an HTML page navigation, return cached home
-          if (event.request.mode === 'navigate') {
-            return caches.match('/');
-          }
-          return cachedResponse;
-        });
+        .catch(() => cachedResponse);
 
       return cachedResponse || fetchPromise;
     })
