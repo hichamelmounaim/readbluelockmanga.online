@@ -15,8 +15,8 @@ const Home: React.FC = () => {
   // Readable chapters filtered by language
   const readableChapters = React.useMemo(() => {
     return chapters.filter(c => {
-      if (lang === 'fr') return (c.pageCountFr ?? 0) > 0 || c.number <= 366;
-      if (lang === 'pt') return (c.pageCountPt ?? 0) > 0 || c.number <= 366;
+      if (lang === 'fr') return (c.pageCountFr ?? 0) > 0;
+      if (lang === 'pt') return (c.pageCountPt ?? 0) > 0;
       return (c.pageCount ?? 0) > 0;
     });
   }, [chapters, lang]);

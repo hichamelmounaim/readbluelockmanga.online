@@ -37,11 +37,36 @@ try {
 // French scans page count mapping
 const qFr = {343:19, 344:19, 345:21, 346:16, 347:17, 348:20, 349:18, 350:22, 351:20, 352:20, 353:20, 354:19, 355:18, 356:20, 357:19, 358:19, 359:19, 360:18, 361:19, 362:18, 363:20, 364:9};
 
+const CH368_FR = [
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/01.png",
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/01a.jpg",
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/02.png",
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/03.png",
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/04-05.png",
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/06.png",
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/07.png",
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/08.png",
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/09.png",
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/10.png",
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/11.png",
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/12.png",
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/13.png",
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/14.png",
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/15.png",
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/16.png",
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/17.png",
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/18-19.png",
+  "https://fmteam.fr/storage/comics/blue-lock_sdv8rvFvzkmP5Is5/fr-N-368-N-le-chemin-de-lechec_knRNkrfugwtnspGr/20.png"
+];
+
 function getPagesFr(num) {
   if (num === 365) return Array.from({length: 20}, (_, a) => `https://anime-sama.to/s2/scans/Blue%20Lock%20%20/366/${a+1}.jpg`);
   if (num === 366) return Array.from({length: 17}, (_, a) => `https://anime-sama.to/s2/scans/Blue%20Lock%20%20/367/${a+1}.jpg`);
+  if (num === 367) return Array.from({length: 20}, (_, a) => `https://anime-sama.to/s2/scans/Blue%20Lock%20%20/368/${a+1}.jpg`);
+  if (num === 368) return CH368_FR;
+  if (num === 369) return Array.from({length: 18}, (_, a) => `https://anime-sama.to/s2/scans/Blue%20Lock%20%20/370/${a+1}.jpg`);
   if (num === 364.2) return Array.from({length: 11}, (_, a) => `https://anime-sama.to/s2/scans/Blue%20Lock%20%20/365/${a+1}.jpg`);
-  if (num > 366 || num % 1 !== 0) return [];
+  if (num > 369 || num % 1 !== 0) return [];
   const count = qFr[num] || 20;
   return Array.from({length: count}, (_, t) => `https://anime-sama.to/s2/scans/Blue%20Lock%20%20/${num}/${t+1}.jpg`);
 }
@@ -56,7 +81,6 @@ function getMangafreakFolderName(num) {
 }
 
 function getEnglishPages(num, baseUrls = []) {
-  if (num === 367 || num === 368) return [];
   // Use newest chapters from scraped_new_chapters.json if available
   if (newChaptersData[String(num)]) {
     return newChaptersData[String(num)];

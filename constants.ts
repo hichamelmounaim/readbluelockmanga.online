@@ -7,6 +7,8 @@ export const MOCK_CHAPTERS: Chapter[] = (chapterSummaries as any[]).map(ch => ({
   title: ch.title || `Chapter ${ch.number}`,
   releaseDate: ch.releaseDate,
   pageCount: ch.pageCount ?? 0,
+  pageCountFr: ch.pageCountFr ?? 0,
+  pageCountPt: ch.pageCountPt ?? 0,
   pages: []
 }));
 
