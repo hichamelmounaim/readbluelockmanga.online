@@ -215,16 +215,25 @@ for (const c of CHARACTERS_DATA) {
 
     const body = wrap(`<main class="max-w-4xl mx-auto px-4 py-10">
         <a href="${routePrefix}/characters" class="text-blue-400 text-sm">← ${UI[lang].allChars}</a>
-        <h1 class="text-4xl md:text-5xl font-heading font-bold mt-4">${esc(c.name)}</h1>
+        <h1 class="text-4xl md:text-5xl font-heading font-bold mt-4">${esc(c.name)} — Blue Lock Character Profile</h1>
         <p class="text-blue-400 text-sm font-bold mt-2">${esc(c.role)} • ${esc(c.grade)}</p>
-        <img src="${esc(c.image)}" alt="${esc(c.name)} – Blue Lock" width="230" height="345" class="my-6 rounded-xl" loading="eager" />
+        <img src="${esc(c.image)}" alt="${esc(c.name)} Blue Lock Character Profile" width="230" height="345" class="my-6 rounded-xl" loading="eager" />
         <p class="text-lg text-gray-300 mb-6">${esc(c.description)}</p>
+        <h2 class="text-xl font-bold text-white mb-2">Profile &amp; Stats</h2>
+        <ul class="text-gray-300 mb-6 space-y-1">
+          ${c.age ? `<li><strong>Age:</strong> ${esc(c.age)}</li>` : ''}
+          ${c.height ? `<li><strong>Height:</strong> ${esc(c.height)}</li>` : ''}
+          ${c.team ? `<li><strong>Team:</strong> ${esc(c.team)}</li>` : ''}
+          ${c.marketValue ? `<li><strong>NEL Market Value:</strong> ${esc(c.marketValue)}</li>` : ''}
+          <li><strong>First appearance:</strong> ${esc(c.firstAppearance)}</li>
+        </ul>
         <h2 class="text-xl font-bold text-white mb-2">Abilities &amp; Style</h2>
         <p class="text-gray-300 mb-2"><strong>Weapon:</strong> ${esc(c.weapon)}</p>
         <p class="text-gray-300 mb-6">${esc(c.abilities)}</p>
         <h2 class="text-xl font-bold text-white mb-2">Biography</h2>
-        <p class="text-gray-300 mb-2"><strong>First appearance:</strong> ${esc(c.firstAppearance)}</p>
         <p class="text-gray-300 mb-6">${esc(c.longDescription)}</p>
+        ${c.faq?.length ? `<h2 class="text-xl font-bold text-white mb-2">Frequently Asked Questions</h2>
+        <dl class="mb-6 space-y-3">${c.faq.map(f => `<div><dt class="font-bold text-white">${esc(f.q)}</dt><dd class="text-gray-300">${esc(f.a)}</dd></div>`).join('')}</dl>` : ''}
         ${c.keyChapters?.length ? `<h2 class="text-xl font-bold text-white mb-2">Key Chapters</h2>
         <ul class="mb-6">${c.keyChapters.map(k => `<li><a href="${routePrefix}/chapter/${k.number}">${esc(k.label)}</a></li>`).join('')}</ul>` : ''}
         ${related.length ? `<h2 class="text-xl font-bold text-white mb-2">Teammates &amp; Rivals</h2>

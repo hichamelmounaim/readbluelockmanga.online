@@ -530,4 +530,192 @@ export const GUIDES = {
     breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Author', path: '/author' }],
     related: [{ label: 'Blue Lock manga FAQ', to: '/' }, { label: 'Episode Nagi', to: '/anime/episode-nagi' }, { label: 'All chapters', to: '/manga' }],
   },
+
+  // ------------------------------------------------------------------ RANKINGS & TIER LIST
+  '/rankings': {
+    title: 'Blue Lock Rankings & Tier List: Top Players by Market Value',
+    description: 'Blue Lock player rankings and tier list based on Neo Egoist League (NEL) market values, bid offers, and U-20 World Cup squad selection.',
+    kicker: 'Rankings & Bids',
+    h1: 'Blue Lock Rankings & Tier List (NEL Market Values)',
+    intro: [
+      'After the Neo Egoist League, the top 23 Blue Lock players earned official club salary bids and secured their spots in Blue Lock Japan for the U-20 World Cup.',
+    ],
+    sections: [
+      {
+        h2: 'S-Tier: Top Blue Lock & World 11 Strikers',
+        list: [
+          'Michael Kaiser (Bastard München) — 400,000,000 Yen+ (New Generation World 11)',
+          'Rin Itoshi (Paris X Gen) — 240,000,000 Yen (Rank #1 Blue Lock)',
+          'Yoichi Isagi (Bastard München) — 240,000,000 Yen (Tied Rank #1 Blue Lock)',
+          'Ryusei Shidou (Paris X Gen) — 160,000,000 Yen',
+          'Shoei Barou (Ubers) — 150,000,000 Yen',
+        ],
+        links: [
+          { label: 'Michael Kaiser profile', to: '/characters/michael-kaiser' },
+          { label: 'Rin Itoshi profile', to: '/characters/rin-itoshi' },
+          { label: 'Yoichi Isagi profile', to: '/characters/yoichi-isagi' },
+        ],
+      },
+      {
+        h2: 'A-Tier: Core Starters & Midfield Engines',
+        list: [
+          'Meguru Bachira (FC Barcha) — 120,000,000 Yen',
+          'Hyoma Chigiri (Manshine City) — 90,000,000 Yen',
+          'Reo Mikage (Manshine City) — 78,000,000 Yen',
+          'Rensuke Kunigami (Bastard München) — 66,000,000 Yen',
+          'Oliver Aiku (Ubers) — 60,000,000 Yen',
+        ],
+        links: [
+          { label: 'Meguru Bachira profile', to: '/characters/meguru-bachira' },
+          { label: 'All Blue Lock characters', to: '/characters' },
+        ],
+      },
+      {
+        h2: 'Notable Eliminated / Side B Players',
+        paras: [
+          'Seishiro Nagi peaked at 88,000,000 Yen early in the NEL before dropping to 24,000,000 Yen and missing the top 23 cutoff, forcing him into the Side B path during the U-20 World Cup arc.',
+        ],
+        links: [{ label: 'Seishiro Nagi profile', to: '/characters/seishiro-nagi' }],
+      },
+    ],
+    faq: [
+      { q: 'Who is the #1 ranked player in Blue Lock?', a: 'At the end of the Neo Egoist League, Rin Itoshi and Yoichi Isagi tied for #1 among Blue Lock players with 240,000,000 Yen bids.' },
+      { q: 'Who has the highest bid overall in the NEL?', a: 'Michael Kaiser (New Generation World 11) holds a 400,000,000+ Yen valuation, ahead of the Blue Lock domestic strikers.' },
+    ],
+    breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Rankings', path: '/rankings' }],
+    related: [{ label: 'All Characters', to: '/characters' }, { label: 'Neo Egoist League Arc', to: '/arcs/neo-egoist-league' }, { label: 'All Chapters', to: '/manga' }],
+  },
+
+  // ------------------------------------------------------------------ IS BLUE LOCK FINISHED
+  '/guides/is-blue-lock-finished': {
+    title: 'Is Blue Lock Manga Finished? Current Status & Chapter Count',
+    description: 'Is the Blue Lock manga finished? No—Blue Lock is ongoing in Weekly Shōnen Magazine with 368+ chapters and the U-20 World Cup arc.',
+    kicker: 'Manga Status',
+    h1: 'Is Blue Lock Manga Finished?',
+    intro: [
+      'No, the Blue Lock manga is not finished. It is actively serialized every week in Kodansha\'s Weekly Shōnen Magazine and is currently in the U-20 World Cup arc.',
+    ],
+    sections: [
+      {
+        h2: 'Current Manga Progress',
+        paras: [
+          'Written by Muneyuki Kaneshiro and illustrated by Yusuke Nomura, Blue Lock has surpassed 368 chapters. Following the conclusion of the Neo Egoist League at Chapter 302, the story moved into Phase 3: the FIFA U-20 World Cup.',
+        ],
+        links: [
+          { label: 'Browse all chapters', to: '/manga' },
+          { label: 'U-20 World Cup Arc', to: '/arcs/u20-world-cup' },
+        ],
+      },
+      {
+        h2: 'What about Blue Lock: Episode Nagi?',
+        paras: [
+          'The spin-off manga Blue Lock: Episode Nagi concluded in 2025, while the main Blue Lock series continues weekly.',
+        ],
+        links: [{ label: 'Episode Nagi guide', to: '/anime/episode-nagi' }],
+      },
+    ],
+    faq: [
+      { q: 'Is Blue Lock manga finished?', a: 'No, Blue Lock is still ongoing weekly in Kodansha\'s Weekly Shōnen Magazine.' },
+      { q: 'What chapter is Blue Lock on right now?', a: 'Blue Lock is past Chapter 368 in the ongoing U-20 World Cup arc.' },
+    ],
+    breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Is Blue Lock Finished?', path: '/guides/is-blue-lock-finished' }],
+    related: [{ label: 'Next Chapter Schedule', to: '/next-chapter-release-date' }, { label: 'All Chapters', to: '/manga' }, { label: 'Blue Lock Arcs', to: '/arcs' }],
+  },
+
+  // ------------------------------------------------------------------ NEXT CHAPTER RELEASE DATE
+  '/next-chapter-release-date': {
+    title: 'Blue Lock Next Chapter Release Date, Schedule & Spoilers',
+    description: 'When is the next Blue Lock chapter coming out? Weekly release schedule, exact release time by timezone, and where to read new chapters.',
+    kicker: 'Release Schedule',
+    h1: 'Blue Lock Next Chapter Release Date & Schedule',
+    intro: [
+      'New chapters of Blue Lock release weekly in Japan in Kodansha\'s Weekly Shōnen Magazine on Wednesdays (Tuesday mornings/afternoons in US & Europe), barring scheduled magazine breaks.',
+    ],
+    sections: [
+      {
+        h2: 'Weekly Release Times',
+        list: [
+          'Japan Standard Time (JST): Wednesday at 12:00 AM',
+          'US Pacific Time (PT): Tuesday at 8:00 AM',
+          'US Eastern Time (ET): Tuesday at 11:00 AM',
+          'UK / GMT: Tuesday at 4:00 PM',
+          'Official English Platform: Kodansha K MANGA (simultaneous release)',
+        ],
+        links: [{ label: 'Read latest chapters', to: '/manga' }],
+      },
+    ],
+    faq: [
+      { q: 'When do new Blue Lock chapters come out?', a: 'New Blue Lock chapters release every Tuesday (US/EU) / Wednesday (Japan) on K MANGA and Weekly Shōnen Magazine.' },
+      { q: 'Where can I read the newest Blue Lock chapter officially?', a: 'Official simultaneous English chapters are published on Kodansha\'s K MANGA platform.' },
+    ],
+    breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Next Chapter Release Date', path: '/next-chapter-release-date' }],
+    related: [{ label: 'Is Blue Lock Finished?', to: '/guides/is-blue-lock-finished' }, { label: 'All Chapters', to: '/manga' }],
+  },
+
+  // ------------------------------------------------------------------ WHERE TO WATCH
+  '/anime/where-to-watch': {
+    title: 'Where to Watch Blue Lock Anime & Read Manga Officially',
+    description: 'Where to watch Blue Lock Season 1, Season 2, and Episode Nagi movie legally online (Crunchyroll, Netflix), plus where to read the manga.',
+    kicker: 'Streaming Guide',
+    h1: 'Where to Watch Blue Lock',
+    intro: [
+      'You can stream Blue Lock Season 1, Season 2 (vs. U-20 Japan), and the Episode Nagi movie legally across major anime streaming services worldwide.',
+    ],
+    sections: [
+      {
+        h2: 'Official Streaming Platforms',
+        list: [
+          'Crunchyroll — Seasons 1 & 2 (Sub & English Dub) + Blue Lock: Episode Nagi movie worldwide outside Asia.',
+          'Netflix — Available in select regions (Asia, Europe, and parts of Latin America).',
+          'Ani-One Asia (YouTube) — Free legal streaming in select Asian territories.',
+        ],
+        links: [
+          { label: 'Blue Lock Anime Guide', to: '/anime' },
+          { label: 'Season 3 Release Date', to: '/anime/season-3' },
+        ],
+      },
+      {
+        h2: 'Where to Read Blue Lock Manga Officially',
+        paras: [
+          'The official English digital serialization is available on Kodansha\'s K MANGA app and website, with print volumes published by Kodansha USA.',
+        ],
+        links: [{ label: 'Browse Chapter List', to: '/manga' }],
+      },
+    ],
+    faq: [
+      { q: 'Is Blue Lock on Crunchyroll?', a: 'Yes, Crunchyroll streams both Season 1 and Season 2 (vs. U-20 Japan) along with the Episode Nagi film.' },
+      { q: 'Is Blue Lock on Netflix?', a: 'Yes, Blue Lock is available on Netflix in select regions depending on local licensing.' },
+    ],
+    breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Anime', path: '/anime' }, { name: 'Where to Watch', path: '/anime/where-to-watch' }],
+    related: [{ label: 'Anime Overview', to: '/anime' }, { label: 'Season 3 News', to: '/anime/season-3' }],
+  },
+
+  // ------------------------------------------------------------------ LIVE ACTION
+  '/live-action': {
+    title: 'Blue Lock Live Action Movie: Cast, Release Date & Updates',
+    description: 'Everything we know about the Blue Lock live action adaptation: rumors, cast updates, director possibilities, and official news.',
+    kicker: 'Live Action',
+    h1: 'Blue Lock Live Action: Cast & Release Date News',
+    intro: [
+      'With Blue Lock surpassing 50 million copies in print and becoming one of the biggest sports franchises globally, fan interest in a Blue Lock live-action adaptation continues to grow.',
+    ],
+    sections: [
+      {
+        h2: 'Current Status of the Live Action Project',
+        paras: [
+          'While Blue Lock has already expanded into two anime seasons, an animated film (Episode Nagi), and official stage plays in Japan (Blue Lock Stage Play), Kodansha has not yet announced a theatrical live-action film release date.',
+        ],
+        links: [
+          { label: 'Blue Lock Anime Season 3', to: '/anime/season-3' },
+          { label: 'About Creator Muneyuki Kaneshiro', to: '/author' },
+        ],
+      },
+    ],
+    faq: [
+      { q: 'Is there a Blue Lock live action movie?', a: 'There is no released live-action film yet, though official Blue Lock stage plays have been performed in Japan and anime Season 3 is in production.' },
+      { q: 'Does Blue Lock have a stage play?', a: 'Yes, an official Blue Lock stage play adaptation has run in Japan covering the First Selection, Second Selection, and U-20 arcs.' },
+    ],
+    breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Live Action', path: '/live-action' }],
+    related: [{ label: 'Blue Lock Anime', to: '/anime' }, { label: 'Characters', to: '/characters' }],
+  },
 };

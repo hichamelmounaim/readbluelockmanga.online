@@ -490,11 +490,11 @@ export function getCharacterSEOData(character, lang = 'en') {
     seoTitle = trimText(`${character.name} – Perfil, Armas e Habilidades Blue Lock`, 65);
     seoDescription = trimText(`Tudo sobre ${character.name} em Blue Lock: posição (${character.role}), arma (${character.weapon}), habilidades e capítulos marcantes.`, 160);
   } else {
-    seoTitle = character.shortName
-      ? trimText(`${character.name} (${character.shortName}) – Blue Lock Character Profile, Weapon & Role`, 65)
-      : trimText(`${character.name} – Blue Lock Character Profile, Weapon & Role`, 65);
+    seoTitle = character.age
+      ? trimText(`${character.name} (Blue Lock): Age, Weapon, Team & Abilities`, 65)
+      : trimText(`${character.name} (Blue Lock): Weapon, Abilities & Role`, 65);
     seoDescription = trimText(
-      `${character.name} is a ${character.role} in Blue Lock (${character.grade}). Weapon: ${character.weapon}. Abilities: ${character.abilities} First appeared in ${character.firstAppearance}.`,
+      `${character.name} in Blue Lock (${character.grade})${character.age ? `, age ${character.age}` : ''}${character.team ? `, plays for ${character.team}` : ''}. Weapon: ${character.weapon}. Abilities: ${character.abilities}`,
       160,
     );
   }
@@ -518,17 +518,20 @@ export function getCharacterSEOData(character, lang = 'en') {
   const schemas = [
     {
       '@context': 'https://schema.org',
-      '@type': 'ItemPage',
+      '@type': 'Article',
+      headline: `${character.name} — Blue Lock Character Profile`,
       name: seoTitle,
       description: seoDescription,
       url,
       image: abs(character.image),
+      inLanguage: HTML_LANG[lang],
       about: {
         '@type': 'Person',
         name: character.name,
         description: character.description,
         image: abs(character.image),
       },
+      publisher: { '@type': 'Organization', name: SITE_NAME, url: `${SITE_URL}/` },
     },
     breadcrumbSchema(breadcrumbItems),
   ];

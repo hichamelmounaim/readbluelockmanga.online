@@ -31,8 +31,10 @@ const Footer: React.FC = () => {
                 <li><Link to={localizePath('/chapter/1')} className="hover:text-blue-500 transition-colors">{t.hero.exploreMore}</Link></li>
                 <li><Link to={localizePath('/characters')} className="hover:text-blue-500 transition-colors">{t.nav.characters}</Link></li>
                 <li><Link to={localizePath('/arcs')} className="hover:text-blue-500 transition-colors">Story Arcs</Link></li>
+                <li><Link to={localizePath('/rankings')} className="hover:text-blue-500 transition-colors">Player Rankings</Link></li>
                 <li><Link to={localizePath('/teams')} className="hover:text-blue-500 transition-colors">Teams</Link></li>
                 <li><Link to={localizePath('/anime')} className="hover:text-blue-500 transition-colors">Anime Guide</Link></li>
+                <li><Link to={localizePath('/next-chapter-release-date')} className="hover:text-blue-500 transition-colors">Release Schedule</Link></li>
                 <li><Link to={localizePath('/about')} className="hover:text-blue-500 transition-colors">{t.footer.aboutUs}</Link></li>
               </ul>
             </div>

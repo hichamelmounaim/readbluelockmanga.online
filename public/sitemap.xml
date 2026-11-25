@@ -4,7 +4,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.bluelockchapter.com/</loc>
-    <lastmod>2026-11-11</lastmod>
+    <lastmod>2026-11-25</lastmod>
     <priority>1.0</priority>
     <changefreq>daily</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/" />
@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/manga</loc>
-    <lastmod>2026-11-11</lastmod>
+    <lastmod>2026-11-25</lastmod>
     <priority>0.9</priority>
     <changefreq>daily</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bluelockchapter.com/manga" />
@@ -223,6 +223,31 @@
   </url>
   <url>
     <loc>https://www.bluelockchapter.com/author</loc>
+    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.bluelockchapter.com/rankings</loc>
+    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.bluelockchapter.com/guides/is-blue-lock-finished</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.bluelockchapter.com/next-chapter-release-date</loc>
+    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.bluelockchapter.com/anime/where-to-watch</loc>
+    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.bluelockchapter.com/live-action</loc>
     <priority>0.5</priority>
     <changefreq>monthly</changefreq>
   </url>

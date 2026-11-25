@@ -9,9 +9,15 @@ export const CHARACTERS_DATA = [
     image: "/characters/yoichi-isagi.webp",
     slug: "yoichi-isagi",
     shortName: "Isagi",
+    age: "17",
+    height: "175 cm",
+    team: "Bastard München / Blue Lock Japan",
+    marketValue: "240,000,000 Yen",
     faq: [
       { q: "What team is Isagi on?", a: "Team Z in the First Selection, Bastard München (Germany) in the Neo Egoist League, and Blue Lock Japan at the U-20 World Cup." },
-      { q: "Is Isagi the main character of Blue Lock?", a: "Yes. Yoichi Isagi is the protagonist of Blue Lock." }
+      { q: "Is Isagi the main character of Blue Lock?", a: "Yes. Yoichi Isagi is the protagonist of Blue Lock." },
+      { q: "What is Isagi's weapon?", a: "Isagi's core weapons are Direct Shoot (no-trap volley), Spatial Awareness, Metavision, and the Two-Gun Volley." },
+      { q: "How old is Yoichi Isagi?", a: "Yoichi Isagi is 17 years old (born April 1)." }
     ],
     abilities: "Spatial Awareness, Direct Shoot, Metavision, Egocentrism.",
     weapon: "Direct Shoot / Metavision (Spatial Awareness)",
@@ -35,8 +41,14 @@ export const CHARACTERS_DATA = [
     image: "/characters/meguru-bachira.webp",
     slug: "meguru-bachira",
     shortName: "Bachira",
+    age: "17",
+    height: "176 cm",
+    team: "FC Barcha / Blue Lock Japan",
+    marketValue: "120,000,000 Yen",
     faq: [
-      { q: "What position does Bachira play?", a: "Bachira is a forward and dribbler. In the Neo Egoist League he plays for FC Barcha (Spain)." }
+      { q: "What position does Bachira play?", a: "Bachira is a forward and dribbler. In the Neo Egoist League he plays for FC Barcha (Spain)." },
+      { q: "What is Bachira's weapon?", a: "Breakdance-style creative dribbling, elastic feints, and monster-instinct playmaking." },
+      { q: "How old is Bachira?", a: "Meguru Bachira is 17 years old (born August 8)." }
     ],
     abilities: "Egoist Dribbling, Key Passes, Hyper-flexible Footwork, Monster Instinct.",
     weapon: "Breakdance Dribbling / Instinctive Playmaking",
@@ -60,10 +72,14 @@ export const CHARACTERS_DATA = [
     slug: "rin-itoshi",
     shortName: "Rin",
     age: "16",
+    height: "187 cm",
+    team: "Paris X Gen / Blue Lock Japan",
+    marketValue: "240,000,000 Yen",
     birthday: "September 9",
     faq: [
       { q: "What team is Rin on?", a: "Rin plays for Paris X Gen (France) in the Neo Egoist League and is part of Blue Lock Japan for the U-20 World Cup." },
-      { q: "Who is Rin's brother?", a: "Sae Itoshi, a midfielder of the New Generation World 11 and Rin's biggest motivation." }
+      { q: "Who is Rin's brother?", a: "Sae Itoshi, a midfielder of the New Generation World 11 and Rin's biggest motivation." },
+      { q: "What is Rin Itoshi's weapon?", a: "Pinpoint kick accuracy, Puppeteer field control, Metavision, and his destructive Berserker Flow." }
     ],
     abilities: "Puppeteer Soccer, Pinpoint Free Kicks, Metavision, Destructive Instinct.",
     weapon: "Absolute Kick Precision / Puppeteer Strategy",
@@ -86,6 +102,14 @@ export const CHARACTERS_DATA = [
     image: "/characters/rensuke-kunigami.webp",
     slug: "rensuke-kunigami",
     shortName: "Kunigami",
+    age: "17",
+    height: "188 cm",
+    team: "Bastard München / Blue Lock Japan",
+    marketValue: "66,000,000 Yen",
+    faq: [
+      { q: "How did Kunigami survive elimination?", a: "After losing in the Second Selection, Kunigami entered and survived the brutal Wild Card program, returning with ambidextrous shooting and Noel Noa-level physicals." },
+      { q: "What team is Kunigami on?", a: "Team Z in the First Selection and Bastard München (Germany) in the Neo Egoist League." }
+    ],
     abilities: "Knuckle Shot, Ambidextrous Shooting, Power Headers, Physical Dominance.",
     weapon: "Long-Range Cannon / Ambidextrous Noel Noa Clone Physicals",
     firstAppearance: "Chapter 1",
@@ -107,6 +131,14 @@ export const CHARACTERS_DATA = [
     image: "/characters/hyoma-chigiri.webp",
     slug: "hyoma-chigiri",
     shortName: "Chigiri",
+    age: "16",
+    height: "177 cm",
+    team: "Manshine City / Blue Lock Japan",
+    marketValue: "90,000,000 Yen",
+    faq: [
+      { q: "What is Chigiri's weapon?", a: "Mach-speed sprinting and his 44-Degree Angle Golden Zone cut-in curler shot." },
+      { q: "What team does Chigiri play for?", a: "Team Z in the First Selection and Manshine City (England) in the Neo Egoist League." }
+    ],
     abilities: "Mach-Speed Sprinting, Cut-in Curler, 44-Caliber Golden Zone.",
     weapon: "High-Speed Breakaway / 44-Degree Angle Golden Formula",
     firstAppearance: "Chapter 2",
@@ -128,10 +160,14 @@ export const CHARACTERS_DATA = [
     slug: "seishiro-nagi",
     shortName: "Nagi",
     age: "17",
+    height: "190 cm",
+    team: "Manshine City / Team V",
+    marketValue: "88,000,000 Yen (Peak) / 24,000,000 Yen (Final)",
     birthday: "May 6",
     faq: [
       { q: "What team is Nagi on?", a: "Team V in the First Selection and Manshine City (England) in the Neo Egoist League. He is eliminated when the NEL ends and returns through Side B in the U-20 World Cup arc." },
-      { q: "Does Nagi have his own manga?", a: "Yes, Blue Lock: Episode Nagi, which was also made into an anime movie." }
+      { q: "Does Nagi have his own manga?", a: "Yes, Blue Lock: Episode Nagi, which was also made into an anime movie." },
+      { q: "What is Nagi's weapon?", a: "God-level zero-motion first touch trapping and creative aerial volleys like the Five-Stage Revolver Volley." }
     ],
     abilities: "Zero-Motion Trap, Five-Stage Revolver Volley, Juggling Shot, Creative Finishing.",
     weapon: "God-Level First Touch Ball Control",
@@ -154,8 +190,13 @@ export const CHARACTERS_DATA = [
     image: "/characters/shoei-barou.webp",
     slug: "shoei-barou",
     shortName: "Barou",
+    age: "18",
+    height: "187 cm",
+    team: "Ubers / Blue Lock Japan",
+    marketValue: "150,000,000 Yen",
     faq: [
-      { q: "What team is Barou on?", a: "Team X in the First Selection and Ubers (Italy) in the Neo Egoist League." }
+      { q: "What team is Barou on?", a: "Team X in the First Selection and Ubers (Italy) in the Neo Egoist League." },
+      { q: "What is Barou's weapon?", a: "Aggressive chopping dribbles, a powerful 29-meter middle shot, and Predator Eye goalkeeper sniping." }
     ],
     abilities: "Predator Eye, Chopping Feints, 29-Meter Middle Shot, Physical Charge.",
     weapon: "Sharp Mid-Range Curve / Predator Eye Sniping",
@@ -178,8 +219,13 @@ export const CHARACTERS_DATA = [
     image: "/characters/reo-mikage.webp",
     slug: "reo-mikage",
     shortName: "Reo",
+    age: "17",
+    height: "185 cm",
+    team: "Manshine City / Blue Lock Japan",
+    marketValue: "78,000,000 Yen",
     faq: [
-      { q: "What team is Reo on?", a: "Team V with Nagi in the First Selection, and Manshine City (England) in the Neo Egoist League." }
+      { q: "What team is Reo on?", a: "Team V with Nagi in the First Selection, and Manshine City (England) in the Neo Egoist League." },
+      { q: "What is Reo Mikage's weapon?", a: "The Chameleon playstyle—near-perfect replication of other top players' techniques backed by 99% stat dexterity and Metavision." }
     ],
     abilities: "Chameleon Playstyle, 99% Stat Balance, Metavision, Versatile Passing.",
     weapon: "Chameleon (Near-Perfect Replication of Techniques)",
@@ -201,10 +247,13 @@ export const CHARACTERS_DATA = [
     image: "/characters/sae-itoshi.webp",
     slug: "sae-itoshi",
     shortName: "Sae",
-    age: "17 at the start of the story, 18 by the Second Selection",
+    age: "18",
+    height: "180 cm",
+    team: "Royale (Real Madrid Youth) / Japan U-20",
     birthday: "October 10",
     faq: [
-      { q: "Is Sae older than Rin?", a: "Yes. Sae is Rin's older brother." }
+      { q: "Is Sae older than Rin?", a: "Yes. Sae is Rin's older brother." },
+      { q: "What is Sae Itoshi's weapon?", a: "Passive Metavision, world-class trivela passes, and surgical midfield distribution." }
     ],
     abilities: "Passive Metavision, Trivela Passes, Flawless Ball Distribution, World-Class Vision.",
     weapon: "Calculated Destruction Through Passing",
@@ -247,8 +296,15 @@ export const CHARACTERS_DATA = [
     image: "/blue-lock.webp",
     slug: "michael-kaiser",
     shortName: "Kaiser",
+    age: "19",
+    height: "186 cm",
+    team: "Bastard München (Germany)",
+    marketValue: "400,000,000 Yen",
     faq: [
-      { q: "What team is Kaiser on?", a: "Bastard München (Germany), the same Neo Egoist League team as Isagi." }
+      { q: "What team is Kaiser on?", a: "Bastard München (Germany), the same Neo Egoist League team as Isagi." },
+      { q: "How old is Michael Kaiser?", a: "Michael Kaiser is 19 years old." },
+      { q: "What is Kaiser's weapon?", a: "The Kaiser Impact (the fastest kick swing in the world), Kaiser Magnus curved shot, and Metavision." },
+      { q: "Is Kaiser stronger than Isagi?", a: "Kaiser starts the Neo Egoist League far ahead of Isagi with a New Generation World 11 rating and a 320M+ Yen bid, though Isagi catches up to rival him by the end of the PXG match." }
     ],
     abilities: "Kaiser Impact, Kaiser Magnus, Metavision, Ball Control.",
     weapon: "Kaiser Impact (ultra-fast shot release)",
@@ -265,12 +321,15 @@ export const CHARACTERS_DATA = [
     image: "/characters/anri-teieri.webp",
     slug: "anri-teieri",
     shortName: "Anri",
+    age: "22",
+    team: "Japan Football Union (Blue Lock Staff)",
     abilities: "Project management, data analysis, belief in the Blue Lock project.",
     weapon: "Not a player: she runs Blue Lock alongside Ego",
     firstAppearance: "Chapter 1",
     longDescription: "Anri Teieri works for the Japan Football Union and is the person who recruited Jinpachi Ego to build Blue Lock. Inside the facility she works as Ego's assistant, handling the project's operations and defending it against the JFU executives who want to shut it down. She is the most prominent female character in Blue Lock.",
     faq: [
-      { q: "Who is the girl in Blue Lock?", a: "The main female character is Anri Teieri, the Japan Football Union employee who works with Jinpachi Ego to run Blue Lock." }
+      { q: "Who is the girl in Blue Lock?", a: "The main female character is Anri Teieri, the Japan Football Union employee who works with Jinpachi Ego to run Blue Lock." },
+      { q: "How old is Anri Teieri in Blue Lock?", a: "Anri Teieri is 22 years old." }
     ],
     relatedSlugs: ["jinpachi-ego", "yoichi-isagi"]
   },

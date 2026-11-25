@@ -30,6 +30,9 @@ export interface Character {
   /** Name fans search with, e.g. "Nagi" for "nagi blue lock" */
   shortName?: string;
   age?: string;
+  height?: string;
+  team?: string;
+  marketValue?: string;
   birthday?: string;
   faq?: { q: string; a: string }[];
 }

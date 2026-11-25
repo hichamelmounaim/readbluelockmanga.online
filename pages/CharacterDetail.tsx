@@ -121,12 +121,38 @@ const CharacterDetail: React.FC = () => {
                   </div>
                   <span className="text-white text-sm font-semibold">{character.firstAppearance}</span>
                 </div>
-                {character.birthday && (
+                {(character.age || character.birthday) && (
                   <div className="bg-white/5 p-4 rounded-xl border border-white/5">
                     <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400 mb-1">
-                      <CheckCircle2 size={14} /> Birthday / Age
+                      <CheckCircle2 size={14} /> Age{character.birthday ? ' / Birthday' : ''}
                     </div>
-                    <span className="text-white text-sm font-semibold">{character.birthday} ({character.age || '17'})</span>
+                    <span className="text-white text-sm font-semibold">
+                      {character.age || '17'}{character.birthday ? ` (${character.birthday})` : ''}
+                    </span>
+                  </div>
+                )}
+                {character.height && (
+                  <div className="bg-white/5 p-4 rounded-xl border border-white/5">
+                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400 mb-1">
+                      <CheckCircle2 size={14} /> Height
+                    </div>
+                    <span className="text-white text-sm font-semibold">{character.height}</span>
+                  </div>
+                )}
+                {character.team && (
+                  <div className="bg-white/5 p-4 rounded-xl border border-white/5">
+                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400 mb-1">
+                      <Users size={14} /> Team
+                    </div>
+                    <span className="text-white text-sm font-semibold">{character.team}</span>
+                  </div>
+                )}
+                {character.marketValue && (
+                  <div className="bg-white/5 p-4 rounded-xl border border-white/5">
+                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400 mb-1">
+                      <Trophy size={14} /> Market Value (NEL)
+                    </div>
+                    <span className="text-white text-sm font-semibold">{character.marketValue}</span>
                   </div>
                 )}
               </div>
@@ -154,6 +180,23 @@ const CharacterDetail: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Character FAQ */}
+      {character.faq && character.faq.length > 0 && (
+        <div className="bg-[#181818] rounded-2xl border border-white/5 p-6 md:p-8 mb-12">
+          <h2 className="text-2xl font-heading font-bold text-white mb-6">
+            Frequently Asked Questions about {character.name}
+          </h2>
+          <div className="space-y-4">
+            {character.faq.map((item, idx) => (
+              <div key={idx} className="border-b border-white/5 pb-4 last:border-b-0 last:pb-0">
+                <h3 className="text-base font-bold text-white mb-1.5">{item.q}</h3>
+                <p className="text-sm text-gray-300 leading-relaxed">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Related Characters */}
       {relatedCharacters.length > 0 && (
